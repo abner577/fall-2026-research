@@ -1,19 +1,9 @@
 # Research Plan
 
-**Project Title:** Choose one:
-
-1. **IoT Sentinel**
-2. **CodeBeacon**
-3. **DeviceGuard**
-4. **IoT Compass**
-OR
-
-AI-Assisted Security Analysis of IoT Applications
-Reference-Guided Detection of Security Weaknesses in IoT Code
-Developing and Evaluating an AI Tool for IoT Security Analysis
+**Project Title:** CodeBeacon: AI IoT Code Scanner
 
 **Problem Description:**  
-IoT application code can contain security weaknesses that are difficult to identify and address. This project will investigate how AI, guided by authoritative security references, can identify two selected types of weaknesses, explain the findings, and suggest fixes. It addresses the broader challenge of improving the security of connected devices and their software.
+Software can contain security weaknesses, including the code used by Internet of Things (IoT) devices, such as smart cameras and other devices connected to the internet. These weaknesses can allow someone to access private information, steal data, or take control of a device without permission. This project will develop a tool that uses an AI model to check IoT code for two selected types of security weaknesses. A user will provide code, and the tool will scan it, identify possible weaknesses, explain what is wrong, and suggest ways to fix them.
 
 **Research Significance:**  
 Security weaknesses in IoT applications can expose sensitive information and allow unauthorized access. This research will explore whether an AI-assisted tool can help developers recognize potential weaknesses and understand how to address them.
