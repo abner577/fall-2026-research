@@ -2,6 +2,12 @@
 
 The aim is to bring a complete proposed design for milestone 1: compare three LLMs with three code scanners, measure how accurately they find the selected vulnerabilities, and use the results to choose the methodology for development. Bring recommendations with reasons so the professor can review and correct them. Proposed choices are not final decisions yet.
 
+## Priority question: confirm the scope before finishing the design
+
+- [ ] **Ask whether we should start by confirming the two focus areas.** We did not confirm the earlier vulnerability choices with the professor. Explain that milestone 1 compares three LLMs and three scanners on the same limited set of checks, then ask whether password and credential security, and insecure communication and data handling, are suitable starting areas. Briefly describe the weaknesses within each and why we chose them. The scanner checks need to be selected, configured, or written for this scope; the LLMs must be asked to examine the same weaknesses. See the [email draft](scope-email-draft.md).
+
+If there is no reply before we need to prepare, continue the initial diagrams and mock-ups using these areas as a provisional scope, as the student requested. Keep that assumption visible and ask for confirmation at the meeting. No reply is not confirmation that the professor approved the targets. The specific checks and CWE entries still need to be made clear before the main comparison.
+
 ## What the professor asked to see
 
 In the October 12 meeting, the professor asked for clear steps explaining each of his six methods, reasons for choosing the tools, and a design showing how the comparison works. Near the end, he explicitly said that showing the designs at the next meeting would be useful: he could give feedback before we carry out the comparison. He also allowed more time if needed. This checklist therefore focuses on preparing the design for review.

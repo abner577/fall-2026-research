@@ -24,6 +24,8 @@ Confirmed decisions come from the student or the meeting. The questions below co
 
 The current password/credential and communication/data-handling areas each contain several possible weaknesses. We need the professor to confirm or narrow them into specific CWE targets so the LLMs, scanners, and grading all refer to the same things.
 
+This is the priority question to ask before finishing the study design: should we confirm these areas first and build the comparison around their specific checks? We need a limited scope so we can select, configure, or write the scanner checks and ask the LLMs to examine the same weaknesses. The student intends to ask by email. If there is no reply, the initial diagrams and mock-ups will use the proposed areas provisionally, with confirmation still pending. See the [meeting checklist](../meetings/next-meeting-checklist.md#priority-question-confirm-the-scope-before-finishing-the-design).
+
 ### Which related weaknesses belong in scope?
 
 CWE entries can be related to other entries. We need to decide which of those relationships matter to this study and where to stop. Otherwise a prompt or scanner could cover a much broader set than intended, and we would not know whether a related finding should count.
