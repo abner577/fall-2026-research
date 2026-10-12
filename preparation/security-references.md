@@ -1,6 +1,6 @@
 ## We have 3 Security references that we were given, we need to decide how we are going to use those.
 
-**Status on October 12, 2026:** these are background notes. The current first milestone is a comparison of three LLMs and three scanners. CWE will support target selection and, if development proceeds, suggestions. The exact target entries and the roles of OWASP and Common Criteria still need decisions. See [the current notes](../research/README.md).
+**Status on October 12, 2026:** these are background notes. The current first milestone is a comparison of three LLMs and three scanners. CWE will support target selection and, if development proceeds, suggestions. The exact target entries and the roles of OWASP and Common Criteria still need decisions. See [the current notes](../research/evaluation-plan.md).
 
 1. CWE --> A catalog of software and hardware weakness types, so it answers questions like: "What kind of weakness causes this security problem".
 

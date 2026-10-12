@@ -6,9 +6,9 @@ Updated October 12, 2026. These workflows describe the possible development mile
 
 A user provides code. The application identifies possible weaknesses and where they are. It then sends the findings, relevant code, and useful CWE guidance to an LLM to request suggested changes. It returns a report for the user to review and validate.
 
-The comparison study helps us choose the detection method. It does not automatically show that the final suggestions are correct; that part would need its own checks.
+Milestone 1 selects between these two methodologies. Better or comparable all-AI detection results provide the go-ahead to continue development with methodology 2. Better scanner results support methodology 1. The meaning of comparable and the development schedule still need agreement. Detection results do not establish the quality of final suggestions; those need their own checks.
 
-## Workflow A: use a scanner to find weaknesses
+## Methodology 1: scanner-based detection
 
 1. Receive code and a short description of what the software does.
 2. Prepare the files and identify the supported code. Keep file names and locations intact.
@@ -20,7 +20,7 @@ The comparison study helps us choose the detection method. It does not automatic
 
 The original app workflow used this approach. The choice of scanner remains open.
 
-## Workflow B: use an LLM to find weaknesses
+## Methodology 2: LLM detection or all-AI
 
 1. Receive code and a short description of what the software does.
 2. Prepare the files and identify the supported code. Ordinary file preparation does not need AI.
@@ -32,15 +32,11 @@ The original app workflow used this approach. The choice of scanner remains open
 
 The detection and suggestion stages could use the same model in separate requests or different models. That choice is pending. An agent that makes retrieval requests may require several LLM calls within the suggestion stage, so this is a sequence of stages rather than a promise of exactly two API calls.
 
-## General designs and designs for our two targets
+## General workflows and our specific application
 
-For **each** workflow, we need a general diagram and a study-specific diagram.
+The two general workflow diagrams describe the scanner-based and all-AI processes with a chosen vulnerability list. If development proceeds, create one additional diagram for our specific application using the selected methodology and our two fixed targets. In the all-AI version, the detection prompt would name those targets and ask the model to find them in the supplied code. General workflows do not promise complete vulnerability coverage.
 
-The general design describes a reusable process with a chosen target list. It does not claim that the application detects every vulnerability.
-
-The study-specific design names the two finalized targets, included related CWE entries, selected model or scanner, prompt or rule set, and supported code. For now, those names remain placeholders. Our current focus-area notes are proposals rather than two approved individual weaknesses.
-
-A general detection request might say: identify weaknesses from the supplied target list and the allowed related entries, with locations and evidence. Our specific request must name the exact fixed list and its limits. These are descriptions of prompt intent; the exact prompts still need to be written and recorded.
+For now, diagrams should show application-controlled retrieval: the application combines findings, relevant code, and CWE guidance into the suggestion prompt. Note that this is provisional; agent-controlled retrieval remains an open choice. [Diagram descriptions](diagrams.md) defines the requested contents in plain English.
 
 ## The final suggestion stage
 
@@ -70,4 +66,12 @@ Keep retrieval for recommendations separate from the initial detection compariso
 
 Local versus deployed operation; input format; initial language and framework; application or device context; selected detector; models for the two stages; code size and cross-file context; database and retrieval design; how suggested changes will be validated; and whether development fits the remaining schedule.
 
-See [the question list](decisions-and-professor-questions.md) for the decisions to take to the professor, and [diagrams](diagrams.md) for workflow drafts.
+See [the question list](decisions-and-professor-questions.md) for the decisions to take to the professor, and [diagrams](diagrams.md) for the requested plain-English descriptions.
+
+## Earlier scanner workflow and example
+
+The original workflow was: receive project files, extract a ZIP if used, identify the relevant code, run focused scanner checks, gather findings and surrounding code with reference guidance, ask an LLM to review and explain the possible issues and suggest fixes, and return a report. Ordinary file preparation does not require an LLM. Missing information should be identified, and suggested changes checked before use.
+
+For example, a scanner might find a password written directly into code. The app collects the surrounding code and relevant guidance. The LLM checks how that password is used, explains the possible problem, and suggests moving it out of source code into an appropriate configuration mechanism. This is an illustrative workflow, not a completed test.
+
+ZIP input remains a feasible proposal because it preserves project files and folders. Scanners do not inherently require ZIP uploads, and the first application's input format is still open.

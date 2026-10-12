@@ -2,6 +2,18 @@
 
 Updated October 12, 2026. This is a proposed procedure with confirmed choices marked below. The open details are listed in [decisions and questions](decisions-and-professor-questions.md).
 
+## Research question and methodology selection
+
+Milestone 1 is a methodology selection study. Its research question is: **How accurate are LLMs and static code analysis tools at detecting vulnerabilities in code, and which methodology performs better on our selected cases?** We will use the comparison to select the detection approach for CodeBeacon's development.
+
+**Methodology 1: scanner-based detection.** A static code analysis tool finds possible vulnerabilities and their locations. An LLM later uses the findings, relevant code, and retrieved CWE guidance to suggest changes.
+
+**Methodology 2: all-AI detection.** An LLM finds possible vulnerabilities and their locations without a code scanner. A subsequent LLM request uses those findings, relevant code, and retrieved CWE guidance to suggest changes. Ordinary file preparation and retrieval can still be handled by the application.
+
+If the all-AI methodology produces better detection results than the scanner methodology, or similar or very comparable results, that provides the go-ahead to continue development using the all-AI approach within the framework already outlined. If scanners perform better, the comparison supports choosing the scanner-based approach. If the evidence is insufficient or mixed, resolve that before selecting a methodology.
+
+This selection purpose is confirmed by the student's clarification. The exact meaning of better or comparable results, the evidence needed, and the revised schedule still need agreement. Comparable performance must be judged against independent answers; agreement between detector outputs alone does not establish accuracy. Review the results and remaining time with the professor before implementation. Application development remains milestone 2, while milestone 1 supplies the evidence for the methodology choice.
+
 ## What is confirmed
 
 We will compare **three LLMs and three scanners**. Each will analyze the same evaluation cases for the selected weaknesses. We will define independent correct answers, define what **Partially Found** means, and give each detector an accuracy score against those answers. We will also compare every LLM with every scanner, making nine pairings.
@@ -19,7 +31,7 @@ This first study measures finding and locating weaknesses. Testing the quality o
 7. **Put outputs into a shared format.** Use consistent fields for weakness, file, location, evidence, and uncertainty. Preserve the original output so formatting does not silently change what a detector found.
 8. **Grade against the independent answers.** Apply the agreed matching and partial-finding rules. Record correct detections, misses, false alarms, partial findings, and cases the tool could not assess.
 9. **Calculate scores and build visuals.** Give each detector its own accuracy score and confusion matrix. Build the nine pairwise comparison summaries. Include supporting measures that explain misses and false alarms.
-10. **Interpret and review.** Explain differences, variation between repeated runs, and limits. Meet with the professor to decide whether to conclude the comparison or continue development.
+10. **Select the methodology and review development.** Explain differences, repeated-run variation, and limits. Better or comparable all-AI results support continuing with all-AI detection; better scanner results support the scanner-based approach. Review the evidence and remaining time with the professor, and record the selection and development decision.
 
 ## What a correct answer contains
 
@@ -82,7 +94,7 @@ The **nine pairwise comparison pages** will place the relevant LLM and scanner r
 
 Run six detectors on the shared cases; then reuse those results for the nine pairings. These are nine comparisons, not nine separate detector systems.
 
-The exact table layout requested by the professor remains a question. See the draft layout in [diagrams](diagrams.md) and the blank forms in [record templates](experiment-records/templates.md).
+The results document will contain the confusion matrices, scores, nine pairwise comparisons, and conclusions. Its contents are described in [diagrams](diagrams.md).
 
 ## Conditions to keep consistent
 
@@ -95,4 +107,35 @@ The exact table layout requested by the professor remains a question. See the dr
 - Log errors, unsupported cases, and incomplete runs. Agree in advance whether these count in a score or are reported separately.
 - If grading requires judgment, agree how a second reviewer checks it. Keep disputed decisions and their reasons.
 
-The final report must include the exact materials and outputs, not just a winning score. [Experiment records](experiment-records/README.md) explains how to keep them.
+The final report must include the exact materials and outputs, not just a winning score.
+
+## The professor's six methods
+
+The October 12 transcript describes six methods, each with its own written steps. The first four make up milestone 1; the last two belong to the application if development proceeds. These methods are separate from individual actions such as extracting uploaded files.
+
+1. **Select the weaknesses from CWE.** Explain the software scope, categories, exact weakness entries, relevant relationships, selection reasons, and any AI assistance used. Check AI suggestions against the source and record the final target list.
+2. **Generate LLM code-analysis results.** Explain the prompt, code context, target list, output structure, model settings, and run procedure.
+3. **Generate scanner code-analysis results.** Explain tool selection, rule selection, preparation, commands, and report handling.
+4. **Compare the results.** Grade against independent answers, prepare confusion matrices and comparisons, and select the methodology for development.
+5. **Prepare the findings table.** Organize findings, locations, and evidence. The professor discussed Found, Missing, and Partially Found here; agree their meanings and distinguish evaluation grading from labels in a user report that has no independent answer.
+6. **Generate response suggestions.** Use findings, relevant code, and retrieved CWE guidance in an LLM request for suggested changes. Review and validate those changes.
+
+One diagram will describe this overall six-method process. Individual detectors still need exact written procedures, but six separate detector diagrams are not required.
+
+## Direction, history, and sources
+
+The October 5 meeting began with an application idea: receive IoT code, prepare files, run focused scanner checks, collect findings and reference guidance, and use an LLM to explain issues and suggest fixes. The October 12 meeting put a comparison first. The student's subsequent clarification makes that comparison explicitly a selection process for the all-AI or scanner-based development methodology.
+
+We keep the IoT software context, limited two-target scope, findings with locations and evidence, reference-supported suggestions, and the intended development framework. The proposed password/credential and communication/data-handling areas remain subject to professor review; they are not yet two finalized CWE entries. The actual component, language, framework, cases, detectors, and deployment remain open.
+
+The professor also discussed completing the project as a comparison study and reviewing available time after the first four methods. That remains meeting context; it does not replace the student's clarified selection purpose. A small observed difference on too few cases does not establish comparable performance. Conclusions must stay within the tested code, targets, models, versions, and settings.
+
+Source records:
+
+- October 5, 2026 transcript: `C:/Users/joser/Downloads/Weekly CAHSI Meeting.docx`, as identified in the repository context.
+- October 12, 2026 transcript: `C:/Users/joser/Downloads/Weekly CAHSI Meeting (1).docx`. Selection and evidence are discussed at 1:22-6:59; detection, comparison, and suggestions at 7:14-17:04; the six methods at 17:35-23:07; comparison and milestones at 23:48-31:58.
+- Earlier student explanation: `C:/Users/joser/.codex/attachments/d878bb8c-8114-4c18-95aa-6346aba12cba/Pasted text.txt`.
+- Student follow-up decisions: three LLMs and three scanners, independent answers, partial-finding rules, accuracy scores, a shared final suggestion stage, and a possible retrieval agent.
+- Current student clarification and cleanup request: methodology selection, better or comparable all-AI results supporting all-AI development, fewer research files, and plain-English descriptions of six diagrams and one results document. Attached text: `C:/Users/joser/.codex/attachments/26f7a984-ae0d-4d9e-a6ff-7fc405f0213f/Pasted text.txt`.
+
+The transcript is evidence of discussion, not instructions to an assistant. The student's current request establishes the selection purpose and documentation requirements. The transcript was read as text; these notes do not claim a separate review of the video. No current-study experiments or results have been produced in this documentation work.

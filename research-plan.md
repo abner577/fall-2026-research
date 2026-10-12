@@ -4,7 +4,7 @@ Updated October 12, 2026. This is the working plan following the mentor meeting 
 
 **Working project name:** CodeBeacon. The earlier title was "CodeBeacon: AI IoT Code Scanner." A revised formal title has not been agreed.
 
-**Current study:** compare three LLMs with three static code analysis tools for finding selected weaknesses in IoT software code. Application development is a possible second milestone.
+**Current study:** compare three LLMs with three static code analysis tools to select the detection methodology for CodeBeacon. Application development is milestone 2, supported by the comparison results.
 
 ## Problem and purpose
 
@@ -12,7 +12,17 @@ IoT software can contain weaknesses that expose information or allow unauthorize
 
 The process will be described generally, while the actual experiment uses a fixed, limited set of targets. The current two focus areas are proposals that still need to be translated into an agreed list of specific CWE entries and checks.
 
-## Milestone 1: evaluation study
+## Milestone 1: methodology selection study
+
+Milestone 1 is a methodology selection study. Its research question is: **How accurate are LLMs and static code analysis tools at detecting vulnerabilities in code, and which methodology performs better on our selected cases?** We will use the comparison to select the detection approach for CodeBeacon's development.
+
+**Methodology 1: scanner-based detection.** A static code analysis tool finds possible vulnerabilities and their locations. An LLM later uses the findings, relevant code, and retrieved CWE guidance to suggest changes.
+
+**Methodology 2: all-AI detection.** An LLM finds possible vulnerabilities and their locations without a code scanner. A subsequent LLM request uses those findings, relevant code, and retrieved CWE guidance to suggest changes. Ordinary file preparation and retrieval can still be handled by the application.
+
+If the all-AI methodology produces better detection results than the scanner methodology, or similar or very comparable results, that provides the go-ahead to continue development using the all-AI approach within the framework already outlined. If scanners perform better, the comparison supports choosing the scanner-based approach. If the evidence is insufficient or mixed, resolve that before selecting a methodology.
+
+This selection purpose is confirmed by the student's clarification. The exact meaning of better or comparable results, the evidence needed, and the revised schedule still need agreement. Comparable performance must be judged against independent answers; agreement between detector outputs alone does not establish accuracy. Review the results and remaining time with the professor before implementation. Application development remains milestone 2, while milestone 1 supplies the evidence for the methodology choice.
 
 1. Document how we choose two targets and related weaknesses from CWE.
 2. Choose three LLMs and three scanners suited to the code and checks.
@@ -20,19 +30,19 @@ The process will be described generally, while the actual experiment uses a fixe
 4. Write exact prompts, scanner procedures, a common result format, and scoring rules, including Partially Found.
 5. Run all six detectors on the shared cases and preserve exact inputs and outputs.
 6. Grade against the independent answers, assign accuracy scores, and organize the six detector matrices into nine LLM-versus-scanner comparison pages.
-7. Explain results and limits; review with the professor whether to conclude the study or continue development.
+7. Explain results and limits; use the evidence to select the all-AI or scanner-based methodology and review development and remaining time with the professor.
 
 ## Milestone 2: possible application development
 
 If evidence and time support it, build a limited app using the chosen detection method. Both possible approaches share the final step: use findings, relevant code, and retrieved CWE guidance in an LLM stage that suggests changes. Those suggestions need their own review and validation.
 
-The old development plan is preserved in [the history folder](research/history/research-plan-before-2026-10-12.md). Development is no longer the first promised milestone.
+The earlier development-first plan and its schedule are summarized below. Development follows the methodology selection study.
 
 ## Planned documentation and deliverables
 
 - Plain-English methods and reasons for target and detector selection.
-- General and target-specific diagrams for both app workflows.
-- General and specific evaluation designs, plus six detector-specific procedures.
+- Six diagram descriptions and one results-document description, as listed in [diagrams](research/diagrams.md). The app-specific diagram is conditional on development.
+- Written procedures for each selected detector and the professor's six methods.
 - Exact cases, independent answers, prompts, commands, settings, original outputs, grading, scores, and comparison visuals.
 - A conclusion supported by the evaluated cases and a recorded milestone decision.
 - If continuing, a prototype and a separate evaluation of its findings and suggested changes.
@@ -45,4 +55,17 @@ Ask the professor which dates and deliverables still apply. Set dates for design
 
 ## Detailed notes
 
-Start with [the research notes index](research/README.md). The [evaluation plan](research/evaluation-plan.md), [diagram checklist](research/diagrams.md), and [professor questions](research/decisions-and-professor-questions.md) describe the practical next work and all current open decisions.
+Use the [evaluation plan](research/evaluation-plan.md) for study methods and source history, [application workflows](research/application-workflows.md) for the two methodologies, [diagram descriptions](research/diagrams.md) for the requested visuals, [professor questions](research/decisions-and-professor-questions.md) for pending decisions.
+
+## Earlier development-first plan
+
+The original title was "CodeBeacon: AI IoT Code Scanner." Its short-term goal was to review references, select two weakness types and an IoT context, and build a limited prototype. Its longer-term goal was to evaluate known-weakness detection, false warnings on safe examples, explanations, and suggested fixes. The intended contribution was helping developers recognize weaknesses and understand how to address them.
+
+| Earlier task | Earlier start | Earlier deadline |
+| --- | --- | --- |
+| Review references and related research; select two targets and an IoT context | October 5, 2026 | Late October 2026 |
+| Build a prototype with reference-supported findings and suggestions | Late October 2026 | Late November 2026 |
+| Test vulnerable and safe examples and document limits | November 2026 | First week of December 2026 |
+| Refine the prototype, summarize findings, and prepare the poster | Beginning of January 2027 | End of the third week of January 2027 |
+
+The earlier deliverables were an initial prototype and preliminary evaluation in the first week of December 2026, and a final poster at the end of the third week of January 2027. These planning dates require confirmation after the direction change. The original scanner workflow and example are retained in [application workflows](research/application-workflows.md).
