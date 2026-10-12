@@ -21,6 +21,10 @@ Use these four research files:
 
 The short [research plan](research-plan.md) contains the milestones and the earlier schedule.
 
+Use the [next-meeting checklist](meetings/next-meeting-checklist.md) to prepare the written methods, two diagrams, and study proposals for mentor review.
+
+Keep raw meeting transcripts in [transcripts/](transcripts/README.md). Add a transcript and a short context description after every meeting. Consult these records when the student asks or when they help clarify meeting requests, decisions, or preparation; the folder guide explains how to distinguish discussion from current instructions.
+
 The intended scope remains **two main targets**, rather than comprehensive coverage. The preparation notes propose password and credential security, and insecure communication and data handling. Those are broad areas containing several possible weaknesses. The exact CWE entries, related weaknesses, checks, and code scope still need decisions with the professor.
 
 The current order of work is:
