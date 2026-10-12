@@ -1,5 +1,7 @@
 # Simplified app workflow
 
+**Historical proposal, updated with status on October 12, 2026:** this is the original scanner-based workflow. The current first milestone is a three-LLM-versus-three-scanner evaluation study. Development is conditional. See [the current workflows](../research/application-workflows.md) for both approaches and their shared final LLM suggestion stage, and [the diagrams](../research/diagrams.md) for general and target-specific designs. The original text is retained below as background.
+
 1. **The user submits their code.** The app receives the project files.
 2. **The app prepares the files.** If the upload is a ZIP, the app extracts it. It identifies the language and the files needed for analysis. This step does not require an LLM.
 3. **The app runs focused code checks.** It runs an existing code scanner with selected rules for the two vulnerability types we want to examine.

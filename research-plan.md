@@ -1,30 +1,48 @@
-# Research Plan
+# Research plan
 
-**Project Title:** CodeBeacon: AI IoT Code Scanner
+Updated October 12, 2026. This is the working plan following the mentor meeting and the student's follow-up decisions. The revised scope, scoring rules, and schedule still need professor review.
 
-**Problem Description:**  
-Software can contain security weaknesses, including the code used by Internet of Things (IoT) devices, such as smart cameras and other devices connected to the internet. These weaknesses can allow someone to access private information, steal data, or take control of a device without permission. This project will develop a tool that uses an AI model to check IoT code for two selected types of security weaknesses. A user will provide code, and the tool will scan it, identify possible weaknesses, explain what is wrong, and suggest ways to fix them.
+**Working project name:** CodeBeacon. The earlier title was "CodeBeacon: AI IoT Code Scanner." A revised formal title has not been agreed.
 
-**Research Significance:**  
-Security weaknesses in IoT applications can expose sensitive information and allow unauthorized access. This research will explore whether an AI-assisted tool can help developers recognize potential weaknesses and understand how to address them.
+**Current study:** compare three LLMs with three static code analysis tools for finding selected weaknesses in IoT software code. Application development is a possible second milestone.
 
-**Research Goals and Objectives:**
+## Problem and purpose
 
-- **Short term:** Review relevant security references, select two weakness types and an IoT application context, and develop a limited prototype.
-- **Long term:** Evaluate whether the prototype identifies known weaknesses, avoids flagging secure examples, and provides useful explanations and suggested fixes. Document its capabilities and limitations to guide future improvements.
+IoT software can contain weaknesses that expose information or allow unauthorized access. Before choosing how our proposed application should find those weaknesses, we will compare LLMs with code scanners on shared test cases. We want to learn how accurately the selected detectors identify the targeted weaknesses and their locations, including when they miss a weakness or raise a false alarm.
 
-**Assigned Tasks**
+The process will be described generally, while the actual experiment uses a fixed, limited set of targets. The current two focus areas are proposals that still need to be translated into an agreed list of specific CWE entries and checks.
 
-| Assigned tasks | Start Date | Deadline |
-| --- | --- | --- |
-| Review security references and related research; select two security targets and an IoT application context. | October 5, 2026 | Late October 2026 |
-| Develop a prototype that analyzes code and provides reference-supported findings and suggested fixes. | Late October 2026 | Late November 2026 |
-| Test the prototype using examples with and without the selected weaknesses; document results and limitations. | November 2026 | First week of December 2026 |
-| Refine the prototype, summarize findings, and prepare the research poster. | Beginning of January 2027 | End of the third week of January 2027 |
+## Milestone 1: evaluation study
 
-**Deliverables/Milestones**
+1. Document how we choose two targets and related weaknesses from CWE.
+2. Choose three LLMs and three scanners suited to the code and checks.
+3. Prepare cases with and without the targeted weaknesses and define independently checked answers.
+4. Write exact prompts, scanner procedures, a common result format, and scoring rules, including Partially Found.
+5. Run all six detectors on the shared cases and preserve exact inputs and outputs.
+6. Grade against the independent answers, assign accuracy scores, and organize the six detector matrices into nine LLM-versus-scanner comparison pages.
+7. Explain results and limits; review with the professor whether to conclude the study or continue development.
 
-| Deliverables/Milestones | Date Due |
-| --- | --- |
-| Initial prototype and preliminary evaluation summary | First week of December 2026 |
-| Final research poster summarizing the approach, findings, and limitations | End of the third week of January 2027 |
+## Milestone 2: possible application development
+
+If evidence and time support it, build a limited app using the chosen detection method. Both possible approaches share the final step: use findings, relevant code, and retrieved CWE guidance in an LLM stage that suggests changes. Those suggestions need their own review and validation.
+
+The old development plan is preserved in [the history folder](research/history/research-plan-before-2026-10-12.md). Development is no longer the first promised milestone.
+
+## Planned documentation and deliverables
+
+- Plain-English methods and reasons for target and detector selection.
+- General and target-specific diagrams for both app workflows.
+- General and specific evaluation designs, plus six detector-specific procedures.
+- Exact cases, independent answers, prompts, commands, settings, original outputs, grading, scores, and comparison visuals.
+- A conclusion supported by the evaluated cases and a recorded milestone decision.
+- If continuing, a prototype and a separate evaluation of its findings and suggested changes.
+
+## Schedule to confirm
+
+The earlier plan targeted an initial prototype and preliminary evaluation by the first week of December 2026, and a final poster by the end of the third week of January 2027. Those were earlier planning dates, not newly confirmed deadlines for the revised direction.
+
+Ask the professor which dates and deliverables still apply. Set dates for design review, practice runs, main comparison, and the development decision after resolving scope and workload. No revised experiment or development dates have been agreed in these notes.
+
+## Detailed notes
+
+Start with [the research notes index](research/README.md). The [evaluation plan](research/evaluation-plan.md), [diagram checklist](research/diagrams.md), and [professor questions](research/decisions-and-professor-questions.md) describe the practical next work and all current open decisions.

@@ -1,6 +1,8 @@
 # Selected security focus areas
 
-We will start with two focus areas from the OWASP IoT Top 10 2018: password and credential security under category 1, and insecure communication and data handling under category 7. Each area includes several specific weaknesses we will look for, rather than one individual vulnerability.
+**Status on October 12, 2026:** these are proposed focus areas. They contain several possible weaknesses and are not yet two finalized individual CWE targets. The professor still needs to help confirm or narrow the exact targets, related entries, and checks for the comparison study. See [the decision list](../research/decisions-and-professor-questions.md).
+
+The earlier proposal was to start with two focus areas from the OWASP IoT Top 10 2018: password and credential security under category 1, and insecure communication and data handling under category 7. Each area includes several possible checks, rather than one individual vulnerability. The proposed details are retained below for review.
 
 ## 1. Password and credential security
 
