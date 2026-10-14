@@ -14,17 +14,23 @@ If the all-AI methodology produces better detection results than the scanner met
 
 This selection purpose is confirmed by the student's clarification. The exact meaning of better or comparable results, the evidence needed, and the revised schedule still need agreement. Comparable performance must be judged against independent answers; agreement between detector outputs alone does not establish accuracy. Review the results and remaining time with the professor before implementation. Application development remains milestone 2, while milestone 1 supplies the evidence for the methodology choice.
 
+## Trade-off to discuss in the conclusion
+
+Even if scanners achieve higher detection accuracy on our Python cases, we should discuss the work needed to extend the approach. Scanner coverage depends on rules or queries that understand the relevant language, framework, and libraries. Existing checks can often be reused, but unsupported behavior may require selecting, configuring, adapting, writing, and maintaining additional checks. LLMs can use their learned understanding with instructions describing the weaknesses, which may reduce repeated rule-writing across languages and frameworks. That is a potential practical advantage, not a measured result of this Python-only study: LLM coverage and accuracy still need checking in each new context. Report this trade-off alongside detection accuracy and keep the evidence-based methodology selection separate from untested claims about expansion.
+
 ## What is confirmed
 
 We will compare **three LLMs and three scanners**. Each will analyze the same evaluation cases for the selected weaknesses. We will define independent correct answers, define what **Partially Found** means, and give each detector an accuracy score against those answers. We will also compare every LLM with every scanner, making nine pairings.
 
 The detection choices are Gemini, ChatGPT/OpenAI, and Qwen 3.8 27B through Groq (`qwen/qwen3.8-27b`). Exact Gemini and OpenAI API models and account access remain to be checked. See [model choices and pricing](decisions-and-professor-questions.md#which-exact-api-models-and-three-scanners-should-we-choose). Initial detection receives no supplied CWE guidance or CWE retrieval; guidance is retrieved afterward for the suggestion stage.
 
+All study code examples will use Python. Semgrep Community Edition, CodeQL, and Bandit are the three selected scanners; versions, specific checks, framework, and IoT component remain to be selected. See [scanner choices and report formats](scanner-tools.md).
+
 This first study measures finding and locating weaknesses. Testing the quality of suggested fixes would be a later evaluation if we develop the application.
 
 ## The procedure
 
-1. **Set the scope.** Decide the two targets, related CWE entries, code language, application context, and limits. Explain why these were selected.
+1. **Set the scope.** Use Python for all examples; decide the two targets, related CWE entries, framework, application context, and limits. Explain why these were selected.
 2. **Choose the six detectors.** Record their exact names and versions. Explain why they fit the selected code and weaknesses. Coding-focused LLMs can be considered. Model brands alone are not enough to identify the model used.
 3. **Build the test set.** Include code with known weaknesses and code where those weaknesses are absent. Include different ways the weaknesses can appear. Decide the number of cases and how they will be checked.
 4. **Write the correct answers first.** For each case, identify which target weaknesses are present or absent, their locations, and the evidence. Have the answers checked independently of the six detectors being evaluated.
@@ -128,7 +134,7 @@ One diagram will describe this overall six-method process. Individual detectors 
 
 The October 5 meeting began with an application idea: receive IoT code, prepare files, run focused scanner checks, collect findings and reference guidance, and use an LLM to explain issues and suggest fixes. The October 12 meeting put a comparison first. The student's subsequent clarification makes that comparison explicitly a selection process for the all-AI or scanner-based development methodology.
 
-We keep the IoT software context, limited two-target scope, findings with locations and evidence, reference-supported suggestions, and the intended development framework. The proposed password/credential and communication/data-handling areas remain subject to professor review; they are not yet two finalized CWE entries. The actual component, language, framework, cases, exact Gemini and OpenAI API model identifiers, scanners, and deployment remain open. The selected detection choices are Gemini, ChatGPT/OpenAI, and Qwen 3.8 27B through Groq (`qwen/qwen3.8-27b`).
+We keep the IoT software context, limited two-target scope, findings with locations and evidence, reference-supported suggestions, and the intended development framework. The proposed password/credential and communication/data-handling areas remain subject to professor review; they are not yet two finalized CWE entries. The actual component, Python framework, cases, exact Gemini and OpenAI API model identifiers, scanner versions, and deployment remain open. Python is confirmed for all study examples, and Semgrep Community Edition, CodeQL, and Bandit are selected. The selected detection choices are Gemini, ChatGPT/OpenAI, and Qwen 3.8 27B through Groq (`qwen/qwen3.8-27b`).
 
 The professor also discussed completing the project as a comparison study and reviewing available time after the first four methods. That remains meeting context; it does not replace the student's clarified selection purpose. A small observed difference on too few cases does not establish comparable performance. Conclusions must stay within the tested code, targets, models, versions, and settings.
 

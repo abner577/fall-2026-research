@@ -25,7 +25,7 @@ If the all-AI methodology produces better detection results than the scanner met
 This selection purpose is confirmed by the student's clarification. The exact meaning of better or comparable results, the evidence needed, and the revised schedule still need agreement. Comparable performance must be judged against independent answers; agreement between detector outputs alone does not establish accuracy. Review the results and remaining time with the professor before implementation. Application development remains milestone 2, while milestone 1 supplies the evidence for the methodology choice.
 
 1. Document how we choose two targets and related weaknesses from CWE.
-2. Use Gemini, ChatGPT/OpenAI, and Qwen 3.8 27B through Groq (`qwen/qwen3.8-27b`); select exact Gemini and OpenAI API models, verify access costs, and choose three scanners suited to the code and checks. Initial LLM detection has no supplied CWE guidance; guidance is retrieved afterward for suggestions.
+2. Use Gemini, ChatGPT/OpenAI, and Qwen 3.8 27B through Groq (`qwen/qwen3.8-27b`); select exact Gemini and OpenAI API models, verify access costs, and use Python for all study examples and record versions and coverage for the three selected scanners: Semgrep Community Edition, CodeQL, and Bandit. See [scanner notes](research/scanner-tools.md). Initial LLM detection has no supplied CWE guidance; guidance is retrieved afterward for suggestions.
 3. Prepare cases with and without the targeted weaknesses and define independently checked answers.
 4. Write exact prompts, scanner procedures, a common result format, and scoring rules, including Partially Found.
 5. Run all six detectors on the shared cases and preserve exact inputs and outputs.

@@ -9,6 +9,7 @@ Confirmed decisions come from the student or the meeting. The questions below co
 - Compare three LLMs with three scanners: six detectors and nine LLM-versus-scanner pairings.
 - October 14 student choice: use Gemini, ChatGPT/OpenAI, and Groq as the three LLM providers. The Groq model is now Qwen 3.8 27B (`qwen/qwen3.8-27b`); exact Gemini and OpenAI API models remain to be selected.
 - The first LLM call detects weaknesses without supplied CWE guidance or CWE retrieval. After detection, the application retrieves CWE guidance for a separate suggestion call.
+- October 14 confirmed scope and scanner choices: all study code examples use Python; the three scanners are Semgrep Community Edition, CodeQL, and Bandit. Exact versions and rules remain pending. See [scanner choices and report formats](scanner-tools.md).
 - Use shared evaluation cases and a comparable output format.
 - Define independent correct answers before grading the detectors.
 - Define what Partially Found means before scoring.
@@ -19,6 +20,7 @@ Confirmed decisions come from the student or the meeting. The questions below co
 - Prepare six diagrams, with the app-specific diagram conditional on development, and one results document. Keep only plain-English descriptions in the diagram file.
 - Show application-controlled CWE retrieval in the workflow diagrams for now, with a note that agent-controlled retrieval remains open.
 - Review results and time with the professor before deciding whether to build the app.
+- Discuss the effort of extending scanner rules across languages and frameworks even if scanners score better. LLMs may reduce manual rule-writing; this is a practical consideration to discuss, not a benefit established by the Python-only results. See [the conclusion trade-off](evaluation-plan.md#trade-off-to-discuss-in-the-conclusion).
 
 ## Questions to resolve before the main comparison
 
@@ -32,13 +34,13 @@ This is the priority question to ask before finishing the study design: should w
 
 CWE entries can be related to other entries. We need to decide which of those relationships matter to this study and where to stop. Otherwise a prompt or scanner could cover a much broader set than intended, and we would not know whether a related finding should count.
 
-### Which IoT component, language, and framework should we use?
+### Which IoT component and Python framework should we use?
 
-Firmware, gateways, backends, and browser interfaces involve different code and security checks. We need a shared software scope that all six detectors can examine so differences in results can be interpreted fairly.
+Python is confirmed as the baseline language for all study examples. The IoT component, framework or libraries, and size of each case remain to be selected. Use a shared scope that all six detectors can examine so differences in results can be interpreted fairly. This language choice does not establish a need to execute the examples; the comparison still concerns static code analysis.
 
 ### Which exact API models and three scanners should we choose?
 
-The student selected Gemini, ChatGPT/OpenAI, and Groq on October 14 because Gemini and Groq offer free tiers and the student already pays for OpenAI access, intending to use that existing access without additional spending, and excluded Claude, Claude Code, and other Anthropic options because of cost. For Groq, the student selected Qwen 3.8 27B (`qwen/qwen3.8-27b`). Groq hosts the model; Qwen is the model family. Select exact Gemini and OpenAI API models, check account access and the cost of the planned runs, and choose the three scanners and their versions. This does not select the model for the later suggestion stage.
+The student selected Gemini, ChatGPT/OpenAI, and Groq on October 14 because Gemini and Groq offer free tiers and the student already pays for OpenAI access, intending to use that existing access without additional spending, and excluded Claude, Claude Code, and other Anthropic options because of cost. For Groq, the student selected Qwen 3.8 27B (`qwen/qwen3.8-27b`). Groq hosts the model; Qwen is the model family. Select exact Gemini and OpenAI API models, check account access and the cost of the planned runs, and record scanner versions. Semgrep Community Edition, CodeQL, and Bandit are selected for the Python examples. This does not select the model for the later suggestion stage.
 
 Access rationale: use the [Gemini free tier](https://ai.google.dev/gemini-api/docs/pricing), the [Groq free plan](https://console.groq.com/docs/rate-limits), and the student's existing paid OpenAI access. The plan is to avoid additional spending. For API runs, verify whether that existing payment includes usable API credits; a ChatGPT subscription alone does not cover API usage. [OpenAI API usage has its own pricing](https://developers.openai.com/api/docs/pricing). Exact Gemini and OpenAI models still need recording.
 

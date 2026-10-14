@@ -37,9 +37,9 @@ The current order of work is:
 
 Milestone 1 is research to select the development methodology: compare how accurate LLMs and scanners are and which is better at detecting vulnerabilities in the selected code. Define what better or comparable performance means before judging the results. Methodology 1 uses a scanner for detection; methodology 2 uses an LLM for detection without a scanner.
 
-The original development idea remains the intended second milestone, supported by that selection. If development proceeds, either a scanner or an LLM finds the weaknesses and locations. A final LLM stage then uses those findings, relevant code, and retrieved CWE guidance to suggest changes. The user reviews and validates those suggestions. The detection choices are Gemini, ChatGPT/OpenAI, and Qwen 3.8 27B through Groq (`qwen/qwen3.8-27b`); exact Gemini and OpenAI API models, scanner choices, and recommendation models remain open.
+The original development idea remains the intended second milestone, supported by that selection. If development proceeds, either a scanner or an LLM finds the weaknesses and locations. A final LLM stage then uses those findings, relevant code, and retrieved CWE guidance to suggest changes. The user reviews and validates those suggestions. The detection choices are Gemini, ChatGPT/OpenAI, and Qwen 3.8 27B through Groq (`qwen/qwen3.8-27b`); exact Gemini and OpenAI API models, scanner versions and recommendation models remain open. Python is confirmed for all study code examples, with Semgrep Community Edition, CodeQL, and Bandit as the three scanners; see [scanner notes](research/scanner-tools.md).
 
-IoT remains the application context. The particular device or software component, language, framework, test project, input format, and local versus deployed operation are still open. These notes do not establish runtime testing as part of the comparison. They also do not claim that an application or CWE database has already been built.
+IoT remains the application context. Python is the baseline for all study code examples. The particular device or software component, Python framework, test project, input format, and local versus deployed operation are still open. These notes do not establish runtime testing as part of the comparison. They also do not claim that an application or CWE database has already been built.
 
 ### AI approach and proof of concept
 
@@ -81,9 +81,9 @@ Confirmed details and open decisions are recorded below. Update pending fields f
 | Faculty mentor and other collaborators | Mentor labeled Abdul (Gilal) Rehman in the transcript; other collaborators unconfirmed. |
 | Research problem and intended contribution | Compare detection accuracy to select the all-AI or scanner-based methodology for reference-guided application development. |
 | Threat/vulnerability targets | Two targets intended. Two broad focus areas proposed; exact CWE entries, related weaknesses, and checks pending professor review. |
-| Detectors and reference integration | Gemini, ChatGPT/OpenAI, and Qwen 3.8 27B through Groq (`qwen/qwen3.8-27b`) selected; exact Gemini/OpenAI models, access costs, scanners, versions, and rules pending. No supplied CWE guidance during detection; retrieve guidance afterward for suggestions. |
+| Detectors and reference integration | Gemini, ChatGPT/OpenAI, and Qwen 3.8 27B through Groq (`qwen/qwen3.8-27b`) selected; exact Gemini/OpenAI models, access costs, versions, and rules pending. Semgrep CE, CodeQL, and Bandit selected for the Python examples. No supplied CWE guidance during detection; retrieve guidance afterward for suggestions. |
 | Evaluation answers and scores | Independent answers and per-detector accuracy scores required; item definition, partial-finding rules, reviewers, and scoring formula pending. |
-| Target IoT application and evaluation materials | Component, language, framework, cases, and development test project still to be selected. |
+| Target IoT application and evaluation materials | Python confirmed for all study examples; component, framework, cases, and development test project still to be selected. |
 | Start/end dates and agreed work hours | To be confirmed |
 | Weekly meeting schedule | To be confirmed |
 | Research plan deadline and submission location | Earlier plan exists; October 12 comparison-first revision now documented. Revised schedule and which earlier deadlines still apply need professor confirmation. |

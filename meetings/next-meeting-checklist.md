@@ -22,7 +22,7 @@ Write one short, plain-English paragraph per method, using what we start with, d
 
 - [ ] **Explain how the LLMs examine the code.** Describe what code and background information each model receives, what it is asked to find, and what its answer must contain. The initial detection call receives no supplied CWE guidance; the application retrieves CWE guidance afterward for a separate suggestion call. Describe the purpose and expected shape of the request; the final wording of every prompt can come later.
 
-- [ ] **Explain how the scanners examine the code.** Describe the selected tools, the checks they will run, the files they will examine, and how we collect their findings. Explain why each tool is suitable. Identify any setup or missing-check problems that could prevent a fair comparison.
+- [x] **Explain how the scanners examine the code.** [Method 3](six-methods-explanation.md#method-3-how-the-scanners-examine-the-code) explains the general process and report contents in two paragraphs. Exact checks can come later. [Scanner notes](../research/scanner-tools.md) show report fields and illustrative examples.
 
 - [ ] **Explain how we compare the results.** Describe how we check findings against independently verified answers, assign scores, and compare each LLM with each scanner. Explain how the results support selecting all-AI detection or scanner-based detection. Better or comparable all-AI results support continuing with the all-AI approach; better scanner results support the scanner approach.
 
@@ -38,11 +38,11 @@ Use the explanations in [diagrams.md](../research/diagrams.md) to guide what the
 
 ## Propose the study choices
 
-- [ ] **Choose the software scope.** Propose which part of an IoT system we will examine, its language and framework, and how much code each case contains. Explain why the scope is manageable and suitable for all six detectors.
+- [ ] **Choose the software scope.** Python is confirmed for all study examples. Propose which part of an IoT system we will examine, its Python framework, and how much code each case contains. Explain why the scope is manageable and suitable for all six detectors.
 
 - [ ] **Record exact API models for the three chosen LLM providers: Gemini, ChatGPT/OpenAI, and Groq.** The student chose Gemini and Groq for their free tiers and OpenAI because they already pay for access and intend to avoid additional spending. Anthropic options are excluded because of cost. Qwen 3.8 27B (`qwen/qwen3.8-27b`) is selected for Groq, for its coding and reasoning support, free access within plan limits, and different model family. Record exact Gemini and OpenAI models, and verify API access under the existing OpenAI payment. See [model choices and pricing](../research/decisions-and-professor-questions.md#which-exact-api-models-and-three-scanners-should-we-choose).
 
-- [ ] **Propose three exact scanners.** Give the tool names and versions and explain their selection. Check that they support the chosen code and can examine the targeted weaknesses. State which checks we intend to use and whether existing checks are enough or custom work would be needed.
+- [ ] **Finish the scanner choices and setup.** Semgrep Community Edition, CodeQL, and Bandit are selected, with Python confirmed for all study examples. Reasons and report examples are in [scanner notes](../research/scanner-tools.md). Record versions and confirm target coverage later; exact checks are not needed for the current explanation.
 
 - [ ] **Propose the code cases and their number.** Explain where cases will come from, how many we plan to use, and how we include both vulnerable and non-vulnerable examples. Include different ways the selected weaknesses can appear so the study does more than repeat the same example.
 
@@ -69,6 +69,8 @@ Use the explanations in [diagrams.md](../research/diagrams.md) to guide what the
 ## Bring a reviewable proposal
 
 - [ ] **Check the design against the remaining study questions.** Use [the professor questions](../research/decisions-and-professor-questions.md) to check for omissions. Bring a proposed answer wherever possible and clearly explain anything we could not resolve, along with what information is needed.
+
+- [ ] **Discuss the coverage trade-off even if scanners score better.** Existing scanner rules can be reused, but new language and framework coverage may need manual rule work; LLMs may reduce that effort. Treat this as a practical consideration, not a conclusion proved by our Python-only cases. See [the evaluation notes](../research/evaluation-plan.md#trade-off-to-discuss-in-the-conclusion).
 
 - [ ] **Bring the written six-method explanation, the two diagrams, and the proposed study choices and scoring rules.** Be ready to explain the reasons for the choices and ask the professor to correct or confirm them. Include a realistic estimate of the work and time needed after design review.
 
