@@ -36,31 +36,33 @@ The detection and suggestion stages could use the same model in separate request
 
 A general design can ask about broad vulnerability types, while our experiment and specific app name the selected weaknesses. The detection call has the same purpose, but its instructions and expected answer depend on that scope. Neither version supplies CWE guidance during detection; the application retrieves guidance afterward for suggestions. The two general workflow diagrams describe the scanner-based and all-AI processes. If development proceeds, create one additional diagram for our specific application using the selected methodology and our two fixed targets. In the all-AI version, the detection prompt would name those targets and ask the model to find them in the supplied code. General workflows do not promise complete vulnerability coverage.
 
-For now, diagrams should show application-controlled retrieval: the application combines findings, relevant code, and CWE guidance into the suggestion prompt. Note that this is provisional; agent-controlled retrieval remains an open choice. [Diagram descriptions](diagrams.md) defines the requested contents in plain English.
+Present application-controlled and agent-controlled retrieval as two options for professor review. Diagrams using application-controlled retrieval illustrate the first option, not a selected implementation. [Diagram descriptions](diagrams.md) defines the requested contents in plain English.
+
+## Saved uploads and findings reports
+
+The student described this application design on October 14. After upload, show a "Processing" screen and then a report for that upload. Save the upload record, report, and finding statuses so the dashboard can list previous uploads with their unresolved counts. The storage mechanism is still to be designed; this is planned application behavior, not a completed feature.
+
+Each report lists all detected potential vulnerabilities. Selecting one opens its explanation, why it matters, how the uploaded code causes or exposes it, file and line locations where available, and supporting code. Show uncertainty and unavailable locations explicitly. A separate "Proposed changes" tab or section presents replacement code blocks and instructions for changes spanning files or requiring setup. For example, instructions might describe creating a `.env` file with named settings and changing the relevant code to read them; use placeholders in examples. This is an illustration of the instruction format, not a universal fix. Keep every suggestion linked to its finding; the guidance-backed LLM stage generates the content.
+
+Users can mark findings resolved. Save that status and update the unresolved count on the report and upload dashboard: seven findings become six unresolved when one is marked resolved. Reopening the upload preserves that count. Retain the original findings and distinguish user-confirmed resolution from a later scan of updated code; marking resolved alone does not change the uploaded source or verify a fix. The count describes unresolved reported findings, not a guaranteed total of vulnerabilities remaining in the code. Found/Missing/Partially Found are study grades, not resolution statuses for ordinary uploads.
 
 ## The final suggestion stage
 
-The request should explain, in practical terms: given these findings, their code locations, the relevant code, and the supplied CWE guidance, what changes should we make, why would they help, and what should we check afterward?
-
-Useful outputs include a suggested change or code example, an explanation tied to the finding, the source guidance used, assumptions, and checks needed before using the change. These are suggestions to review, not automatically validated fixes.
-
-CWE entries can include mitigation advice and examples. They do not always provide a complete checklist or a corrected version of our code. The LLM has to apply the available guidance to the actual situation. See [MITRE's CWE-798 entry](https://cwe.mitre.org/data/definitions/798.html) for an example of the information available.
+This stage uses findings from either the scanner or the first LLM call to generate content for the report UI: explanations of the weaknesses, why they matter, how the supplied code exposes them, locations and evidence, proposed replacement code, and written instructions for other changes. Include the guidance sources used and any missing context. The exact prompt wording, output fields, and suggestion model can be selected later. This stage follows detection and does not change the initial detection comparison.
 
 ## Retrieving guidance: application or agent?
 
-**Application-controlled retrieval:** the application looks up the detected CWE ID, selects the useful guidance, and supplies it with the code and findings. This is often called retrieval-augmented generation, or RAG: retrieve information, then use it to help generate an answer. See the [RAG research paper](https://arxiv.org/abs/2005.11401).
+**Option 1: Application-controlled retrieval.** The application retrieves relevant CWE definitions and guidance from the planned database before calling the suggestion LLM. The request has three main parts:
 
-**Agent-controlled retrieval:** an LLM has tools that let it request CWE entries or search relevant passages. The application runs those requests and returns the results. The LLM can ask for more information before suggesting changes. The model and its tools together form the agent. See [Anthropic's explanation of agents and workflows](https://www.anthropic.com/engineering/building-effective-agents).
+1. Findings from the scanner or previous LLM call, with file locations and relevant code.
+2. Retrieved CWE information: formal definitions, signs of the weakness, consequences, and available mitigation guidance.
+3. Instructions specifying the content and structure needed for the report, including explanations and the proposed-changes section.
 
-Yes, the proposed agent is possible. We would expose a limited lookup or search tool connected to our database. The LLM would not independently open a database without that connection.
+**Option 2: Agent-controlled retrieval.** The application sends the findings, relevant code, and required report structure through an API to an agent we create. The agent is an LLM with a lookup/search tool connected to the planned CWE vector database. It chooses which information to request, the application executes those tool calls and returns the passages, and the model uses them to generate the same report content. Searches and follow-up requests may require several LLM calls. The retrieved guidance still enters the model's context; the difference is who chooses what to retrieve and when.
 
-In both options, the retrieved text still enters the LLM's context. An agent changes who decides what to retrieve and when; it does not eliminate the need to supply readable guidance or the limits on how much a model can read.
+**Choice for professor review:** present both options without treating either as selected. An exact CWE-ID lookup can retrieve a known entry; vector search can retrieve related passages. The database, tools, contents, and update process are planned rather than implemented. Older diagrams using application-controlled retrieval illustrate option 1, not a final decision.
 
-**Proposed starting choice, not a decision:** use an exact CWE ID lookup when the finding already has an ID. Use vector search, which finds passages with similar meaning, when additional guidance is needed. Start with application-controlled retrieval and add agent-controlled searches if useful. A vector database is an implementation option, not a requirement for exact ID lookup.
-
-We have discussed storing CWE information in a database, but these notes do not establish that the database has already been built. Its contents, source versions, update process, and retrieval method need decisions.
-
-Keep retrieval for recommendations separate from the initial detection comparison unless the evaluation explicitly includes it. Giving some detection models extra searches would change what we are comparing.
+For either option, the LLM applies the guidance to the supplied code; a CWE entry does not necessarily contain a ready-made fix. See [MITRE's CWE-798 entry](https://cwe.mitre.org/data/definitions/798.html) for an example of available guidance. Review the resulting explanations and proposed changes, check their source support, and test changes before use. Retrieving a passage or generating a report does not by itself validate a fix.
 
 ## Still open for development
 

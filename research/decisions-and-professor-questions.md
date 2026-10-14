@@ -12,13 +12,14 @@ Confirmed decisions come from the student or the meeting. The questions below co
 - October 14 confirmed scope and scanner choices: all study code examples use Python; the three scanners are Semgrep Community Edition, CodeQL, and Bandit. Exact versions and rules remain pending. See [scanner choices and report formats](scanner-tools.md).
 - Use shared evaluation cases and a comparable output format.
 - Define independent correct answers before grading the detectors.
-- Define what Partially Found means before scoring.
+- Define what Partially Found means before scoring. October 14 starting proposal: the actual problem is recognized but its location or explanation is incomplete; award 0.5 points, versus 1 for Found and 0 for Missing. Review before scored runs.
 - Assign each detector an accuracy score against the independent answers.
 - Keep Found, Missing, and Partially Found in the reporting plan, while resolving their exact meanings.
 - If development proceeds, both detection approaches lead to an LLM suggestion stage supported by CWE guidance.
+- October 14 application design: Processing screen, saved uploads dashboard, per-upload findings report with clickable explanations and locations, and a separate proposed-changes area with code replacements and written instructions. Users can mark findings resolved; saved unresolved counts decrease while original findings remain available. A user-marked resolution is not a verified fix. See [saved uploads and reports](application-workflows.md#saved-uploads-and-findings-reports).
 - Document the methods step by step and retain exact experiment records.
 - Prepare six diagrams, with the app-specific diagram conditional on development, and one results document. Keep only plain-English descriptions in the diagram file.
-- Show application-controlled CWE retrieval in the workflow diagrams for now, with a note that agent-controlled retrieval remains open.
+- October 14 suggestion-stage options: present application-controlled CWE retrieval and an LLM agent with a CWE vector-database search tool to the professor. Neither option is selected. Both use findings and relevant code and produce the content and structure required by the report UI. See [retrieval options](application-workflows.md#retrieving-guidance-application-or-agent).
 - Review results and time with the professor before deciding whether to build the app.
 - Discuss the effort of extending scanner rules across languages and frameworks even if scanners score better. LLMs may reduce manual rule-writing; this is a practical consideration to discuss, not a benefit established by the Python-only results. See [the conclusion trade-off](evaluation-plan.md#trade-off-to-discuss-in-the-conclusion).
 
@@ -72,7 +73,7 @@ Mentioning a security concern may not identify the actual problem in the code. W
 
 ### How should partial findings affect the scores?
 
-The project requires an accuracy score and confusion matrices, but partial detections do not automatically fit a correct-or-incorrect answer. We need to decide how they enter the main score and whether a separate partial-credit score is wanted before seeing which detector benefits.
+The starting proposal is 1 point for Found, 0.5 for Partially Found, and 0 for Missing, divided by the number of known vulnerabilities and expressed as a percentage. Refine and review this proposal before scored runs. Record false alarms separately, and decide how partial detections enter the confusion matrices; a half-credit detection score is different from present-or-absent classification accuracy.
 
 ### What should we report alongside accuracy?
 

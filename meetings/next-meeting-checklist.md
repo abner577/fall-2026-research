@@ -18,17 +18,17 @@ The detailed study proposals below also reflect our follow-up decisions: three L
 
 Write one short, plain-English paragraph per method, using what we start with, do, produce, and why as a guide rather than separate questions to answer. Use [the written explanation](six-methods-explanation.md). Give the first four methods the most detail because they make up milestone 1. Explain the last two as planned application work if development proceeds.
 
-- [ ] **Explain how we select the vulnerabilities.** Propose the two specific weaknesses from CWE, the catalog of weakness types, and explain why they fit the project. Identify any related weaknesses we will include and where the scope ends. Explain the selection process, including how any AI assistance would be checked. The current two broad focus areas need to be narrowed into specific targets.
+- [x] **Explain how we select the vulnerabilities.** [Method 1](six-methods-explanation.md#method-1-how-we-selected-the-vulnerabilities) explains the focus areas, selection reasons, and planned CWE mapping. Exact CWE targets still need review.
 
-- [ ] **Explain how the LLMs examine the code.** Describe what code and background information each model receives, what it is asked to find, and what its answer must contain. The initial detection call receives no supplied CWE guidance; the application retrieves CWE guidance afterward for a separate suggestion call. Describe the purpose and expected shape of the request; the final wording of every prompt can come later.
+- [x] **Explain how the LLMs examine the code.** [Method 2](six-methods-explanation.md#method-2-how-the-llms-examine-the-code) explains detection without supplied CWE guidance, the chosen providers, and the later suggestion stage. Exact Gemini/OpenAI models and final prompts remain pending.
 
 - [x] **Explain how the scanners examine the code.** [Method 3](six-methods-explanation.md#method-3-how-the-scanners-examine-the-code) explains the general process and report contents in two paragraphs. Exact checks can come later. [Scanner notes](../research/scanner-tools.md) show report fields and illustrative examples.
 
-- [ ] **Explain how we compare the results.** Describe how we check findings against independently verified answers, assign scores, and compare each LLM with each scanner. Explain how the results support selecting all-AI detection or scanner-based detection. Better or comparable all-AI results support continuing with the all-AI approach; better scanner results support the scanner approach.
+- [x] **Explain how we compare the results.** [Method 4](six-methods-explanation.md#method-4-how-we-compare-the-results) describes the decided Found/Missing/Partially Found table, independently checked answers, and proposed 1/0/0.5 scoring against known vulnerabilities. Definitions and exact scoring can be refined before scored runs; record false alarms separately.
 
-- [ ] **Explain how findings would be organized for the application.** Describe how a report would show the issue, location, code evidence, and any uncertainty. Explain how Found, Missing, and Partially Found would be used and distinguish study grades from what we can honestly report about an ordinary user upload.
+- [x] **Explain how findings would be organized for the application.** [Method 5](six-methods-explanation.md#method-5-how-findings-would-be-organized-for-the-application) describes saved upload reports, clickable findings, proposed changes, and a persistent unresolved counter. User-marked resolution is distinct from rescan verification; study grades remain separate. See [the application design](../research/application-workflows.md#saved-uploads-and-findings-reports).
 
-- [ ] **Explain how suggestions would be generated.** Describe how the application would combine findings, relevant code, and retrieved CWE guidance in a later LLM request for suggested changes. Use application-controlled retrieval in the design for now, with a note that an agent remains an open option. Explain how the suggestions would be reviewed before use.
+- [x] **Explain how suggestions would be generated.** [Method 6](six-methods-explanation.md#method-6-how-suggestions-would-be-generated) presents application-controlled retrieval and an LLM agent with a CWE database search tool. Both generate the same report content from findings, relevant code, guidance, and report instructions. Present both options to the professor; neither is selected. Exact wording and output fields can come later.
 
 ## Prepare one diagram for this meeting
 

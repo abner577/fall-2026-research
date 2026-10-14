@@ -51,39 +51,27 @@ Known answers and code locations are central to static analysis evaluation. See 
 
 ## Found, Missing, and Partially Found
 
-These are required reporting categories, but their scoring definitions still need a decision.
+The Found, Missing, and Partially Found table is decided. The following meanings and points are an October 14 starting proposal for professor review, not finalized scoring rules.
 
-**Proposed interpretation for grading a known weakness:**
+| Category | Proposed meaning for a known vulnerability | Proposed points |
+| --- | --- | --- |
+| Found | Identifies the actual vulnerability, its location, and enough evidence to explain the problem. | 1 |
+| Missing | Does not identify a vulnerability that is present in the checked answer. | 0 |
+| Partially Found | Recognizes the actual problem but provides an incomplete location or explanation. | 0.5 |
 
-| Category | Proposed meaning |
-| --- | --- |
-| Found | The detector identifies the expected weakness and meets our agreed location and evidence rules. |
-| Missing | The weakness exists in the answer, but the detector does not identify it. |
-| Partially Found | The detector identifies a defined part of the expected finding but does not meet the full rule. |
+For example, correctly identifying a hardcoded credential in the right file but not locating its use could earn partial credit. A vague warning, a different issue, or several duplicate warnings does not automatically earn partial credit or additional points. Refine the required location and explanation before the scored runs, using the same rules for every detector.
 
-For example, identifying the correct weakness but pointing only to the file, when the rule requires a specific function or line, might count as partial. This example is a proposal, not the final rule.
-
-**A weakness absent from the code is different from a missed finding.** On a case where the target weakness is absent, record either a correct absence or a false alarm. Lack of output alone does not prove that an entire application is safe.
-
-Finding a related weakness is not automatically partial credit. We must define which related weaknesses are in scope and how they match the answer. A detector's uncertainty is also different from a partial detection; record both separately.
-
-Decide how to handle several findings in one case, duplicate findings, wrong locations, wrong CWE labels, out-of-scope findings, missing context, and failed runs.
+A weakness absent from the code is different from a missed vulnerability. Record false alarms and correct absences separately, including results on examples without the targeted weaknesses.
 
 ## Accuracy scores
 
-The student has decided that each of the six detectors should have an accuracy score against the independent answers. The scoring formula and unit still need agreement.
+Prepare Python examples with embedded vulnerabilities and independently check the expected vulnerabilities and locations before running the detectors. Give all six detectors the same code, without the answer key. As a simple starting proposal, score each independently recorded vulnerability once: Found earns 1 point, Partially Found earns 0.5, and Missing earns 0.
 
-**Proposed starting point:** one scored item is one test case checked for one target weakness. Every detector sees the same items. Include items where the weakness is present and items where it is absent.
+**Proposed accuracy score with partial credit = (Found + 0.5 x Partially Found) / total known vulnerabilities x 100.**
 
-Under a simple present-or-absent rule:
+For example, finding 6 vulnerabilities fully, 2 partially, and missing 2 out of 10 gives (6 + 1) / 10 x 100 = 70%. This is an illustration, not a study result.
 
-**Accuracy = correctly answered items ÷ all scored items × 100.**
-
-For example, 18 correct answers out of 20 scored items gives 90% accuracy. This is an illustration, not a project result.
-
-Before using this formula, decide whether a partial finding counts as correct or incorrect under the main rule. One proposed option is a strict main accuracy score, with partial findings reported separately. Another is a clearly labeled partial-credit score. If we award half credit or any other amount, we must justify and label that rule; it is not already agreed.
-
-A present-or-absent score can hide poor location accuracy, so also report how well the detector found the correct location. Accuracy can also look high if most items have no weaknesses. We should therefore show how many real weaknesses were found and how many warnings were false alarms. The professor should help finalize these supporting measures and the mix of cases.
+This percentage describes how much of the known vulnerability set was detected, with partial credit; it is not an overall present-or-absent classification accuracy. Show false alarms and correct absences separately so extra incorrect warnings are visible. A case with no known vulnerabilities contributes to those separate results rather than this denominator. The exact grading boundaries, handling of failed runs, and any combined score can be settled later, before scored runs; keep the current meeting explanation at the general-method level.
 
 ## Confusion matrices and the nine pairings
 
