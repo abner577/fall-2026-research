@@ -37,13 +37,13 @@ The current order of work is:
 
 Milestone 1 is research to select the development methodology: compare how accurate LLMs and scanners are and which is better at detecting vulnerabilities in the selected code. Define what better or comparable performance means before judging the results. Methodology 1 uses a scanner for detection; methodology 2 uses an LLM for detection without a scanner.
 
-The original development idea remains the intended second milestone, supported by that selection. If development proceeds, either a scanner or an LLM finds the weaknesses and locations. A final LLM stage then uses those findings, relevant code, and retrieved CWE guidance to suggest changes. The user reviews and validates those suggestions. The detector and recommendation model choices remain open.
+The original development idea remains the intended second milestone, supported by that selection. If development proceeds, either a scanner or an LLM finds the weaknesses and locations. A final LLM stage then uses those findings, relevant code, and retrieved CWE guidance to suggest changes. The user reviews and validates those suggestions. The detection choices are Gemini, ChatGPT/OpenAI, and Qwen 3.8 27B through Groq (`qwen/qwen3.8-27b`); exact Gemini and OpenAI API models, scanner choices, and recommendation models remain open.
 
 IoT remains the application context. The particular device or software component, language, framework, test project, input format, and local versus deployed operation are still open. These notes do not establish runtime testing as part of the comparison. They also do not claim that an application or CWE database has already been built.
 
 ### AI approach and proof of concept
 
-For the comparison, we must choose the three exact models and document their prompts, settings, and allowed context. Whether detection models receive CWE information or retrieval tools is an open experimental condition. The current plan does not require training or fine-tuning a model.
+For the comparison, the student chose Gemini, ChatGPT/OpenAI, and Groq on October 14 because Gemini and Groq offer free tiers and the student already pays for OpenAI access, intending to use that existing access without additional spending. Qwen 3.8 27B (`qwen/qwen3.8-27b`) is selected for Groq. Exact Gemini and OpenAI API models and whether existing OpenAI payments cover API runs still need checking. See [model choices and pricing](research/decisions-and-professor-questions.md#which-exact-api-models-and-three-scanners-should-we-choose). Document prompts and settings. Initial detection receives no supplied CWE guidance or CWE retrieval; the application retrieves guidance afterward for the separate suggestion call. The current plan does not require training or fine-tuning a model.
 
 For later suggestions, the application could retrieve CWE guidance itself or give an LLM agent lookup and search tools. An agent means the model together with its tools and execution workflow. In either case, retrieved information still enters the model's context. Application-controlled retrieval is a proposed starting point, not a final choice.
 
@@ -81,7 +81,7 @@ Confirmed details and open decisions are recorded below. Update pending fields f
 | Faculty mentor and other collaborators | Mentor labeled Abdul (Gilal) Rehman in the transcript; other collaborators unconfirmed. |
 | Research problem and intended contribution | Compare detection accuracy to select the all-AI or scanner-based methodology for reference-guided application development. |
 | Threat/vulnerability targets | Two targets intended. Two broad focus areas proposed; exact CWE entries, related weaknesses, and checks pending professor review. |
-| Detectors and reference integration | Three LLMs and three scanners confirmed; exact names, versions, rules, detection context, and retrieval conditions pending. |
+| Detectors and reference integration | Gemini, ChatGPT/OpenAI, and Qwen 3.8 27B through Groq (`qwen/qwen3.8-27b`) selected; exact Gemini/OpenAI models, access costs, scanners, versions, and rules pending. No supplied CWE guidance during detection; retrieve guidance afterward for suggestions. |
 | Evaluation answers and scores | Independent answers and per-detector accuracy scores required; item definition, partial-finding rules, reviewers, and scoring formula pending. |
 | Target IoT application and evaluation materials | Component, language, framework, cases, and development test project still to be selected. |
 | Start/end dates and agreed work hours | To be confirmed |

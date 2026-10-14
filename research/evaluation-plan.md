@@ -18,6 +18,8 @@ This selection purpose is confirmed by the student's clarification. The exact me
 
 We will compare **three LLMs and three scanners**. Each will analyze the same evaluation cases for the selected weaknesses. We will define independent correct answers, define what **Partially Found** means, and give each detector an accuracy score against those answers. We will also compare every LLM with every scanner, making nine pairings.
 
+The detection choices are Gemini, ChatGPT/OpenAI, and Qwen 3.8 27B through Groq (`qwen/qwen3.8-27b`). Exact Gemini and OpenAI API models and account access remain to be checked. See [model choices and pricing](decisions-and-professor-questions.md#which-exact-api-models-and-three-scanners-should-we-choose). Initial detection receives no supplied CWE guidance or CWE retrieval; guidance is retrieved afterward for the suggestion stage.
+
 This first study measures finding and locating weaknesses. Testing the quality of suggested fixes would be a later evaluation if we develop the application.
 
 ## The procedure
@@ -101,7 +103,7 @@ The results document will contain the confusion matrices, scores, nine pairwise 
 - Use the same code versions, target list, product description, and agreed file context.
 - Define comparable scanner rule coverage. Do not treat an unsupported check or failed setup as proof that a detector cannot find that weakness.
 - Record prompts, model settings, scanner rules, commands, versions, and dates.
-- Decide whether detection LLMs receive CWE guidance and whether retrieval is allowed. Keep this consistent or label it as a separate experiment condition.
+- Do not supply CWE guidance or CWE retrieval tools during detection. Retrieve CWE guidance only after findings are available, for the later suggestion stage.
 - Give LLMs the output structure, without the scanner's answers for the scored case.
 - Decide how many repeated LLM runs to use and how to summarize them. Keep each run rather than choosing the best response.
 - Log errors, unsupported cases, and incomplete runs. Agree in advance whether these count in a score or are reported separately.
@@ -126,7 +128,7 @@ One diagram will describe this overall six-method process. Individual detectors 
 
 The October 5 meeting began with an application idea: receive IoT code, prepare files, run focused scanner checks, collect findings and reference guidance, and use an LLM to explain issues and suggest fixes. The October 12 meeting put a comparison first. The student's subsequent clarification makes that comparison explicitly a selection process for the all-AI or scanner-based development methodology.
 
-We keep the IoT software context, limited two-target scope, findings with locations and evidence, reference-supported suggestions, and the intended development framework. The proposed password/credential and communication/data-handling areas remain subject to professor review; they are not yet two finalized CWE entries. The actual component, language, framework, cases, detectors, and deployment remain open.
+We keep the IoT software context, limited two-target scope, findings with locations and evidence, reference-supported suggestions, and the intended development framework. The proposed password/credential and communication/data-handling areas remain subject to professor review; they are not yet two finalized CWE entries. The actual component, language, framework, cases, exact Gemini and OpenAI API model identifiers, scanners, and deployment remain open. The selected detection choices are Gemini, ChatGPT/OpenAI, and Qwen 3.8 27B through Groq (`qwen/qwen3.8-27b`).
 
 The professor also discussed completing the project as a comparison study and reviewing available time after the first four methods. That remains meeting context; it does not replace the student's clarified selection purpose. A small observed difference on too few cases does not establish comparable performance. Conclusions must stay within the tested code, targets, models, versions, and settings.
 

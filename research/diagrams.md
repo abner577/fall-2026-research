@@ -6,7 +6,7 @@ Show the full workflow of the evaluation study comparing LLMs with static code a
 
 ## Evaluation diagram with a specific example
 
-Show the same evaluation workflow using a concrete example, such as ChatGPT compared with three code scanners. Make the wording specific to that example: the model, scanners, code, and vulnerabilities being compared. Keep the same flow as the general evaluation diagram. This example illustrates one LLM against three scanners within the overall three-LLM-versus-three-scanner study; ChatGPT is not a finalized model choice.
+Show the same evaluation workflow using a concrete example, such as ChatGPT compared with three code scanners. Make the wording specific to that example: the model, scanners, code, and vulnerabilities being compared. Keep the same flow as the general evaluation diagram. This example illustrates one LLM against three scanners within the overall three-LLM-versus-three-scanner study; ChatGPT/OpenAI is now one of the three selected families alongside Gemini and Qwen 3.8 27B through Groq (`qwen/qwen3.8-27b`), while its exact API model remains pending.
 
 ## General application workflow: methodology 1, scanner-based
 

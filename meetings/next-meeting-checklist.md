@@ -16,11 +16,11 @@ The detailed study proposals below also reflect our follow-up decisions: three L
 
 ## Explain the six methods
 
-For each method, write the steps in plain English: what information we start with, what we do, what we produce, and why. Give the first four methods the most detail because they make up milestone 1. Explain the last two as planned application work if development proceeds.
+Write one short, plain-English paragraph per method, using what we start with, do, produce, and why as a guide rather than separate questions to answer. Use [the written explanation](six-methods-explanation.md). Give the first four methods the most detail because they make up milestone 1. Explain the last two as planned application work if development proceeds.
 
 - [ ] **Explain how we select the vulnerabilities.** Propose the two specific weaknesses from CWE, the catalog of weakness types, and explain why they fit the project. Identify any related weaknesses we will include and where the scope ends. Explain the selection process, including how any AI assistance would be checked. The current two broad focus areas need to be narrowed into specific targets.
 
-- [ ] **Explain how the LLMs examine the code.** Describe what code and background information each model receives, what it is asked to find, and what its answer must contain. Explain whether it receives CWE guidance. Describe the purpose and expected shape of the request; the final wording of every prompt can come later.
+- [ ] **Explain how the LLMs examine the code.** Describe what code and background information each model receives, what it is asked to find, and what its answer must contain. The initial detection call receives no supplied CWE guidance; the application retrieves CWE guidance afterward for a separate suggestion call. Describe the purpose and expected shape of the request; the final wording of every prompt can come later.
 
 - [ ] **Explain how the scanners examine the code.** Describe the selected tools, the checks they will run, the files they will examine, and how we collect their findings. Explain why each tool is suitable. Identify any setup or missing-check problems that could prevent a fair comparison.
 
@@ -30,9 +30,7 @@ For each method, write the steps in plain English: what information we start wit
 
 - [ ] **Explain how suggestions would be generated.** Describe how the application would combine findings, relevant code, and retrieved CWE guidance in a later LLM request for suggested changes. Use application-controlled retrieval in the design for now, with a note that an agent remains an open option. Explain how the suggestions would be reviewed before use.
 
-## Prepare the two diagrams for this meeting
-
-- [ ] **Make one diagram of the professor's six-method process.** Show all six methods and how they connect. LLM analysis and scanner analysis should examine the shared cases separately and come together at the comparison. Mark that comparison as the end of milestone 1 and the methodology selection point. Show findings reporting and suggestions as later work if development proceeds.
+## Prepare one diagram for this meeting
 
 - [ ] **Make a general diagram of the evaluation process.** Show choosing the targets and tools, preparing shared code cases and checked answers, running the six detectors, collecting their results, grading them, calculating scores, comparing the results, and selecting the methodology. Keep the checked answers separate from the code supplied to the detectors. A general diagram is enough for this meeting; the model-specific example and other application diagrams can follow later.
 
@@ -42,7 +40,7 @@ Use the explanations in [diagrams.md](../research/diagrams.md) to guide what the
 
 - [ ] **Choose the software scope.** Propose which part of an IoT system we will examine, its language and framework, and how much code each case contains. Explain why the scope is manageable and suitable for all six detectors.
 
-- [ ] **Propose three exact LLMs.** Give the actual model names and versions or identifiers, rather than only company or product names. Explain why each belongs in the comparison, including whether a model intended for coding is useful. Check that we can access the models and afford the planned runs.
+- [ ] **Record exact API models for the three chosen LLM providers: Gemini, ChatGPT/OpenAI, and Groq.** The student chose Gemini and Groq for their free tiers and OpenAI because they already pay for access and intend to avoid additional spending. Anthropic options are excluded because of cost. Qwen 3.8 27B (`qwen/qwen3.8-27b`) is selected for Groq, for its coding and reasoning support, free access within plan limits, and different model family. Record exact Gemini and OpenAI models, and verify API access under the existing OpenAI payment. See [model choices and pricing](../research/decisions-and-professor-questions.md#which-exact-api-models-and-three-scanners-should-we-choose).
 
 - [ ] **Propose three exact scanners.** Give the tool names and versions and explain their selection. Check that they support the chosen code and can examine the targeted weaknesses. State which checks we intend to use and whether existing checks are enough or custom work would be needed.
 

@@ -7,6 +7,8 @@ Confirmed decisions come from the student or the meeting. The questions below co
 - Milestone 1 compares detection accuracy to select the methodology for development: methodology 1 is scanner-based; methodology 2 is all-AI detection without a code scanner.
 - Better or comparable all-AI results provide the go-ahead for all-AI development within the outlined framework. Better scanner results support selecting the scanner methodology. The comparison criteria remain open.
 - Compare three LLMs with three scanners: six detectors and nine LLM-versus-scanner pairings.
+- October 14 student choice: use Gemini, ChatGPT/OpenAI, and Groq as the three LLM providers. The Groq model is now Qwen 3.8 27B (`qwen/qwen3.8-27b`); exact Gemini and OpenAI API models remain to be selected.
+- The first LLM call detects weaknesses without supplied CWE guidance or CWE retrieval. After detection, the application retrieves CWE guidance for a separate suggestion call.
 - Use shared evaluation cases and a comparable output format.
 - Define independent correct answers before grading the detectors.
 - Define what Partially Found means before scoring.
@@ -34,9 +36,13 @@ CWE entries can be related to other entries. We need to decide which of those re
 
 Firmware, gateways, backends, and browser interfaces involve different code and security checks. We need a shared software scope that all six detectors can examine so differences in results can be interpreted fairly.
 
-### Which three LLMs and three scanners should we choose?
+### Which exact API models and three scanners should we choose?
 
-The exact models and tool versions determine access, cost, language support, and the checks available. We need to know which six detectors will actually be evaluated, including whether coding-focused models belong in the comparison.
+The student selected Gemini, ChatGPT/OpenAI, and Groq on October 14 because Gemini and Groq offer free tiers and the student already pays for OpenAI access, intending to use that existing access without additional spending, and excluded Claude, Claude Code, and other Anthropic options because of cost. For Groq, the student selected Qwen 3.8 27B (`qwen/qwen3.8-27b`). Groq hosts the model; Qwen is the model family. Select exact Gemini and OpenAI API models, check account access and the cost of the planned runs, and choose the three scanners and their versions. This does not select the model for the later suggestion stage.
+
+Access rationale: use the [Gemini free tier](https://ai.google.dev/gemini-api/docs/pricing), the [Groq free plan](https://console.groq.com/docs/rate-limits), and the student's existing paid OpenAI access. The plan is to avoid additional spending. For API runs, verify whether that existing payment includes usable API credits; a ChatGPT subscription alone does not cover API usage. [OpenAI API usage has its own pricing](https://developers.openai.com/api/docs/pricing). Exact Gemini and OpenAI models still need recording.
+
+**Selected Groq model:** Qwen 3.8 27B, API identifier `qwen/qwen3.8-27b`, accepted by the student on October 14. We chose it for its coding and reasoning support, free-plan availability, and a model family distinct from Gemini and OpenAI. This is a reason to evaluate it, not evidence of vulnerability-detection accuracy. See [Groq model documentation](https://console.groq.com/docs/model/qwen/qwen3.8-27b). The [published free-plan limits](https://console.groq.com/docs/rate-limits), checked October 14, list 30 requests per minute, 1,000 requests per day, 8,000 tokens per minute, and 200,000 tokens per day; confirm account limits before runs. Updated October 14, 2026.
 
 ### Which scanner checks should we use, and what if a target is unsupported?
 
@@ -70,9 +76,9 @@ The project requires an accuracy score and confusion matrices, but partial detec
 
 A high accuracy percentage can hide missed vulnerabilities, false alarms, or poor location accuracy. We need to know which supporting measures the professor expects so the results explain the detectors' strengths and weaknesses clearly.
 
-### Should detection LLMs receive CWE guidance or retrieval tools?
+### Detection context: decided October 14
 
-Giving a model reference text or search tools changes the information available during detection. We need to fix what assistance is allowed so the study evaluates a defined condition and differences between runs have a clear meaning.
+The first LLM call receives the code and the selected weakness targets, without supplied CWE guidance or CWE retrieval tools. After receiving its findings, the application retrieves CWE guidance from the planned database for the separate suggestion call. Keep this condition consistent across the three detection models. Exact prompt wording and output format can be settled later.
 
 ### What output format should the detectors use?
 

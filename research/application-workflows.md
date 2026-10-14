@@ -24,7 +24,7 @@ The original app workflow used this approach. The choice of scanner remains open
 
 1. Receive code and a short description of what the software does.
 2. Prepare the files and identify the supported code. Ordinary file preparation does not need AI.
-3. Ask the detection LLM to identify the agreed weaknesses and related weaknesses, with file locations and evidence.
+3. Ask the detection LLM to identify the agreed weaknesses and related weaknesses, with file locations and evidence. Do not supply CWE guidance or CWE retrieval tools in this first call.
 4. Read and check the structure of its findings. Record uncertainty and missing context; a well-formatted answer is not proof that the finding is right.
 5. Retrieve the relevant CWE entries and guidance for those findings.
 6. Make a subsequent LLM request for suggested changes, using the findings, code, and guidance.
@@ -34,7 +34,7 @@ The detection and suggestion stages could use the same model in separate request
 
 ## General workflows and our specific application
 
-The two general workflow diagrams describe the scanner-based and all-AI processes with a chosen vulnerability list. If development proceeds, create one additional diagram for our specific application using the selected methodology and our two fixed targets. In the all-AI version, the detection prompt would name those targets and ask the model to find them in the supplied code. General workflows do not promise complete vulnerability coverage.
+A general design can ask about broad vulnerability types, while our experiment and specific app name the selected weaknesses. The detection call has the same purpose, but its instructions and expected answer depend on that scope. Neither version supplies CWE guidance during detection; the application retrieves guidance afterward for suggestions. The two general workflow diagrams describe the scanner-based and all-AI processes. If development proceeds, create one additional diagram for our specific application using the selected methodology and our two fixed targets. In the all-AI version, the detection prompt would name those targets and ask the model to find them in the supplied code. General workflows do not promise complete vulnerability coverage.
 
 For now, diagrams should show application-controlled retrieval: the application combines findings, relevant code, and CWE guidance into the suggestion prompt. Note that this is provisional; agent-controlled retrieval remains an open choice. [Diagram descriptions](diagrams.md) defines the requested contents in plain English.
 
