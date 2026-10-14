@@ -30,11 +30,21 @@ Write one short, plain-English paragraph per method, using what we start with, d
 
 - [x] **Explain how suggestions would be generated.** [Method 6](six-methods-explanation.md#method-6-how-suggestions-would-be-generated) presents application-controlled retrieval and an LLM agent with a CWE database search tool. Both generate the same report content from findings, relevant code, guidance, and report instructions. Present both options to the professor; neither is selected. Exact wording and output fields can come later.
 
-## Prepare one diagram for this meeting
+## Prepare one main diagram for this meeting
 
 - [ ] **Make a general diagram of the evaluation process.** Show choosing the targets and tools, preparing shared code cases and checked answers, running the six detectors, collecting their results, grading them, calculating scores, comparing the results, and selecting the methodology. Keep the checked answers separate from the code supplied to the detectors. A general diagram is enough for this meeting; the model-specific example and other application diagrams can follow later.
 
-Use the explanations in [diagrams.md](../research/diagrams.md) to guide what these diagrams contain. The two diagrams serve different purposes: one explains the overall research methods, while the other explains the comparison study in more detail.
+Use the general evaluation explanation in [diagrams.md](../research/diagrams.md) to guide this diagram. The smaller method visuals below support the written explanations and are separate from this main diagram.
+
+## Prepare standalone visuals for the method explanations
+
+These are reminders to create supporting visuals, not completed artifacts or additional full study diagrams. Prompt wording and output fields can be illustrative rather than final.
+
+- [ ] **Method 2 + 6: Make a diagram of the two LLM calls.** Show the first call receiving the code and a prompt naming the weaknesses to look for, without supplied CWE guidance. Include a suggested prompt structure and an example output structure with findings, files, lines where available, and supporting code. Then show the application using those findings to retrieve CWE information and prepare the second call, with the findings, relevant code, CWE definitions and guidance, and report instructions. Show the expected response: explanations for the report, replacement code, and written steps for other changes. Label application-controlled retrieval as the illustrated option; the agent option remains open. Use [method 2](six-methods-explanation.md#method-2-how-the-llms-examine-the-code) and [method 6's prompt outlines](six-methods-explanation.md#method-6-how-suggestions-would-be-generated).
+
+- [ ] **Method 3: Make a small scanner visual.** Show the prepared Python files and the selected rule files or checks going into a scanner, followed by findings with the rule, file, line, and message. Use Semgrep CE, CodeQL, and Bandit as the selected tools; make clear that CodeQL uses a code database and queries, while Bandit uses check plugins, rather than implying all three load identical rule files. Keep it small and focused on code + checks → scanner → report. Use [the scanner notes](../research/scanner-tools.md).
+
+- [ ] **Method 4: Make a simple comparison example.** Use one small Python scenario with independently checked answers and illustrative results from one LLM and the three scanners. Put their findings side by side, mark Found, Missing, and Partially Found, and show the proposed 1/0/0.5 points and resulting scores. Include false alarms separately if the example has any. Highlight which detector scores highest, or whether there is a tie, for this example only. Label the visual as an illustration, not an experiment result or the overall methodology decision. Use [method 4](six-methods-explanation.md#method-4-how-we-compare-the-results).
 
 ## Propose the study choices
 
@@ -72,7 +82,7 @@ Use the explanations in [diagrams.md](../research/diagrams.md) to guide what the
 
 - [ ] **Discuss the coverage trade-off even if scanners score better.** Existing scanner rules can be reused, but new language and framework coverage may need manual rule work; LLMs may reduce that effort. Treat this as a practical consideration, not a conclusion proved by our Python-only cases. See [the evaluation notes](../research/evaluation-plan.md#trade-off-to-discuss-in-the-conclusion).
 
-- [ ] **Bring the written six-method explanation, the two diagrams, and the proposed study choices and scoring rules.** Be ready to explain the reasons for the choices and ask the professor to correct or confirm them. Include a realistic estimate of the work and time needed after design review.
+- [ ] **Bring the written six-method explanation, the main evaluation diagram, the three supporting method visuals, and the proposed study choices and scoring rules.** Be ready to explain the reasons for the choices and ask the professor to correct or confirm them. Include a realistic estimate of the work and time needed after design review.
 
 The goal for this meeting is an agreed study design. Final prompt wording, final commands, completed comparison results, and a working application can follow the design review. If an example output is useful, label it as an illustration rather than a study result.
 
