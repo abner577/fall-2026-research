@@ -25,7 +25,7 @@ Use the [next-meeting checklist](meetings/next-meeting-checklist.md) to prepare 
 
 Store diagram image files and future visual exports in [diagrams/](diagrams/). This folder holds the general evaluation diagram, future example and application workflow diagrams, and supporting method visuals as they are completed. Keep their descriptions and preparation requirements in [research/diagrams.md](research/diagrams.md) and the meeting checklist; link completed artifacts from those notes. For future AI assistants, a diagram's completion does not mean the study has been run or its proposed methods approved.
 
-The student completed the main general evaluation diagram for the next meeting on October 19, 2026: [Vulnerability Detection Evaluation.png](diagrams/Vulnerability%20Detection%20Evaluation.png). The other planned visuals remain pending unless separately marked complete.
+The student completed two diagrams for the next meeting on October 19, 2026: [Vulnerability Detection Evaluation.png](diagrams/Vulnerability%20Detection%20Evaluation.png) and [General Application Workflow ALL AI.png](diagrams/General%20Application%20Workflow%20ALL%20AI.png). The latter also completes the Method 2 + 6 standalone visual of the two LLM calls. The other planned visuals remain pending unless separately marked complete.
 
 Keep raw meeting transcripts in [transcripts/](transcripts/README.md). Add a transcript and a short context description after every meeting. Consult these records when the student asks or when they help clarify meeting requests, decisions, or preparation; the folder guide explains how to distinguish discussion from current instructions.
 

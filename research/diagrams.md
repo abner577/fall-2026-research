@@ -18,6 +18,8 @@ Present two retrieval options for professor review: the application retrieves CW
 
 ## General application workflow: methodology 2, LLM detection or all-AI
 
+**Completed for the next meeting, October 19, 2026:** [General Application Workflow ALL AI.png](../diagrams/General%20Application%20Workflow%20ALL%20AI.png), supplied by the student. This artifact also completes the Method 2 + 6 standalone visual of the two LLM calls in the meeting checklist. It separates the application, LLMs, and CWE vector database, and includes the application-versus-agent retrieval question. It illustrates the proposed post-evaluation all-AI path; it does not establish that this methodology or a retrieval approach has been selected.
+
 Show the whole application process from the user submitting code to receiving the results. The application prepares the code and prompts an LLM to identify vulnerabilities and their locations, without using a code scanner. It collects those findings and the relevant code, retrieves CWE guidance from the database, and makes a subsequent LLM request for explanations and suggested changes. The application returns a report for the user to review and validate. Use the same starting point and final report as the scanner workflow so the two methodologies can be compared clearly.
 
 Show the same two retrieval options for professor review, without selecting either. All-AI refers to using an LLM for detection; the application can still prepare files and retrieve guidance.
