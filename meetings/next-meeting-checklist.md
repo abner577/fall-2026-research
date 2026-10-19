@@ -32,7 +32,7 @@ Write one short, plain-English paragraph per method, using what we start with, d
 
 ## Prepare one main diagram for this meeting
 
-- [ ] **Make a general diagram of the evaluation process.** Show choosing the targets and tools, preparing shared code cases and checked answers, running the six detectors, collecting their results, grading them, calculating scores, comparing the results, and selecting the methodology. Keep the checked answers separate from the code supplied to the detectors. A general diagram is enough for this meeting; the model-specific example and other application diagrams can follow later.
+- [x] **Make a general diagram of the evaluation process.** Completed by the student and added on October 19, 2026: [Vulnerability Detection Evaluation.png](../diagrams/Vulnerability%20Detection%20Evaluation.png). Preparation scope: show choosing the targets and tools, preparing shared code cases and checked answers, running the six detectors, collecting their results, grading them, calculating scores, comparing the results, and selecting the methodology. Keep the checked answers separate from the code supplied to the detectors. A general diagram is enough for this meeting; the model-specific example and other application diagrams can follow later.
 
 Use the general evaluation explanation in [diagrams.md](../research/diagrams.md) to guide this diagram. The smaller method visuals below support the written explanations and are separate from this main diagram.
 

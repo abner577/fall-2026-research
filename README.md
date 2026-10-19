@@ -23,6 +23,10 @@ The short [research plan](research-plan.md) contains the milestones and the earl
 
 Use the [next-meeting checklist](meetings/next-meeting-checklist.md) to prepare the written methods, two diagrams, and study proposals for mentor review.
 
+Store diagram image files and future visual exports in [diagrams/](diagrams/). This folder holds the general evaluation diagram, future example and application workflow diagrams, and supporting method visuals as they are completed. Keep their descriptions and preparation requirements in [research/diagrams.md](research/diagrams.md) and the meeting checklist; link completed artifacts from those notes. For future AI assistants, a diagram's completion does not mean the study has been run or its proposed methods approved.
+
+The student completed the main general evaluation diagram for the next meeting on October 19, 2026: [Vulnerability Detection Evaluation.png](diagrams/Vulnerability%20Detection%20Evaluation.png). The other planned visuals remain pending unless separately marked complete.
+
 Keep raw meeting transcripts in [transcripts/](transcripts/README.md). Add a transcript and a short context description after every meeting. Consult these records when the student asks or when they help clarify meeting requests, decisions, or preparation; the folder guide explains how to distinguish discussion from current instructions.
 
 The intended scope remains **two main targets**, rather than comprehensive coverage. The preparation notes propose password and credential security, and insecure communication and data handling. Those are broad areas containing several possible weaknesses. The exact CWE entries, related weaknesses, checks, and code scope still need decisions with the professor.
