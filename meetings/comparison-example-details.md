@@ -230,7 +230,7 @@ Suggested comparison caption:
 
 ## 7. Three grading visuals for the method diagram
 
-The [executed Jupyter notebook](../diagrams/comparison-matrices.ipynb) uses Matplotlib and Seaborn and saves its displayed plots as PNGs. Its first three visuals use the agreed **Missing, Found, Partially Found** categories:
+The three PNG images were generated using Matplotlib and Seaborn and use the agreed **Missing, Found, Partially Found** categories:
 
 1. [GPT grading against the key](../diagrams/comparison-gpt-grading.png): one row per known vulnerability (U1–U3), one column per grade, and rubric points in the assigned cell.
 2. [Semgrep grading against the key](../diagrams/comparison-semgrep-grading.png): the same rows and columns for the scanner.
@@ -252,4 +252,4 @@ Exact grade agreement is **1/3 = 33.3%** (U1). Grade agreement is separate from 
 
 Use the shared preparation and key centrally, the prompt/API/response/grading sequence on the blue left branch, and configuration/command/JSON/normalization/grading on the green right branch. Merge into the scored comparison, the three grading visuals in section 7, and the illustrative conclusion. Each image has an illustration label so it remains identifiable when copied elsewhere.
 
-The editable plot source, calculation checks and saved outputs are in [comparison-matrices.ipynb](../diagrams/comparison-matrices.ipynb). The [Python runner](../diagrams/generate_comparison_matrices.py) executes that notebook and exports only the three updated grading images; it replaces the earlier manual Pillow drawing code. Dependencies are recorded in [comparison-notebook-requirements.txt](../diagrams/comparison-notebook-requirements.txt). Select the workspace `.venv` interpreter in Jupyter/VS Code, or run `.venv/Scripts/python.exe diagrams/generate_comparison_matrices.py` from the repository root. The final workflow diagram has not been created in this step.
+The three exported grading images are the retained assets. The notebook, generation script, dependency list and temporary Python environment were removed after the calculations and exports were verified. The final workflow diagram has not been created in this step.
