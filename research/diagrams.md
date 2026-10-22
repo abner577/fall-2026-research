@@ -8,7 +8,11 @@ Show the full workflow of the evaluation study comparing LLMs with static code a
 
 ## Evaluation diagram with a specific example
 
-Show the same evaluation workflow using a concrete example, such as ChatGPT compared with three code scanners. Make the wording specific to that example: the model, scanners, code, and vulnerabilities being compared. Keep the same flow as the general evaluation diagram. This example illustrates one LLM against three scanners within the overall three-LLM-versus-three-scanner study; ChatGPT/OpenAI is now one of the three selected families alongside Gemini and Qwen 3.8 27B through Groq (`qwen/qwen3.8-27b`), while its exact API model remains pending.
+**Completed for the next meeting, October 22, 2026:** [Example GPT vs Semgrep Diagram.png](../diagrams/Example%20GPT%20vs%20Semgrep%20Diagram.png), supplied by the student. This also completes the Method 4 supporting visual in the meeting checklist.
+
+The worked example follows the general evaluation workflow with one GPT model through the OpenAI API and one Semgrep Community Edition workflow, using the same `device_client.py` code. It shows the code screenshot, prompt/API call, illustrative GPT response, scanner configuration and command, JSON output, normalized findings, shared answer key and rubric, detector grading, final comparison, and three grading visuals. The illustrative partial-credit scores are GPT 83.3% and Semgrep 66.7%; false alarms are recorded separately. The two detector-versus-key visuals use Found, Missing and Partially Found grades; the third compares grade agreement, not correctness. See [the prepared example details](../meetings/comparison-example-details.md).
+
+This is a completed explanatory diagram with invented outputs, not a completed experiment, independent validation of the draft key, or a methodology decision. Its one-LLM-versus-one-scanner scope follows the student's current instructions; the main study still compares three LLMs with three scanners. The exact OpenAI API model remains pending.
 
 ## General application workflow: methodology 1, scanner-based
 
