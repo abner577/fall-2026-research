@@ -253,3 +253,18 @@ Exact grade agreement is **1/3 = 33.3%** (U1). Grade agreement is separate from 
 Use the shared preparation and key centrally, the prompt/API/response/grading sequence on the blue left branch, and configuration/command/JSON/normalization/grading on the green right branch. Merge into the scored comparison, the three grading visuals in section 7, and the illustrative conclusion. Each image has an illustration label so it remains identifiable when copied elsewhere.
 
 The three exported grading images are the retained assets. The notebook, generation script, dependency list and temporary Python environment were removed after the calculations and exports were verified. The final workflow diagram has not been created in this step.
+
+### Report-preview images
+
+The following PNGs can replace the corresponding text panels in the worked-example diagram. They preserve the illustrative findings and scores above and are labeled as invented examples, rather than screenshots of actual detector runs.
+
+| Diagram panel | Image |
+| --- | --- |
+| GPT response table | [example-gpt-response.png](../diagrams/example-gpt-response.png) |
+| GPT grading table | [example-gpt-grading.png](../diagrams/example-gpt-grading.png) |
+| Semgrep JSON output | [example-semgrep-json.png](../diagrams/example-semgrep-json.png) |
+| Normalized Semgrep findings | [example-semgrep-findings.png](../diagrams/example-semgrep-findings.png) |
+| Semgrep grading table | [example-semgrep-grading.png](../diagrams/example-semgrep-grading.png) |
+| Combined comparison table | [example-comparison-table.png](../diagrams/example-comparison-table.png) |
+
+These are report previews separate from the three grading-matrix images. Only the rendered PNGs are retained; no additional notebook or generation script is needed.
