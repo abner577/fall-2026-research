@@ -104,9 +104,13 @@ Revise the plan when the direction changes. Record the reason for substantial ch
 
 ## Research journal: what to record
 
+**Journal workflow (confirmed October 26, 2026):** Provide journal entries and revised field text directly in the chat for the student to copy into the journal. The student fills out and submits the journal independently. Do not assume there is a local or connected journal document to locate or edit. Repository notes preserve guidance and supporting text; they do not replace delivering the requested entry in chat.
+
 The plan describes intended work; the journal records work actually performed and what was learned. A journal entry should preserve enough context to resume the work, discuss it with the mentor, and trace later conclusions to evidence.
 
 Keep a weekly account of work performed, problems, lessons, and next steps. Include supporting sources and mentor feedback where useful. Record unsuccessful attempts and changes of direction when they explain a decision, and do not present reconstructed memories as recorded results.
+
+For **Professional Development Activities Attended, if any**, include each activity's name and date (and time/time zone when known), followed by a **two- to three-sentence description** of what the activity covered, what the student gained from it, and what the student learned. An activity name alone does not satisfy this field. Base the description on the student's account; do not invent takeaways or attendance. If no activities were attended, state that explicitly. This is the student's journal-format requirement, clarified October 26, 2026.
 
 ## Context for AI assistants and future collaborators
 
