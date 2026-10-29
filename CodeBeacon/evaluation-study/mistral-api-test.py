@@ -1,6 +1,6 @@
 """Send a Mistral request and save one minimal JSON log per API attempt.
 
-Run: python mistral-test.py --prompt-file prompts/detection.txt
+Run: python mistral-api-test.py --prompt-file prompts/detection.txt
 Use --model to select one model without automatic fallbacks.
 Credentials: MISTRAL_API_KEY in the environment or this folder's .env.
 """
@@ -15,6 +15,7 @@ from zoneinfo import ZoneInfo
 
 import httpx
 from dotenv import load_dotenv
+from evaluation_logging import save_log
 from mistralai.client import Mistral
 from mistralai.client.errors import MistralError
 
@@ -55,8 +56,7 @@ def main():
         for index, model in enumerate(models):
             if index:
                 time.sleep(3)
-            timestamp = datetime.now(eastern).strftime("%Y-%m-%d_%H-%M-%S-%f_%Z%z")
-            output_file = output_dir / f"{timestamp}_{model}.json"
+            date = datetime.now(eastern).strftime("%Y-%m-%d")
             messages = [{"role": "user", "content": prompt}]
             log = {
                 "model_used": model,
@@ -91,7 +91,7 @@ def main():
                 log["error"] = f"Connection or timeout error: {exc}"
             finally:
                 payload = json.dumps(log, indent=2, ensure_ascii=False)
-                output_file.write_text(payload.replace(api_key, "[REDACTED]"), encoding="utf-8")
+                output_file = save_log(output_dir, date, model, payload.replace(api_key, "[REDACTED]"))
                 print(f"Model: {log['model_used']} | HTTP status: {log['http_status']}")
                 content = log["response"]
                 if isinstance(content, list):
