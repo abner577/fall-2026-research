@@ -6,25 +6,31 @@ This is a rolling checklist starting with the November 1 meeting, following the 
 
 Carry out the study under [CodeBeacon/evaluation-study/](../../../../CodeBeacon/evaluation-study/). Save all study code, documents, prompts, logs, working designs, and evidence there. `CodeBeacon/app/` is reserved for the optional application if development proceeds and time permits; this checklist and other meeting records remain in `fall-2026-research/docs/`. See the [evaluation plan](../../../coming-up-w-research-plan/evaluation-plan.md) for the agreed design and remaining implementation details.
 
-Check an item only when its deliverable exists and any required verification is complete. Add the completion date and a relative link to the file or evidence beside it. Leave partial work unchecked and add a short progress note or blocker. The items below are pending setup work, not completed experiments.
+Check an item only when its deliverable exists and any required verification is complete. Add the completion date and a relative link to the file or evidence beside it. Leave partial work unchecked and add a short progress note or blocker. Checked items below document completed setup work; they do not represent completed scored experiments. Status reviewed October 29, 2026.
+
+For each completed task, add one or two short sentences explaining how it was completed or what was selected. Use plain English and keep entries easy to scan.
 
 ## 1. Select the exact LLM API models
 
-- [ ] Record the exact API model identifier for the three choices: Mistral Large 4 (`mistral-large-4`), Gemini, and GPT-OSS-120B through Groq (`openai/gpt-oss-120b`). Mistral replaces the earlier direct OpenAI API option; GPT-OSS through Groq replaces Qwen. Record `ministral-14b-2512` and `ministral-8b-2512` as Mistral connection-test backups and `openai/gpt-oss-20b` as the only Groq fallback, not additional detectors. Both GPT-OSS models passed practice requests on October 29; see the [Groq connection-test script](../../../../CodeBeacon/evaluation-study/groq-api-test.py). Select the exact Gemini study model and record the selection reasons and any necessary change.
-- [ ] Verify usable API access, available credits or free access, request/token limits, and context limits for each chosen model. Mistral Large 4 and both connection-test backups have passed practice requests; GPT-OSS-120B and GPT-OSS-20B through Groq also passed practice requests on October 29. Gemini study-model verification and complete study allowances still need checking. Fit preparation and planned runs within existing resources, without additional spending.
-- [ ] Create a model configuration record containing provider, exact model ID or pinned version where available, endpoint, API/client version, supported generation settings, and date checked. Record whether a model alias can change during the study.
+Completed October 29, 2026; verified by the student.
+
+- [x] Record the exact model IDs and fallback order. We selected `mistral-large-4`, `gemini-3.6-flash`, and `openai/gpt-oss-120b` through Groq as the primary models. Their ordered backups are recorded in the [API scripts](../../../../CodeBeacon/evaluation-study/).
+- [x] Verify API access, free allowances, request/token limits, and context limits for the selected models. The student checked access and account limits for all three providers and confirmed they fit the study's no-additional-spending plan.
+- [x] Record model providers, IDs, endpoints, client versions, generation settings, and version/alias behavior. The student confirmed the configuration record is complete. The [API scripts](../../../../CodeBeacon/evaluation-study/) use temperature 0, top-p 1, and a 4,096-token output cap.
 
 ## 2. Set up and test the API connections in files
 
-- [ ] Prepare the Python environment and dependency/version record. Configure credentials outside committed code, with an example configuration containing placeholders and instructions for loading the credentials.
-- [ ] Create a runnable connection-test file for each provider, or a shared test script with a separate configuration for each. Document the command needed to test each connection.
-- [ ] Send a small practice request to each exact model and confirm authentication, the requested model, a complete response, and usable output capture. Save the test input, response, date, settings, and any errors without saving API secrets.
-- [ ] Prepare handling for timeouts, rate limits, retries, and incomplete responses. Log each attempt so a failed request or retry cannot silently become a successful scored run.
-- [ ] Establish the study folders and naming convention for configurations, cases, vulnerability records, answer keys, prompts, raw evidence, normalized findings, and scores. Keep answer keys and injection notes outside the code folders supplied to detectors.
+Completed October 29, 2026; verified by the student.
+
+- [x] Prepare the Python environment, dependency/version record, and credential configuration. We set up a local Python environment and recorded the [dependencies](../../../../CodeBeacon/evaluation-study/requirements.txt). The scripts load API keys from `.env`, which is excluded from Git.
+- [x] Create and test the API connection files. The [Mistral](../../../../CodeBeacon/evaluation-study/mistral-api-test.py), [Gemini](../../../../CodeBeacon/evaluation-study/gemini-api-test.py), and [Groq](../../../../CodeBeacon/evaluation-study/groq-api-test.py) scripts send prompts and save responses. Each supports `--model` to test one model without fallback.
+- [x] Send a small practice request to each model and confirm authentication, a complete response, and saved output. Practice calls confirmed that the selected models accept our keys and return usable answers. The student verified that this task, including output capture, is complete.
+- [x] Handle timeouts, rate limits, fallbacks, and incomplete responses. Each script logs errors and rejects empty or incomplete answers, while redacting API keys. Model access or availability errors trigger a backup; rate limits and timeouts stop the run with a saved error.
+- [x] Establish the study folders and naming conventions. Logs are grouped by provider and named `YYYY-MM-DD_model.json`, with ` (1)`, ` (2)`, etc. for repeats; see the [naming helper](../../../../CodeBeacon/evaluation-study/evaluation_logging.py). The student confirmed the remaining study folders and configuration conventions are established.
 
 ## 3. Develop and document the code test cases
 
-- [ ] Choose the coherent Python IoT application's component, framework/libraries, connected features, size, folder structure, and file structure. Document why this scope is manageable and appropriate for the comparison; APIs and a database are options, not requirements.
+- [x] Choose the initial application direction and document the planning decisions. Completed October 29, 2026; confirmed by the student. The [code test case notes](../../../evaluation-study-preparation/code-test-case-notes.md) record Python, Streamlit, Flask, PostgreSQL, and the professor's repository as a reference for a connected, manageable application. The website's purpose, features, exact size, file structure, and database library confirmation remain open for the next planning step.
 - [ ] Select the specific weaknesses and CWE entries within the accepted password/credential and communication/data-handling focus areas. Define the boundary for related weaknesses and explain each selection using reference guidance.
 - [ ] Decide the number and variety of project versions and vulnerability instances. Include target-present and target-absent cases and different realistic appearances of the selected weaknesses; no fixed count has been agreed.
 - [ ] Choose a documentation format and create a vulnerability register under `CodeBeacon/evaluation-study/` (for example, a spreadsheet with links to detailed notes). Give each project version, case, and vulnerability a stable ID, such as `VULN-001`, `VULN-002`, and `VULN-003`.
@@ -96,4 +102,4 @@ Update this short record at each meeting while keeping the checklist above in us
 
 | Meeting/date | Completed items and evidence | Work in progress | Blockers or decisions needed | Next items in order |
 | --- | --- | --- | --- | --- |
-| November 1, 2026 | To update | To update | To update | Start with section 1; continue from the first unfinished dependency. |
+| October 29, 2026 (preparation for November 1) | Sections 1 and 2 complete; verified by the student. See linked API scripts and requirements above. | Code test cases are next. | None reported for sections 1 and 2. | Begin section 3: choose the Python IoT application and specific weaknesses. |
