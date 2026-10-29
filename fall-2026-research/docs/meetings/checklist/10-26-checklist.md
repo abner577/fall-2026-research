@@ -1,5 +1,7 @@
 # Checklist before the next mentor meeting
 
+**October 29 follow-up:** the current study choices are Mistral Large 4 (`mistral-large-4`), Gemini, and Qwen through Groq. Mistral replaces OpenAI; references to OpenAI below preserve the October 26 preparation record. Use the [November 1 rolling checklist](11-1-checklist.md) for current actions.
+
 This is the checklist for the October 26, 2026 meeting. Dated checklists in `fall-2026-research/docs/meetings/checklist/` track meeting tasks and conclusions; this file preserves the preparation record. The overall design and broad focus areas were supported at the meeting; see the [October 26 conclusions](../conclusions/10-26-conclusions.md), [transcript](../../transcripts/10-26-Weekly%20CAHSI%20Meeting.docx), and [current follow-up checklist](11-1-checklist.md). Unchecked preparation items below are historical and do not override the recorded outcomes. Keep preparation completion separate from approval and follow-up completion. The [preparation walkthrough](../preparation/10-26-meeting.md) gives the presentation order; raw meeting records belong in [docs/transcripts/](../../transcripts/README.md).
 
 The aim is to bring a complete proposed design for milestone 1: compare three LLMs with three code scanners, measure how accurately they find the selected vulnerabilities, and use the results to choose the methodology for development. Bring recommendations with reasons so the professor can review and correct them. Proposed choices are not final decisions yet.

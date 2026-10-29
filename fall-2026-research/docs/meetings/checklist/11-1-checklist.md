@@ -10,8 +10,8 @@ Check an item only when its deliverable exists and any required verification is 
 
 ## 1. Select the exact LLM API models
 
-- [ ] Record the exact API model identifier for each selected provider: Gemini, OpenAI, and Groq. Select the Gemini and OpenAI models; verify that the previously selected Groq identifier, `qwen/qwen3.8-27b`, is available to the account before committing to it. Record the selection reasons and any necessary change.
-- [ ] Verify usable API access, available credits or free access, request/token limits, and context limits for each chosen model. Check whether existing OpenAI payment includes API access rather than assuming it does. Fit preparation and planned runs within existing resources, without additional spending.
+- [ ] Record the exact API model identifier for the three choices: Mistral Large 4 (`mistral-large-4`), Gemini, and Qwen through Groq. Mistral replaces OpenAI. Record `ministral-14b-2512` and `ministral-8b-2512` as Mistral connection-test backups, not additional detectors. Select the exact Gemini model; verify that the previously selected Groq identifier, `qwen/qwen3.8-27b`, is available to the account before committing to it. Record the selection reasons and any necessary change.
+- [ ] Verify usable API access, available credits or free access, request/token limits, and context limits for each chosen model. Mistral Large 4 and both connection-test backups have passed practice requests; Gemini/Groq access and the complete study allowances still need checking. Fit preparation and planned runs within existing resources, without additional spending.
 - [ ] Create a model configuration record containing provider, exact model ID or pinned version where available, endpoint, API/client version, supported generation settings, and date checked. Record whether a model alias can change during the study.
 
 ## 2. Set up and test the API connections in files
