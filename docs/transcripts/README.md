@@ -2,6 +2,14 @@
 
 Keep the raw transcripts of our research meetings here so they remain available alongside the research notes. Add the transcript after each meeting, whether meetings happen weekly or on another schedule. Preserve the supplied transcript without rewriting it. Use the meeting date in the filename and add a short context description to this file so readers can find the relevant meeting.
 
+## Related meeting records
+
+This folder is the transcript archive within `docs/`, which holds all weekly meeting documentation. Research methods, application proposals, diagrams, and supporting images live separately under `fall-2026-research/`; see the [repository guide](../../README.md#repository-structure-and-weekly-meeting-workflow).
+
+For each meeting, pair the transcript with a dated [checklist and conclusions](../meetings/checklist/) and a dated [preparation walkthrough](../meetings/preparation/). The preparation explains step by step what to present and ask. The checklist records resulting actions and conclusions: what was accepted, what should continue or change, and what remains open. Supporting explanations may also be kept with the checklists. Use the meeting date to connect these records and add links when the files are available; do not infer conclusions from preparation notes.
+
+After recording feedback, update the relevant research notes if the active plan changes, then use the follow-up checklist to prepare the next meeting. Preserve the original transcript as the source for the discussion.
+
 ## Available transcripts
 
 ### October 12, 2026: research design and methodology selection

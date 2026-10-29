@@ -6,6 +6,14 @@ Updated October 12, 2026. This is the working plan following the mentor meeting 
 
 **Current study:** compare three LLMs with three static code analysis tools to select the detection methodology for CodeBeacon. Application development is milestone 2, supported by the comparison results.
 
+## Documentation locations and meeting follow-up
+
+The repository has two main folders: [fall-2026-research/](fall-2026-research/) holds the research and application materials, diagrams, and supporting images; [docs/](docs/) holds weekly meeting documentation. This root plan and [README.md](README.md#repository-structure-and-weekly-meeting-workflow) provide the overview.
+
+For each meeting, keep the raw transcript in [docs/transcripts/](docs/transcripts/README.md), the action checklist and meeting conclusions in [docs/meetings/checklist/](docs/meetings/checklist/), and the step-by-step presentation plan in [docs/meetings/preparation/](docs/meetings/preparation/). Identify related records by meeting date and link them where available. Preparation covers updates, proposals, questions, and materials to show; the resulting checklist records feedback, accepted proposals, requested changes, unresolved questions, and next actions. Supporting explanations may also live with the checklists.
+
+Use recorded conclusions to revise the research plans and prepare the next meeting. Keep proposed work distinct from approved decisions and completed actions; an agenda alone does not establish a meeting outcome. Preserve previous meeting records when later feedback changes the direction.
+
 ## Problem and purpose
 
 IoT software can contain weaknesses that expose information or allow unauthorized access. Before choosing how our proposed application should find those weaknesses, we will compare LLMs with code scanners on shared test cases. We want to learn how accurately the selected detectors identify the targeted weaknesses and their locations, including when they miss a weakness or raise a false alarm.
@@ -25,7 +33,7 @@ If the all-AI methodology produces better detection results than the scanner met
 This selection purpose is confirmed by the student's clarification. The exact meaning of better or comparable results, the evidence needed, and the revised schedule still need agreement. Comparable performance must be judged against independent answers; agreement between detector outputs alone does not establish accuracy. Review the results and remaining time with the professor before implementation. Application development remains milestone 2, while milestone 1 supplies the evidence for the methodology choice.
 
 1. Document how we choose two targets and related weaknesses from CWE.
-2. Use Gemini, ChatGPT/OpenAI, and Qwen 3.8 27B through Groq (`qwen/qwen3.8-27b`); select exact Gemini and OpenAI API models, verify access costs, and use Python for all study examples and record versions and coverage for the three selected scanners: Semgrep Community Edition, CodeQL, and Bandit. See [scanner notes](research/scanner-tools.md). Initial LLM detection has no supplied CWE guidance; guidance is retrieved afterward for suggestions.
+2. Use Gemini, ChatGPT/OpenAI, and Qwen 3.8 27B through Groq (`qwen/qwen3.8-27b`); select exact Gemini and OpenAI API models, verify access costs, and use Python for all study examples and record versions and coverage for the three selected scanners: Semgrep Community Edition, CodeQL, and Bandit. See [scanner notes](fall-2026-research/research/scanner-tools.md). Initial LLM detection has no supplied CWE guidance; guidance is retrieved afterward for suggestions.
 3. Prepare cases with and without the targeted weaknesses and define independently checked answers.
 4. Write exact prompts, scanner procedures, a common result format, and scoring rules, including Partially Found.
 5. Run all six detectors on the shared cases and preserve exact inputs and outputs.
@@ -41,7 +49,7 @@ The earlier development-first plan and its schedule are summarized below. Develo
 ## Planned documentation and deliverables
 
 - Plain-English methods and reasons for target and detector selection.
-- Six diagram descriptions and one results-document description, as listed in [diagrams](research/diagrams.md). The app-specific diagram is conditional on development.
+- Six diagram descriptions and one results-document description, as listed in [diagrams](fall-2026-research/research/diagrams.md). The app-specific diagram is conditional on development.
 - Written procedures for each selected detector and the professor's six methods.
 - Exact cases, independent answers, prompts, commands, settings, original outputs, grading, scores, and comparison visuals.
 - A conclusion supported by the evaluated cases and a recorded milestone decision.
@@ -55,7 +63,7 @@ Ask the professor which dates and deliverables still apply. Set dates for design
 
 ## Detailed notes
 
-Use the [evaluation plan](research/evaluation-plan.md) for study methods and source history, [application workflows](research/application-workflows.md) for the two methodologies, [diagram descriptions](research/diagrams.md) for the requested visuals, [professor questions](research/decisions-and-professor-questions.md) for pending decisions.
+Use the [evaluation plan](fall-2026-research/research/evaluation-plan.md) for study methods and source history, [application workflows](fall-2026-research/research/application-workflows.md) for the two methodologies, [diagram descriptions](fall-2026-research/research/diagrams.md) for the requested visuals, [professor questions](fall-2026-research/research/decisions-and-professor-questions.md) for pending decisions.
 
 ## Earlier development-first plan
 
@@ -68,4 +76,4 @@ The original title was "CodeBeacon: AI IoT Code Scanner." Its short-term goal wa
 | Test vulnerable and safe examples and document limits | November 2026 | First week of December 2026 |
 | Refine the prototype, summarize findings, and prepare the poster | Beginning of January 2027 | End of the third week of January 2027 |
 
-The earlier deliverables were an initial prototype and preliminary evaluation in the first week of December 2026, and a final poster at the end of the third week of January 2027. These planning dates require confirmation after the direction change. The original scanner workflow and example are retained in [application workflows](research/application-workflows.md).
+The earlier deliverables were an initial prototype and preliminary evaluation in the first week of December 2026, and a final poster at the end of the third week of January 2027. These planning dates require confirmation after the direction change. The original scanner workflow and example are retained in [application workflows](fall-2026-research/research/application-workflows.md).

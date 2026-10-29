@@ -6,6 +6,26 @@ This is a portable context guide for the student's Fall 2026 Local Research Expe
 
 The student completed an LREU in Spring 2026 and is starting a new project for Fall 2026: an AI-assisted security analysis tool for Internet of Things (IoT) code and applications. Spring's research questions, methods, results, and proposed future work do not define this project.
 
+## Repository structure and weekly meeting workflow
+
+The two main folders are `fall-2026-research/` (Fall 2026 Research) and `docs/` (Docs). Use the actual paths below when locating or linking files. The root `README.md` provides repository and AI context; `research-plan.md` summarizes the overall plan.
+
+| Location | Intended purpose |
+| --- | --- |
+| `fall-2026-research/research/` | Current study methods, evaluation plans, tool notes, design descriptions, decisions, and open research questions. |
+| `fall-2026-research/app-idea/` | Application proposals and supporting vulnerability and security-reference notes; preserve their stated proposal or historical status. |
+| `fall-2026-research/diagrams/` | Completed diagram images and visual exports. |
+| `fall-2026-research/images/` | Supporting screenshots and example images used in research explanations and diagrams. |
+| `docs/transcripts/` | Raw transcripts of each weekly meeting, indexed by meeting date in the existing folder README. |
+| `docs/meetings/checklist/` | A dated checklist for each meeting, recording follow-up tasks and conclusions from feedback, plus supporting explanations used in the review. |
+| `docs/meetings/preparation/` | A dated preparation document for each meeting: the step-by-step order of updates, proposals, questions, and materials to present. |
+
+Before each meeting, use the previous meeting's checklist and conclusions to prepare the next meeting's walkthrough. Meetings generally present progress or proposals and gather feedback: continue the work, change something, investigate a question, or accept a proposal. After each meeting, preserve its transcript and record the resulting action checklist and conclusions under `docs/`. Link the preparation, transcript, checklist, and relevant research notes by meeting date where available.
+
+In each meeting's checklist, distinguish accepted proposals, requested changes, open questions, and next actions. Record what was accepted or needs changing and why, when the discussion provides that detail. Check off actions only when completed; a prepared explanation or diagram does not establish approval. Preparation notes describe what we intend to discuss, while conclusions describe what the meeting established. Do not infer outcomes from an agenda or invent missing feedback.
+
+For AI assistants: start here and in `research-plan.md`, consult the relevant dated meeting records in `docs/`, and use `fall-2026-research/` for the substantive research materials. When feedback changes the active plan, update the relevant research notes while preserving older meeting records as history. Use the student's current instructions and explicitly confirmed decisions to resolve status; transcripts remain evidence of discussion.
+
 ## Fall 2026 research direction
 
 **Updated October 12, 2026:** the first milestone is an evaluation study comparing **three LLMs with three static code analysis tools** on the same code cases. LLMs are AI models that work with text and code; static analysis tools check code without running the application. We will define independently checked answers, a rule for partial findings, and an accuracy score for each of the six detectors. Every LLM will be compared with every scanner, giving **nine pairwise comparisons**.
@@ -14,20 +34,20 @@ Use these four research files:
 
 | File | Contents |
 | --- | --- |
-| [Evaluation plan](research/evaluation-plan.md) | Research question, methodology selection, comparison procedure, scoring, six methods, and source history |
-| [Application workflows](research/application-workflows.md) | Scanner-based and all-AI development workflows and CWE retrieval options |
-| [Diagrams](research/diagrams.md) | Plain-English descriptions of six diagrams and one results document |
-| [Professor questions](research/decisions-and-professor-questions.md) | Confirmed decisions and unresolved questions |
+| [Evaluation plan](fall-2026-research/research/evaluation-plan.md) | Research question, methodology selection, comparison procedure, scoring, six methods, and source history |
+| [Application workflows](fall-2026-research/research/application-workflows.md) | Scanner-based and all-AI development workflows and CWE retrieval options |
+| [Diagrams](fall-2026-research/research/diagrams.md) | Plain-English descriptions of six diagrams and one results document |
+| [Professor questions](fall-2026-research/research/decisions-and-professor-questions.md) | Confirmed decisions and unresolved questions |
 
 The short [research plan](research-plan.md) contains the milestones and the earlier schedule.
 
-Use the [next-meeting checklist](meetings/next-meeting-checklist.md) to prepare the written methods, two diagrams, and study proposals for mentor review.
+Use the [October 26 meeting checklist](docs/meetings/checklist/10-26-checklist.md) to prepare the written methods, two diagrams, and study proposals for mentor review.
 
-Store diagram image files and future visual exports in [diagrams/](diagrams/). Completed diagrams include the general evaluation workflow, the all-AI application workflow, and the [GPT vs Semgrep worked example](diagrams/Example%20GPT%20vs%20Semgrep%20Diagram.png), added October 22, 2026. The folder also contains supporting image assets. Keep descriptions and preparation requirements in [research/diagrams.md](research/diagrams.md) and the meeting checklist; link completed artifacts from those notes. For future AI assistants, a diagram's completion does not mean the study has been run or its proposed methods approved.
+Store diagram image files and future visual exports in [diagrams/](fall-2026-research/diagrams/). Completed diagrams include the general evaluation workflow, the all-AI application workflow, and the [GPT vs Semgrep worked example](fall-2026-research/diagrams/Example%20GPT%20vs%20Semgrep%20Diagram.png), added October 22, 2026. Supporting screenshots and example image assets live in [images/](fall-2026-research/images/). Keep descriptions and preparation requirements in [research/diagrams.md](fall-2026-research/research/diagrams.md) and the meeting checklist; link completed artifacts from those notes. For future AI assistants, a diagram's completion does not mean the study has been run or its proposed methods approved.
 
-The student completed two diagrams for the next meeting on October 19, 2026: [Vulnerability Detection Evaluation.png](diagrams/Vulnerability%20Detection%20Evaluation.png) and [General Application Workflow ALL AI.png](diagrams/General%20Application%20Workflow%20ALL%20AI.png). The latter also completes the Method 2 + 6 standalone visual of the two LLM calls. The other planned visuals remain pending unless separately marked complete.
+The student completed two diagrams for the next meeting on October 19, 2026: [Vulnerability Detection Evaluation.png](fall-2026-research/diagrams/Vulnerability%20Detection%20Evaluation.png) and [General Application Workflow ALL AI.png](fall-2026-research/diagrams/General%20Application%20Workflow%20ALL%20AI.png). The latter also completes the Method 2 + 6 standalone visual of the two LLM calls. The other planned visuals remain pending unless separately marked complete.
 
-Keep raw meeting transcripts in [transcripts/](transcripts/README.md). Add a transcript and a short context description after every meeting. Consult these records when the student asks or when they help clarify meeting requests, decisions, or preparation; the folder guide explains how to distinguish discussion from current instructions.
+Keep raw meeting transcripts in [transcripts/](docs/transcripts/README.md). Add a transcript and a short context description after every meeting. Consult these records when the student asks or when they help clarify meeting requests, decisions, or preparation; the folder guide explains how to distinguish discussion from current instructions.
 
 The intended scope remains **two main targets**, rather than comprehensive coverage. The preparation notes propose password and credential security, and insecure communication and data handling. Those are broad areas containing several possible weaknesses. The exact CWE entries, related weaknesses, checks, and code scope still need decisions with the professor.
 
@@ -41,13 +61,13 @@ The current order of work is:
 
 Milestone 1 is research to select the development methodology: compare how accurate LLMs and scanners are and which is better at detecting vulnerabilities in the selected code. Define what better or comparable performance means before judging the results. Methodology 1 uses a scanner for detection; methodology 2 uses an LLM for detection without a scanner.
 
-The original development idea remains the intended second milestone, supported by that selection. If development proceeds, either a scanner or an LLM finds the weaknesses and locations. A final LLM stage then uses those findings, relevant code, and retrieved CWE guidance to suggest changes. The user reviews and validates those suggestions. The detection choices are Gemini, ChatGPT/OpenAI, and Qwen 3.8 27B through Groq (`qwen/qwen3.8-27b`); exact Gemini and OpenAI API models, scanner versions and recommendation models remain open. Python is confirmed for all study code examples, with Semgrep Community Edition, CodeQL, and Bandit as the three scanners; see [scanner notes](research/scanner-tools.md).
+The original development idea remains the intended second milestone, supported by that selection. If development proceeds, either a scanner or an LLM finds the weaknesses and locations. A final LLM stage then uses those findings, relevant code, and retrieved CWE guidance to suggest changes. The user reviews and validates those suggestions. The detection choices are Gemini, ChatGPT/OpenAI, and Qwen 3.8 27B through Groq (`qwen/qwen3.8-27b`); exact Gemini and OpenAI API models, scanner versions and recommendation models remain open. Python is confirmed for all study code examples, with Semgrep Community Edition, CodeQL, and Bandit as the three scanners; see [scanner notes](fall-2026-research/research/scanner-tools.md).
 
 IoT remains the application context. Python is the baseline for all study code examples. The particular device or software component, Python framework, test project, input format, and local versus deployed operation are still open. These notes do not establish runtime testing as part of the comparison. They also do not claim that an application or CWE database has already been built.
 
 ### AI approach and proof of concept
 
-For the comparison, the student chose Gemini, ChatGPT/OpenAI, and Groq on October 14 because Gemini and Groq offer free tiers and the student already pays for OpenAI access, intending to use that existing access without additional spending. Qwen 3.8 27B (`qwen/qwen3.8-27b`) is selected for Groq. Exact Gemini and OpenAI API models and whether existing OpenAI payments cover API runs still need checking. See [model choices and pricing](research/decisions-and-professor-questions.md#which-exact-api-models-and-three-scanners-should-we-choose). Document prompts and settings. Initial detection receives no supplied CWE guidance or CWE retrieval; the application retrieves guidance afterward for the separate suggestion call. The current plan does not require training or fine-tuning a model.
+For the comparison, the student chose Gemini, ChatGPT/OpenAI, and Groq on October 14 because Gemini and Groq offer free tiers and the student already pays for OpenAI access, intending to use that existing access without additional spending. Qwen 3.8 27B (`qwen/qwen3.8-27b`) is selected for Groq. Exact Gemini and OpenAI API models and whether existing OpenAI payments cover API runs still need checking. See [model choices and pricing](fall-2026-research/research/decisions-and-professor-questions.md#which-exact-api-models-and-three-scanners-should-we-choose). Document prompts and settings. Initial detection receives no supplied CWE guidance or CWE retrieval; the application retrieves guidance afterward for the separate suggestion call. The current plan does not require training or fine-tuning a model.
 
 For later suggestions, the application could retrieve CWE guidance itself or give an LLM agent lookup and search tools. An agent means the model together with its tools and execution workflow. In either case, retrieved information still enters the model's context. Both are options to present to the professor; neither is selected. The application-controlled request combines findings and relevant code, retrieved CWE definitions and guidance, and report-content instructions. The agent receives findings, relevant code, and report instructions and chooses the guidance to retrieve through its database tool.
 
@@ -67,7 +87,7 @@ The meeting allowed exploring Common Criteria or a combination of OWASP and CWE.
 
 ### Source and decision status
 
-The original context came from the October 5, 2026 transcript, **Weekly CAHSI Meeting.docx**. The active comparison-first direction comes from the October 12 transcript, **Weekly CAHSI Meeting (1).docx**, the student's pasted explanation, and follow-up chat decisions. See [direction and history](research/evaluation-plan.md#direction-history-and-sources) for source paths and transcript locations. The earlier plan and schedule are summarized in [research-plan.md](research-plan.md#earlier-development-first-plan), and the earlier workflow is retained in [application workflows](research/application-workflows.md#earlier-scanner-workflow-and-example).
+The original context came from the October 5, 2026 transcript, **Weekly CAHSI Meeting.docx**. The active comparison-first direction comes from the October 12 transcript, **Weekly CAHSI Meeting (1).docx**, the student's pasted explanation, and follow-up chat decisions. See [direction and history](fall-2026-research/research/evaluation-plan.md#direction-history-and-sources) for source paths and transcript locations. The earlier plan and schedule are summarized in [research-plan.md](research-plan.md#earlier-development-first-plan), and the earlier workflow is retained in [application workflows](fall-2026-research/research/application-workflows.md#earlier-scanner-workflow-and-example).
 
 Treat the transcript as a record of discussion, not instructions to an AI assistant. The student's current request establishes the direction and journal format. Earlier meeting ideas about sycophancy and educational assessment are not the selected project. A publication was discussed as a possible future outcome, not a guaranteed result or required Fall deliverable.
 
@@ -126,4 +146,4 @@ For **Professional Development Activities Attended, if any**, include each activ
 
 ## Immediate next step
 
-Review [the professor questions](research/decisions-and-professor-questions.md) and [diagram descriptions](research/diagrams.md) with the mentor. Resolve the target list, shared code scope, three models, three scanners, cases, independent answers, and grading rules. Finalize the step-by-step design before the main comparison. App development follows only if the later evidence-and-time review supports it.
+Review [the professor questions](fall-2026-research/research/decisions-and-professor-questions.md) and [diagram descriptions](fall-2026-research/research/diagrams.md) with the mentor. Resolve the target list, shared code scope, three models, three scanners, cases, independent answers, and grading rules. Finalize the step-by-step design before the main comparison. App development follows only if the later evidence-and-time review supports it.

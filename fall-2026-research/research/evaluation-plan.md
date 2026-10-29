@@ -129,7 +129,7 @@ The professor also discussed completing the project as a comparison study and re
 Source records:
 
 - October 5, 2026 transcript: `C:/Users/joser/Downloads/Weekly CAHSI Meeting.docx`, as identified in the repository context.
-- October 12, 2026 transcript: [repository copy](../transcripts/2026-10-12-weekly-cahsi-meeting.docx), originally supplied as `Weekly CAHSI Meeting (1).docx`. Selection and evidence are discussed at 1:22-6:59; detection, comparison, and suggestions at 7:14-17:04; the six methods at 17:35-23:07; comparison and milestones at 23:48-31:58.
+- October 12, 2026 transcript: [repository copy](../../docs/transcripts/2026-10-12-weekly-cahsi-meeting.docx), originally supplied as `Weekly CAHSI Meeting (1).docx`. Selection and evidence are discussed at 1:22-6:59; detection, comparison, and suggestions at 7:14-17:04; the six methods at 17:35-23:07; comparison and milestones at 23:48-31:58.
 - Earlier student explanation: `C:/Users/joser/.codex/attachments/d878bb8c-8114-4c18-95aa-6346aba12cba/Pasted text.txt`.
 - Student follow-up decisions: three LLMs and three scanners, independent answers, partial-finding rules, accuracy scores, a shared final suggestion stage, and a possible retrieval agent.
 - Current student clarification and cleanup request: methodology selection, better or comparable all-AI results supporting all-AI development, fewer research files, and plain-English descriptions of six diagrams and one results document. Attached text: `C:/Users/joser/.codex/attachments/26f7a984-ae0d-4d9e-a6ff-7fc405f0213f/Pasted text.txt`.
