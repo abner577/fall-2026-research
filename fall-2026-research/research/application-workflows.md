@@ -18,7 +18,7 @@ Milestone 1 selects between these two methodologies. Better or comparable all-AI
 6. Ask the LLM what changes would address the findings, using the code and guidance.
 7. Return a report with the issue, location, explanation, suggested change, source, and any checks still needed.
 
-The original app workflow used this approach. Python is confirmed for all study examples, and Semgrep Community Edition, CodeQL, and Bandit are selected for the comparison. The scanner used in the eventual application will depend on the comparison and applicable tool terms. See [scanner choices and report formats](scanner-tools.md).
+The original app workflow used this approach. Python is confirmed for all study examples, and Semgrep Community Edition, CodeQL, and Snyk Code are selected for the comparison. The scanner used in the eventual application will depend on the comparison and applicable tool terms. See [scanner choices and report formats](scanner-tools.md).
 
 ## Methodology 2: LLM detection or all-AI
 

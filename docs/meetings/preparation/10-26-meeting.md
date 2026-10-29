@@ -1,6 +1,6 @@
 # October 26 meeting notes
 
-This is the October 26 preparation walkthrough: the planned order of updates, proposals, questions, and diagrams to present. Dated walkthroughs belong in `docs/meetings/preparation/`. Use the [October 26 checklist](../checklist/10-26-checklist.md) for tasks and record confirmed feedback and conclusions there after the meeting; preserve raw transcripts in [docs/transcripts/](../../transcripts/README.md). This agenda does not establish what was approved or concluded.
+This is the October 26 preparation walkthrough: the planned order of updates, proposals, questions, and diagrams to present. Dated walkthroughs belong in `docs/meetings/preparation/`. Use the [October 26 checklist](../checklist/10-26-checklist.md) for tasks and record confirmed feedback and conclusions there after the meeting; preserve raw transcripts in [docs/transcripts/](../../transcripts/README.md). This agenda is preserved as preparation history. See the [recorded conclusions](../conclusions/10-26-conclusions.md) and [current follow-up checklist](../checklist/11-1-checklist.md) for the subsequent project, verification, evidence, and scanner-exploration decisions.
 
 ## 1. Start with the plan for today
 
@@ -22,7 +22,7 @@ Keep [six-methods-explanation](../checklist/six-methods-explanation.md) open for
 
 1. **How we picked the vulnerabilities.** Started with the OWASP IoT list and picked password/credential security and insecure communication/data handling. Briefly explain why those fit, and confirm the scope with him. Exact checks and CWE entries still need to be pinned down [selected-vulnerabilities](../../../fall-2026-research/app-idea/selected-vulnerabilities.md)
 2. **How the LLMs look at the code.** Same Python examples and selected weaknesses for each LLM. Ask for possible vulnerabilities and where they are. No supplied CWE guidance in this detection step; that comes later for suggestions.
-3. **How the scanners look at the code.** Same examples, using Semgrep CE, CodeQL, and Bandit with checks for our selected weaknesses. Collect their findings, locations, and explanations in a shared format. (SNYK code scanner)
+3. **How the scanners look at the code.** Same examples, using Semgrep CE, CodeQL, and Snyk Code with checks for our selected weaknesses. Collect their findings, locations, and explanations in a shared format.
 4. **How we compare results.** Check each detector against answers we prepared and independently checked beforehand. Briefly cover Found / Missing / Partially Found, proposed scores, and false alarms. Three LLMs and three scanners, with nine LLM-versus-scanner pairings. Show the flow in the evaluation diagram afterward; no need to get stuck on every formula here.
 5. **How findings would look in the app.** Saved report for each upload; click a finding for the explanation, location, and code. Separate proposed-changes section. User can mark findings resolved and the unresolved count updates.
 6. **How suggestions would be generated.** Findings + relevant code + CWE guidance go to an LLM for explanations and proposed changes. Explain both options and get his thoughts:

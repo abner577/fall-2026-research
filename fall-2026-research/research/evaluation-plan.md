@@ -1,6 +1,6 @@
 # Evaluation plan
 
-Updated October 12, 2026. This is a proposed procedure with confirmed choices marked below. The open details are listed in [decisions and questions](decisions-and-professor-questions.md).
+Updated October 29, 2026, following the October 26 meeting and student instructions. The overall design was supported; detailed scoring and implementation choices remain proposals unless confirmed below. The open details are listed in [decisions and questions](decisions-and-professor-questions.md).
 
 ## Research question and methodology selection
 
@@ -24,18 +24,18 @@ We will compare **three LLMs and three scanners**. Each will analyze the same ev
 
 The detection choices are Gemini, ChatGPT/OpenAI, and Qwen 3.8 27B through Groq (`qwen/qwen3.8-27b`). Exact Gemini and OpenAI API models and account access remain to be checked. See [model choices and pricing](decisions-and-professor-questions.md#which-exact-api-models-and-three-scanners-should-we-choose). Initial detection receives no supplied CWE guidance or CWE retrieval; guidance is retrieved afterward for the suggestion stage.
 
-All study code examples will use Python. Semgrep Community Edition, CodeQL, and Bandit are the three selected scanners; versions, specific checks, framework, and IoT component remain to be selected. See [scanner choices and report formats](scanner-tools.md).
+The study will use a coherent Python IoT application with connected functionality, rather than unrelated demonstration files. Semgrep Community Edition, CodeQL, and Snyk Code are the three selected scanners; versions, specific checks, framework, and IoT component remain to be selected. See [scanner choices and report formats](scanner-tools.md).
 
 This first study measures finding and locating weaknesses. Testing the quality of suggested fixes would be a later evaluation if we develop the application.
 
 ## The procedure
 
-1. **Set the scope.** Use Python for all examples; decide the two targets, related CWE entries, framework, application context, and limits. Explain why these were selected.
+1. **Set the scope.** Use the two accepted broad focus areas; define specific CWE weaknesses, Python framework, IoT application, and limits. Explain the reasons for these choices.
 2. **Choose the six detectors.** Record their exact names and versions. Explain why they fit the selected code and weaknesses. Coding-focused LLMs can be considered. Model brands alone are not enough to identify the model used.
-3. **Build the test set.** Include code with known weaknesses and code where those weaknesses are absent. Include different ways the weaknesses can appear. Decide the number of cases and how they will be checked.
-4. **Write the correct answers first.** For each case, identify which target weaknesses are present or absent, their locations, and the evidence. Have the answers checked independently of the six detectors being evaluated.
+3. **Build the test project.** Choose, adapt, or create a coherent IoT application, such as a web service with APIs and possibly a database; the architecture remains open. Preserve a baseline intended to lack the selected weaknesses, then create controlled versions with vulnerabilities deliberately inserted in realistic application paths. Include variation and target-absent versions. Isolated snippets may support practice or explanation but do not replace the main project. Decide the number of versions and vulnerabilities; no fixed count was agreed.
+4. **Write and verify the correct answers first.** Identify which targets are present or absent in each project version, their exact locations, and evidence. Record why each weakness was chosen, why its placement fits the application, how it was introduced, and how and by whom it was verified. Have the answers checked independently of the evaluated detectors; the professor offered review and possible expert input. Record that review only when it occurs. A baseline without the selected weaknesses is not proof that the application has no vulnerabilities.
 5. **Write and test the procedures.** Finalize the prompts, scanner commands and rules, supplied context, output format, run settings, and scoring rules. Use separate practice cases to improve the procedure before the main evaluation.
-6. **Run all six detectors.** Supply the same cases and comparable context. Keep the answer files away from the inputs sent to detectors. Save the original output and any errors from every run.
+6. **Run all six detectors.** Supply the same project versions and agreed context to every detector, withholding answer files and injection notes. Save exact inputs, full original responses and scanner reports, errors, prompts and revisions, commands, configurations/rules, model/tool versions, settings, and dates for every run, including practice and unsuccessful runs.
 7. **Put outputs into a shared format.** Use consistent fields for weakness, file, location, evidence, and uncertainty. Preserve the original output so formatting does not silently change what a detector found.
 8. **Grade against the independent answers.** Apply the agreed matching and partial-finding rules. Record correct detections, misses, false alarms, partial findings, and cases the tool could not assess.
 9. **Calculate scores and build visuals.** Give each detector its own accuracy score and confusion matrix. Build the nine pairwise comparison summaries. Include supporting measures that explain misses and false alarms.
@@ -43,7 +43,7 @@ This first study measures finding and locating weaknesses. Testing the quality o
 
 ## What a correct answer contains
 
-A correct-answer record should include the case ID, exact code version, target CWE ID, whether the weakness exists, expected file and location, explanation, supporting evidence, known missing context, and who checked the answer.
+A correct-answer record should include the project/version ID, exact code version, target CWE ID, presence or absence, exact file and location, supporting evidence, missing context, and reviewer. For each injection, explain the selection and placement reasons, code change, resulting vulnerable behavior, verification method, review date and outcome, and any disagreement. Verify target absences in control versions separately.
 
 The independent answer cannot simply be whichever scanner output we trust most. If an LLM helped write an example or an answer, that alone does not validate it. Record how someone checked it using the code and reference guidance. Decide how disputed or incomplete cases will be handled before scoring.
 
@@ -96,7 +96,7 @@ The results document will contain the confusion matrices, scores, nine pairwise 
 
 - Use the same code versions, target list, product description, and agreed file context.
 - Define comparable scanner rule coverage. Do not treat an unsupported check or failed setup as proof that a detector cannot find that weakness.
-- Record prompts, model settings, scanner rules, commands, versions, and dates.
+- AI assistants must preserve exact prompts and revisions, complete responses, scanner reports/errors, code versions, model settings, scanner rules/configuration, commands, versions, and dates. Keep originals separate from normalized tables and scores, retain all runs, and explain revisions to prompts, inputs, and procedures.
 - Do not supply CWE guidance or CWE retrieval tools during detection. Retrieve CWE guidance only after findings are available, for the later suggestion stage.
 - Give LLMs the output structure, without the scanner's answers for the scored case.
 - Decide how many repeated LLM runs to use and how to summarize them. Keep each run rather than choosing the best response.
@@ -122,11 +122,13 @@ One diagram will describe this overall six-method process. Individual detectors 
 
 The October 5 meeting began with an application idea: receive IoT code, prepare files, run focused scanner checks, collect findings and reference guidance, and use an LLM to explain issues and suggest fixes. The October 12 meeting put a comparison first. The student's subsequent clarification makes that comparison explicitly a selection process for the all-AI or scanner-based development methodology.
 
-We keep the IoT software context, limited two-target scope, findings with locations and evidence, reference-supported suggestions, and the intended development framework. The proposed password/credential and communication/data-handling areas remain subject to professor review; they are not yet two finalized CWE entries. The actual component, Python framework, cases, exact Gemini and OpenAI API model identifiers, scanner versions, and deployment remain open. Python is confirmed for all study examples, and Semgrep Community Edition, CodeQL, and Bandit are selected. The selected detection choices are Gemini, ChatGPT/OpenAI, and Qwen 3.8 27B through Groq (`qwen/qwen3.8-27b`).
+We keep the IoT software context, limited scope within two broad focus areas, findings with locations and evidence, reference-supported suggestions, and the intended development framework. The password/credential and communication/data-handling focus areas were accepted on October 26 as broad areas containing multiple weaknesses; they are not two finalized CWE entries. The meeting emphasized a coherent shared IoT project, verified vulnerability placements, reasons for choices, and raw evidence preservation. The actual component, Python framework, cases, exact Gemini and OpenAI API model identifiers, scanner versions, and deployment remain open. Python is confirmed for all study examples, and Semgrep Community Edition, CodeQL, and Snyk Code are selected. The selected detection choices are Gemini, ChatGPT/OpenAI, and Qwen 3.8 27B through Groq (`qwen/qwen3.8-27b`).
 
 The professor also discussed completing the project as a comparison study and reviewing available time after the first four methods. That remains meeting context; it does not replace the student's clarified selection purpose. A small observed difference on too few cases does not establish comparable performance. Conclusions must stay within the tested code, targets, models, versions, and settings.
 
 Source records:
+
+- October 26, 2026 transcript: [repository copy](../../docs/transcripts/10-26-Weekly%20CAHSI%20Meeting.docx). Shared coherent project: 38:52-55:25; justification and verification: 55:25-58:19; raw prompts and outputs: 54:40-58:53; next work: 1:09:47-1:10:47. See [selected conclusions](../../docs/meetings/conclusions/10-26-conclusions.md).
 
 - October 5, 2026 transcript: `C:/Users/joser/Downloads/Weekly CAHSI Meeting.docx`, as identified in the repository context.
 - October 12, 2026 transcript: [repository copy](../../docs/transcripts/2026-10-12-weekly-cahsi-meeting.docx), originally supplied as `Weekly CAHSI Meeting (1).docx`. Selection and evidence are discussed at 1:22-6:59; detection, comparison, and suggestions at 7:14-17:04; the six methods at 17:35-23:07; comparison and milestones at 23:48-31:58.

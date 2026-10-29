@@ -1,8 +1,8 @@
 # Selected security focus areas
 
-**Status on October 12, 2026:** these are proposed focus areas. They contain several possible weaknesses and are not yet two finalized individual CWE targets. The professor still needs to help confirm or narrow the exact targets, related entries, and checks for the comparison study. See [the decision list](../research/decisions-and-professor-questions.md).
+**Status updated October 29, 2026:** the professor accepted these two broad focus areas on October 26 after clarifying that each contains multiple weaknesses. They are not two finalized individual CWE targets. Exact entries, checks, and placements in the coherent IoT project still need definition and review. For each selected weakness, document why it is included, why it belongs at that application location, the exact code change, and independent verification evidence. See [the decision list](../research/decisions-and-professor-questions.md).
 
-The earlier proposal was to start with two focus areas from the OWASP IoT Top 10 2018: password and credential security under category 1, and insecure communication and data handling under category 7. Each area includes several possible checks, rather than one individual vulnerability. The proposed details are retained below for review.
+The earlier proposal was to start with two focus areas from the OWASP IoT Top 10 2018: password and credential security under category 1, and insecure communication and data handling under category 7. Each area includes several possible checks, rather than one individual vulnerability. The individual checks below remain candidates for review; acceptance of the areas does not finalize every listed check.
 
 ## 1. Password and credential security
 

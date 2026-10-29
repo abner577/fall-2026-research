@@ -9,15 +9,19 @@ Confirmed decisions come from the student or the meeting. The questions below co
 - Compare three LLMs with three scanners: six detectors and nine LLM-versus-scanner pairings.
 - October 14 student choice: use Gemini, ChatGPT/OpenAI, and Groq as the three LLM providers. The Groq model is now Qwen 3.8 27B (`qwen/qwen3.8-27b`); exact Gemini and OpenAI API models remain to be selected.
 - The first LLM call detects weaknesses without supplied CWE guidance or CWE retrieval. After detection, the application retrieves CWE guidance for a separate suggestion call.
-- October 14 confirmed scope and scanner choices: all study code examples use Python; the three scanners are Semgrep Community Edition, CodeQL, and Bandit. Exact versions and rules remain pending. See [scanner choices and report formats](scanner-tools.md).
-- Use shared evaluation cases and a comparable output format.
+- Current scope and scanner choices, updated October 29: all study code examples use Python; the three scanners are Semgrep Community Edition, CodeQL, and Snyk Code. Exact versions and rules remain pending. See [scanner choices and report formats](scanner-tools.md).
+- Use a coherent Python IoT application with controlled versions containing or lacking the selected weaknesses. Every detector receives the same version and agreed context, without the answer key or injection notes.
+- October 26: the two broad focus areas were accepted; individual weaknesses, CWE entries, injection count, and checks remain to be defined and reviewed.
+- Record why each weakness and placement was chosen, the exact code change and location, verification evidence, reviewer, and outcome. Obtain independent review before scored runs; the professor offered to help and potentially involve experts.
+- The student now selects Snyk Code on its free plan to replace Bandit; the three scanners are Semgrep CE, CodeQL, and Snyk Code. No additional spending is authorized. See [scanner notes](scanner-tools.md#snyk-code-free-plan).
+- Use a comparable output format and preserve original findings.
 - Define independent correct answers before grading the detectors.
 - Define what Partially Found means before scoring. October 14 starting proposal: the actual problem is recognized but its location or explanation is incomplete; award 0.5 points, versus 1 for Found and 0 for Missing. Review before scored runs.
 - Assign each detector an accuracy score against the independent answers.
 - Keep Found, Missing, and Partially Found in the reporting plan, while resolving their exact meanings.
 - If development proceeds, both detection approaches lead to an LLM suggestion stage supported by CWE guidance.
 - October 14 application design: Processing screen, saved uploads dashboard, per-upload findings report with clickable explanations and locations, and a separate proposed-changes area with code replacements and written instructions. Users can mark findings resolved; saved unresolved counts decrease while original findings remain available. A user-marked resolution is not a verified fix. See [saved uploads and reports](application-workflows.md#saved-uploads-and-findings-reports).
-- Document the methods step by step and retain exact experiment records.
+- Document methods step by step. AI assistants must save exact prompts and revisions, full responses, scanner reports/errors, code versions, commands, configurations, settings, and dates for all runs, including unsuccessful ones. Keep raw evidence separate from normalized results and explain revisions.
 - Prepare six diagrams, with the app-specific diagram conditional on development, and one results document. Keep only plain-English descriptions in the diagram file.
 - October 14 suggestion-stage options: present application-controlled CWE retrieval and an LLM agent with a CWE vector-database search tool to the professor. Neither option is selected. Both use findings and relevant code and produce the content and structure required by the report UI. See [retrieval options](application-workflows.md#retrieving-guidance-application-or-agent).
 - Review results and time with the professor before deciding whether to build the app.
@@ -25,11 +29,11 @@ Confirmed decisions come from the student or the meeting. The questions below co
 
 ## Questions to resolve before the main comparison
 
-### Which two vulnerability targets should we test?
+### Which specific weaknesses within the two focus areas should we test?
 
-The current password/credential and communication/data-handling areas each contain several possible weaknesses. We need the professor to confirm or narrow them into specific CWE targets so the LLMs, scanners, and grading all refer to the same things.
+The professor accepted password/credential and communication/data-handling as broad focus areas on October 26, after clarifying that each contains multiple weaknesses. Define and review the specific CWE targets so the LLMs, scanners, and grading refer to the same things.
 
-This is the priority question to ask before finishing the study design: should we confirm these areas first and build the comparison around their specific checks? We need a limited scope so we can select, configure, or write the scanner checks and ask the LLMs to examine the same weaknesses. The student intends to ask by email. If there is no reply, the initial diagrams and mock-ups will use the proposed areas provisionally, with confirmation still pending. See the [meeting checklist](../../docs/meetings/checklist/10-26-checklist.md#priority-question-confirm-the-scope-before-finishing-the-design).
+Acceptance of the broad areas is resolved. Next, choose and justify specific weaknesses, their realistic placements, and the scanner checks, and review the answer key. See the [follow-up checklist](../../docs/meetings/checklist/11-1-checklist.md).
 
 ### Which related weaknesses belong in scope?
 
@@ -37,11 +41,11 @@ CWE entries can be related to other entries. We need to decide which of those re
 
 ### Which IoT component and Python framework should we use?
 
-Python is confirmed as the baseline language for all study examples. The IoT component, framework or libraries, and size of each case remain to be selected. Use a shared scope that all six detectors can examine so differences in results can be interpreted fairly. This language choice does not establish a need to execute the examples; the comparison still concerns static code analysis.
+Python is confirmed as the baseline language for all study examples. The coherent IoT application, framework or libraries, and project size remain to be selected. APIs and a database are possible connected features, not required architecture. Use controlled project versions rather than unrelated vulnerable snippets. Use a shared scope that all six detectors can examine so differences in results can be interpreted fairly. This language choice does not establish a need to execute the examples; the comparison still concerns static code analysis.
 
 ### Which exact API models and three scanners should we choose?
 
-The student selected Gemini, ChatGPT/OpenAI, and Groq on October 14 because Gemini and Groq offer free tiers and the student already pays for OpenAI access, intending to use that existing access without additional spending, and excluded Claude, Claude Code, and other Anthropic options because of cost. For Groq, the student selected Qwen 3.8 27B (`qwen/qwen3.8-27b`). Groq hosts the model; Qwen is the model family. Select exact Gemini and OpenAI API models, check account access and the cost of the planned runs, and record scanner versions. Semgrep Community Edition, CodeQL, and Bandit are selected for the Python examples. This does not select the model for the later suggestion stage.
+The student selected Gemini, ChatGPT/OpenAI, and Groq on October 14 because Gemini and Groq offer free tiers and the student already pays for OpenAI access, intending to use that existing access without additional spending, and excluded Claude, Claude Code, and other Anthropic options because of cost. For Groq, the student selected Qwen 3.8 27B (`qwen/qwen3.8-27b`). Groq hosts the model; Qwen is the model family. Select exact Gemini and OpenAI API models, check account access and the cost of the planned runs, and record scanner versions. Semgrep Community Edition, CodeQL, and Snyk Code are selected for the Python examples. This does not select the model for the later suggestion stage.
 
 Access rationale: use the [Gemini free tier](https://ai.google.dev/gemini-api/docs/pricing), the [Groq free plan](https://console.groq.com/docs/rate-limits), and the student's existing paid OpenAI access. The plan is to avoid additional spending. For API runs, verify whether that existing payment includes usable API credits; a ChatGPT subscription alone does not cover API usage. [OpenAI API usage has its own pricing](https://developers.openai.com/api/docs/pricing). Exact Gemini and OpenAI models still need recording.
 
@@ -53,7 +57,7 @@ A scanner can support a language without having a check for the chosen vulnerabi
 
 ### Where should the code cases come from, and how many do we need?
 
-The source, number, and variety of cases affect what we can conclude. We need cases with the selected vulnerabilities and cases where they are absent, and enough variation to avoid basing the methodology choice on only a few similar examples.
+Choose, adapt, or build a coherent IoT project; the professor's example illustrates the intended coherence but is not required. Preserve a baseline intended to lack the selected weaknesses and controlled vulnerable versions. Review target presences and absences, justify each placement, and retain the code changes and verification evidence. Decide the number and variety of versions and vulnerability instances; no fixed count was agreed.
 
 ### Who will check the correct answers?
 
