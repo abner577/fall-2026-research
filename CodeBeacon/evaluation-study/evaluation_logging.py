@@ -4,7 +4,7 @@
 def save_log(output_dir, date, model, payload):
     """Save a dated model log, numbering repeat runs without overwriting files."""
     filename_model = model
-    for prefix in ("gemini-", "mistral-", "ministral-"):
+    for prefix in ("gemini-", "mistral-", "ministral-", "openai/"):
         if filename_model.startswith(prefix):
             filename_model = filename_model[len(prefix):]
             break
