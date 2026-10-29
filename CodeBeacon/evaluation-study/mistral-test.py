@@ -1,4 +1,4 @@
-﻿"""Send a Mistral request and save one minimal JSON log per API attempt.
+"""Send a Mistral request and save one minimal JSON log per API attempt.
 
 Run: python mistral-test.py --prompt-file prompts/detection.txt
 Use --model to select one model without automatic fallbacks.
@@ -34,7 +34,7 @@ def main():
     load_dotenv(BASE_DIR / ".env")
     api_key = os.getenv("MISTRAL_API_KEY", "").strip()
     if not api_key or api_key == "your_mistral_api_key_here":
-        parser.exit(1, "Set MISTRAL_API_KEY in CodeBeacon/.env before running.\n")
+        parser.exit(1, "Set MISTRAL_API_KEY in CodeBeacon/evaluation-study/.env before running.\n")
 
     prompt = args.prompt if args.prompt is not None else PROMPT
     if args.prompt_file:

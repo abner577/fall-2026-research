@@ -1,6 +1,6 @@
 # October 26, 2026: selected conclusions and follow-up
 
-The professor supported the overall comparison design and the two broad focus areas. Exact weaknesses, project, scanner checks, and scoring details still need definition and review. These notes capture the priorities selected by the student for follow-up, rather than every discussion point. Carry out the resulting study work and save evidence, explanations, and working designs under [CodeBeacon/](../../../../CodeBeacon/README.md); meeting records remain under `fall-2026-research/docs/`.
+The professor supported the overall comparison design and the two broad focus areas. Exact weaknesses, project, scanner checks, and scoring details still need definition and review. These notes capture the priorities selected by the student for follow-up, rather than every discussion point. Carry out the resulting study work and save evidence, explanations, and working designs under [CodeBeacon/evaluation-study/](../../../../CodeBeacon/evaluation-study/); meeting records remain under `fall-2026-research/docs/`.
 
 ## Scanner selection
 

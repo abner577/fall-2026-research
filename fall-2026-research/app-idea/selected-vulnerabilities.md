@@ -1,6 +1,6 @@
 # Selected security focus areas
 
-This file is part of the planning record in `fall-2026-research/`. Carry out the study, save raw evidence and explanations, maintain working designs and architecture, and place any future application code under [CodeBeacon/](../../CodeBeacon/README.md); meeting records remain in `fall-2026-research/docs/`.
+This file is part of the planning record in `fall-2026-research/`. Carry out the evaluation study and save its code, documents, prompts, logs, evidence, results, and working designs under [CodeBeacon/evaluation-study/](../../CodeBeacon/evaluation-study/). Place future application code, documentation, and architecture under [CodeBeacon/app/](../../CodeBeacon/app/) only if the app proceeds and time permits. Meeting records remain in `fall-2026-research/docs/`.
 
 **Status updated October 29, 2026:** the professor accepted these two broad focus areas on October 26 after clarifying that each contains multiple weaknesses. They are not two finalized individual CWE targets. Exact entries, checks, and placements in the coherent IoT project still need definition and review. For each selected weakness, document why it is included, why it belongs at that application location, the exact code change, and independent verification evidence. See [the decision list](../coming-up-w-research-plan/decisions-and-professor-questions.md).
 

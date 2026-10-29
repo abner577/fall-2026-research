@@ -1,6 +1,6 @@
 ## We have 3 Security references that we were given, we need to decide how we are going to use those.
 
-This file is part of the planning record in `fall-2026-research/`. Carry out the study, save raw evidence and explanations, maintain working designs and architecture, and place any future application code under [CodeBeacon/](../../CodeBeacon/README.md); meeting records remain in `fall-2026-research/docs/`.
+This file is part of the planning record in `fall-2026-research/`. Carry out the evaluation study and save its code, documents, prompts, logs, evidence, results, and working designs under [CodeBeacon/evaluation-study/](../../CodeBeacon/evaluation-study/). Place future application code, documentation, and architecture under [CodeBeacon/app/](../../CodeBeacon/app/) only if the app proceeds and time permits. Meeting records remain in `fall-2026-research/docs/`.
 
 **Status on October 12, 2026:** these are background notes. The current first milestone is a comparison of three LLMs and three scanners. CWE will support target selection and, if development proceeds, suggestions. The exact target entries and the roles of OWASP and Common Criteria still need decisions. See [the current notes](../coming-up-w-research-plan/evaluation-plan.md).
 
