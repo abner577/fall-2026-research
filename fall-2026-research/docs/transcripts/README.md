@@ -4,7 +4,7 @@ Keep the raw transcripts of our research meetings here so they remain available 
 
 ## Related meeting records
 
-This folder is the transcript archive within `docs/`, which holds all weekly meeting documentation. Research methods, application proposals, diagrams, and supporting images live separately under `fall-2026-research/`; see the [repository guide](../../README.md#repository-structure-and-weekly-meeting-workflow).
+This folder is the transcript archive within `fall-2026-research/docs/`, which holds all weekly meeting documentation, including future meetings. Earlier methods, proposals, diagrams, and supporting images remain elsewhere under `fall-2026-research/`; actual study materials, run evidence, working designs, and future application code belong under [CodeBeacon/](../../../CodeBeacon/README.md). See the [repository guide](../../../README.md#repository-structure-and-weekly-meeting-workflow).
 
 For each meeting, pair the transcript with a dated [action checklist](../meetings/checklist/), [conclusions](../meetings/conclusions/), and a dated [preparation walkthrough](../meetings/preparation/). The preparation explains step by step what to present and ask. The checklist tracks resulting actions; the conclusions record what was accepted, what should continue or change, and what remains open. Supporting explanations may also be kept with the checklists. Use the meeting date to connect these records and add links when the files are available; do not infer conclusions from preparation notes.
 

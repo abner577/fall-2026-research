@@ -1,5 +1,7 @@
 # Scanner choices and report formats
 
+This file is part of the planning record in `fall-2026-research/`. Carry out the study, save raw evidence and explanations, maintain working designs and architecture, and place any future application code under [CodeBeacon/](../../CodeBeacon/README.md); meeting records remain in `fall-2026-research/docs/`.
+
 Updated October 29, 2026. The student confirmed **Python for all study code examples** and selected **Semgrep Community Edition, CodeQL, and Snyk Code** as the three scanners. Exact versions and checks can be selected later; the framework and IoT component remain open.
 
 | Tool | How it examines code and why we would use it | Report we would collect |

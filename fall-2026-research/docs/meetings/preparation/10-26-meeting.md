@@ -1,6 +1,6 @@
 # October 26 meeting notes
 
-This is the October 26 preparation walkthrough: the planned order of updates, proposals, questions, and diagrams to present. Dated walkthroughs belong in `docs/meetings/preparation/`. Use the [October 26 checklist](../checklist/10-26-checklist.md) for tasks and record confirmed feedback and conclusions there after the meeting; preserve raw transcripts in [docs/transcripts/](../../transcripts/README.md). This agenda is preserved as preparation history. See the [recorded conclusions](../conclusions/10-26-conclusions.md) and [current follow-up checklist](../checklist/11-1-checklist.md) for the subsequent project, verification, evidence, and scanner-exploration decisions.
+This is the October 26 preparation walkthrough: the planned order of updates, proposals, questions, and diagrams to present. Dated walkthroughs belong in `fall-2026-research/docs/meetings/preparation/`. Use the [October 26 checklist](../checklist/10-26-checklist.md) for tasks and record confirmed feedback and conclusions there after the meeting; preserve raw transcripts in [docs/transcripts/](../../transcripts/README.md). This agenda is preserved as preparation history. See the [recorded conclusions](../conclusions/10-26-conclusions.md) and [current follow-up checklist](../checklist/11-1-checklist.md) for the subsequent project, verification, evidence, and scanner-exploration decisions.
 
 ## 1. Start with the plan for today
 
@@ -20,7 +20,7 @@ This is the October 26 preparation walkthrough: the planned order of updates, pr
 
 Keep [six-methods-explanation](../checklist/six-methods-explanation.md) open for the fuller explanations. First four are for the study; last two are for the possible app.
 
-1. **How we picked the vulnerabilities.** Started with the OWASP IoT list and picked password/credential security and insecure communication/data handling. Briefly explain why those fit, and confirm the scope with him. Exact checks and CWE entries still need to be pinned down [selected-vulnerabilities](../../../fall-2026-research/app-idea/selected-vulnerabilities.md)
+1. **How we picked the vulnerabilities.** Started with the OWASP IoT list and picked password/credential security and insecure communication/data handling. Briefly explain why those fit, and confirm the scope with him. Exact checks and CWE entries still need to be pinned down [selected-vulnerabilities](../../../app-idea/selected-vulnerabilities.md)
 2. **How the LLMs look at the code.** Same Python examples and selected weaknesses for each LLM. Ask for possible vulnerabilities and where they are. No supplied CWE guidance in this detection step; that comes later for suggestions.
 3. **How the scanners look at the code.** Same examples, using Semgrep CE, CodeQL, and Snyk Code with checks for our selected weaknesses. Collect their findings, locations, and explanations in a shared format.
 4. **How we compare results.** Check each detector against answers we prepared and independently checked beforehand. Briefly cover Found / Missing / Partially Found, proposed scores, and false alarms. Three LLMs and three scanners, with nine LLM-versus-scanner pairings. Show the flow in the evaluation diagram afterward; no need to get stuck on every formula here.
@@ -31,9 +31,9 @@ Keep [six-methods-explanation](../checklist/six-methods-explanation.md) open for
 
 ## 4. Share screen — diagrams
 
-1. **[Vulnerability Detection Evaluation](../../../fall-2026-research/diagrams/Vulnerability%20Detection%20Evaluation.png)** — main study workflow. Walk through the shared examples, LLM/scanner runs, grading against known answers, scores, and comparison. Use this to make method 4 easier to follow.
-2. **[General Application Workflow ALL AI](../../../fall-2026-research/diagrams/General%20Application%20Workflow%20ALL%20AI.png)** — how the possible app would work if we go with LLM detection. Walk through upload → detection → CWE guidance → suggestions → report. App development still depends on the study and remaining time.
-3. **Optional: [GPT vs Semgrep worked example](../../../fall-2026-research/diagrams/Example%20GPT%20vs%20Semgrep%20Diagram.png)** — a more detailed walkthrough of one comparison. These are illustrative outputs, not actual study results. If time is short, just give him the image to look at later.
+1. **[Vulnerability Detection Evaluation](../../../diagrams/Vulnerability%20Detection%20Evaluation.png)** — main study workflow. Walk through the shared examples, LLM/scanner runs, grading against known answers, scores, and comparison. Use this to make method 4 easier to follow.
+2. **[General Application Workflow ALL AI](../../../diagrams/General%20Application%20Workflow%20ALL%20AI.png)** — how the possible app would work if we go with LLM detection. Walk through upload → detection → CWE guidance → suggestions → report. App development still depends on the study and remaining time.
+3. **Optional: [GPT vs Semgrep worked example](../../../diagrams/Example%20GPT%20vs%20Semgrep%20Diagram.png)** — a more detailed walkthrough of one comparison. These are illustrative outputs, not actual study results. If time is short, just give him the image to look at later.
 
 ## 5. Before wrapping up — agree on next meeting's checklist
 

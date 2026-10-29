@@ -1,5 +1,7 @@
 # Decisions and questions for the professor
 
+This file is part of the planning record in `fall-2026-research/`. Carry out the study, save raw evidence and explanations, maintain working designs and architecture, and place any future application code under [CodeBeacon/](../../CodeBeacon/README.md); meeting records remain in `fall-2026-research/docs/`.
+
 Confirmed decisions come from the student or the meeting. The questions below concern the main comparison and still need answers.
 
 ## Confirmed decisions
@@ -33,7 +35,7 @@ Confirmed decisions come from the student or the meeting. The questions below co
 
 The professor accepted password/credential and communication/data-handling as broad focus areas on October 26, after clarifying that each contains multiple weaknesses. Define and review the specific CWE targets so the LLMs, scanners, and grading refer to the same things.
 
-Acceptance of the broad areas is resolved. Next, choose and justify specific weaknesses, their realistic placements, and the scanner checks, and review the answer key. See the [follow-up checklist](../../docs/meetings/checklist/11-1-checklist.md).
+Acceptance of the broad areas is resolved. Next, choose and justify specific weaknesses, their realistic placements, and the scanner checks, and review the answer key. See the [follow-up checklist](../docs/meetings/checklist/11-1-checklist.md).
 
 ### Which related weaknesses belong in scope?
 

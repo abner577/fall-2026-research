@@ -1,10 +1,10 @@
 # October 26, 2026: selected conclusions and follow-up
 
-The professor supported the overall comparison design and the two broad focus areas. Exact weaknesses, project, scanner checks, and scoring details still need definition and review. These notes capture the priorities selected by the student for follow-up, rather than every discussion point.
+The professor supported the overall comparison design and the two broad focus areas. Exact weaknesses, project, scanner checks, and scoring details still need definition and review. These notes capture the priorities selected by the student for follow-up, rather than every discussion point. Carry out the resulting study work and save evidence, explanations, and working designs under [CodeBeacon/](../../../../CodeBeacon/README.md); meeting records remain under `fall-2026-research/docs/`.
 
 ## Scanner selection
 
-The professor suggested Snyk without choosing a replacement at the meeting. The student subsequently selected Semgrep Community Edition, CodeQL, and Snyk Code, replacing Bandit. The student will not pay for access. As checked October 29, [Snyk's pricing page](https://snyk.io/plans/) lists a $0 Free plan with Snyk Code, 100 Code tests per month, and five projects. Confirm account limits, relevant checks, and reporting during setup. If the study requires paid access, do not use it. See [scanner notes](../../../fall-2026-research/research/scanner-tools.md#snyk-code-free-plan).
+The professor suggested Snyk without choosing a replacement at the meeting. The student subsequently selected Semgrep Community Edition, CodeQL, and Snyk Code, replacing Bandit. The student will not pay for access. As checked October 29, [Snyk's pricing page](https://snyk.io/plans/) lists a $0 Free plan with Snyk Code, 100 Code tests per month, and five projects. Confirm account limits, relevant checks, and reporting during setup. If the study requires paid access, do not use it. See [scanner notes](../../../coming-up-w-research-plan/scanner-tools.md#snyk-code-free-plan).
 
 ## Shared coherent IoT project
 

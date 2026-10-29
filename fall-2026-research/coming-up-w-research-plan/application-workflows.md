@@ -1,5 +1,7 @@
 # Possible application workflows
 
+This file is part of the planning record in `fall-2026-research/`. Carry out the study, save raw evidence and explanations, maintain working designs and architecture, and place any future application code under [CodeBeacon/](../../CodeBeacon/README.md); meeting records remain in `fall-2026-research/docs/`.
+
 Updated October 12, 2026. These workflows describe the possible development milestone. They do not mean development has started or a detection method has been chosen.
 
 ## What both workflows do

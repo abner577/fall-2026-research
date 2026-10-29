@@ -8,11 +8,11 @@ Updated October 29, 2026, following the October 26 mentor meeting and the studen
 
 ## Documentation locations and meeting follow-up
 
-The repository has two main folders: [fall-2026-research/](fall-2026-research/) holds the research and application materials, diagrams, and supporting images; [docs/](docs/) holds weekly meeting documentation. This root plan and [README.md](README.md#repository-structure-and-weekly-meeting-workflow) provide the overview.
+The repository has two main folders: [CodeBeacon/](CodeBeacon/README.md) is the working root for research execution and any future application; [fall-2026-research/](fall-2026-research/) preserves the planning, design decisions, proposal diagrams, architecture discussions, and meeting records developed so far. Earlier research notes now live in `fall-2026-research/coming-up-w-research-plan/`, and all weekly meeting documentation lives in `fall-2026-research/docs/`. This root plan and [README.md](README.md#repository-structure-and-weekly-meeting-workflow) provide the overview.
 
-For each meeting, keep the raw transcript in [docs/transcripts/](docs/transcripts/README.md), the action checklist in [docs/meetings/checklist/](docs/meetings/checklist/) and outcomes in [docs/meetings/conclusions/](docs/meetings/conclusions/), and the step-by-step presentation plan in [docs/meetings/preparation/](docs/meetings/preparation/). Identify related records by meeting date and link them where available. Preparation covers updates, proposals, questions, and materials to show; the conclusions record feedback, accepted proposals, requested changes, and unresolved questions, while the checklist tracks next actions. Supporting explanations may also live with the checklists.
+For each meeting, keep the raw transcript in [docs/transcripts/](fall-2026-research/docs/transcripts/README.md), the action checklist in [docs/meetings/checklist/](fall-2026-research/docs/meetings/checklist/) and outcomes in [docs/meetings/conclusions/](fall-2026-research/docs/meetings/conclusions/), and the step-by-step presentation plan in [docs/meetings/preparation/](fall-2026-research/docs/meetings/preparation/). Identify related records by meeting date and link them where available. Preparation covers updates, proposals, questions, and materials to show; the conclusions record feedback, accepted proposals, requested changes, and unresolved questions, while the checklist tracks next actions. Supporting explanations may also live with the checklists.
 
-Use recorded conclusions to revise the research plans and prepare the next meeting. Keep proposed work distinct from approved decisions and completed actions; an agenda alone does not establish a meeting outcome. Preserve previous meeting records when later feedback changes the direction.
+Save evaluation project code, controlled versions, prompts, raw outputs, images, verification evidence, explanations, grading, experimental conclusions, and working design or architecture revisions under `CodeBeacon/`. Any later application code and related materials also belong there. Use recorded meeting conclusions to revise the active plan and prepare the next meeting, linking meeting actions to execution artifacts while preserving the earlier planning record. Keep proposed work distinct from approved decisions and completed actions; an agenda alone does not establish a meeting outcome. Preserve previous meeting records when later feedback changes the direction.
 
 ## Problem and purpose
 
@@ -33,7 +33,7 @@ If the all-AI methodology produces better detection results than the scanner met
 This selection purpose is confirmed by the student's clarification. The exact meaning of better or comparable results, the evidence needed, and the revised schedule still need agreement. Comparable performance must be judged against independent answers; agreement between detector outputs alone does not establish accuracy. Review the results and remaining time with the professor before implementation. Application development remains milestone 2, while milestone 1 supplies the evidence for the methodology choice.
 
 1. Document why we chose the two focus areas and the specific weaknesses within them, with relevant CWE references.
-2. Use Gemini, ChatGPT/OpenAI, and Qwen 3.8 27B through Groq (`qwen/qwen3.8-27b`); select exact Gemini and OpenAI API models, verify access costs, and use Python for all study examples and record versions and coverage for the three selected scanners: Semgrep Community Edition, CodeQL, and Snyk Code. Snyk Code replaces Bandit in the selected trio and will use the free plan only. See [scanner notes](fall-2026-research/research/scanner-tools.md). Initial LLM detection has no supplied CWE guidance; guidance is retrieved afterward for suggestions.
+2. Use Gemini, ChatGPT/OpenAI, and Qwen 3.8 27B through Groq (`qwen/qwen3.8-27b`); select exact Gemini and OpenAI API models, verify access costs, and use Python for all study examples and record versions and coverage for the three selected scanners: Semgrep Community Edition, CodeQL, and Snyk Code. Snyk Code replaces Bandit in the selected trio and will use the free plan only. See [scanner notes](fall-2026-research/coming-up-w-research-plan/scanner-tools.md). Initial LLM detection has no supplied CWE guidance; guidance is retrieved afterward for suggestions.
 3. Prepare controlled versions of the coherent IoT project with and without the targeted weaknesses. Record why each vulnerability is included, why it is placed in that application path, the exact file and location, how it was inserted, and the evidence and reviewer confirming it. Obtain independent review before scored runs; give every detector the same version and context, withholding the answer key and injection notes.
 4. Write exact prompts, scanner procedures, a common result format, and scoring rules, including Partially Found.
 5. Run all six detectors on the same project versions. AI assistants must preserve exact code versions, prompts and prompt revisions, complete responses, scanner reports and errors, commands, rules, settings, and dates for every run, including practice and unsuccessful runs. Keep raw evidence separate from derived tables and retain the reasons for revisions.
@@ -49,7 +49,7 @@ The earlier development-first plan and its schedule are summarized below. Develo
 ## Planned documentation and deliverables
 
 - Plain-English methods and reasons for target and detector selection.
-- Six diagram descriptions and one results-document description, as listed in [diagrams](fall-2026-research/research/diagrams.md). The app-specific diagram is conditional on development.
+- Six diagram descriptions and one results-document description, as listed in [diagrams](fall-2026-research/coming-up-w-research-plan/diagrams.md). The app-specific diagram is conditional on development.
 - Written procedures for each selected detector and the professor's six methods, plus vulnerability placement reasons and verification records.
 - Exact cases, independent answers, prompts, commands, settings, original outputs, grading, scores, and comparison visuals.
 - A conclusion supported by the evaluated cases and a recorded milestone decision.
@@ -63,7 +63,7 @@ Ask the professor which dates and deliverables still apply. Set dates for design
 
 ## Detailed notes
 
-Use the [evaluation plan](fall-2026-research/research/evaluation-plan.md) for study methods and source history, [application workflows](fall-2026-research/research/application-workflows.md) for the two methodologies, [diagram descriptions](fall-2026-research/research/diagrams.md) for the requested visuals, [professor questions](fall-2026-research/research/decisions-and-professor-questions.md) for pending decisions.
+Use the [evaluation plan](fall-2026-research/coming-up-w-research-plan/evaluation-plan.md) for study methods and source history, [application workflows](fall-2026-research/coming-up-w-research-plan/application-workflows.md) for the two methodologies, [diagram descriptions](fall-2026-research/coming-up-w-research-plan/diagrams.md) for the requested visuals, [professor questions](fall-2026-research/coming-up-w-research-plan/decisions-and-professor-questions.md) for pending decisions.
 
 ## Earlier development-first plan
 
@@ -76,4 +76,4 @@ The original title was "CodeBeacon: AI IoT Code Scanner." Its short-term goal wa
 | Test vulnerable and safe examples and document limits | November 2026 | First week of December 2026 |
 | Refine the prototype, summarize findings, and prepare the poster | Beginning of January 2027 | End of the third week of January 2027 |
 
-The earlier deliverables were an initial prototype and preliminary evaluation in the first week of December 2026, and a final poster at the end of the third week of January 2027. These planning dates require confirmation after the direction change. The original scanner workflow and example are retained in [application workflows](fall-2026-research/research/application-workflows.md).
+The earlier deliverables were an initial prototype and preliminary evaluation in the first week of December 2026, and a final poster at the end of the third week of January 2027. These planning dates require confirmation after the direction change. The original scanner workflow and example are retained in [application workflows](fall-2026-research/coming-up-w-research-plan/application-workflows.md).

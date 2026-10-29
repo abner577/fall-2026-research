@@ -1,5 +1,7 @@
 ## Choosing between Semgrep and CodeQL
-- **Status on October 12, 2026:** these are earlier scanner candidates, not final selections. We now need three scanners and three LLMs for the initial comparison. See [the evaluation plan](../research/evaluation-plan.md). Commands below are examples from the earlier preparation, not records of completed runs.
+
+This file is part of the planning record in `fall-2026-research/`. Carry out the study, save raw evidence and explanations, maintain working designs and architecture, and place any future application code under [CodeBeacon/](../../CodeBeacon/README.md); meeting records remain in `fall-2026-research/docs/`.
+- **Status on October 12, 2026:** these are earlier scanner candidates, not final selections. We now need three scanners and three LLMs for the initial comparison. See [the evaluation plan](../coming-up-w-research-plan/evaluation-plan.md). Commands below are examples from the earlier preparation, not records of completed runs.
 - Both these tools work in the same way: you give them source files and a set of checks; they return location where those checks find suspicious code. They understand programming langauge structure rather than merely search for words. More advanced cchecks can trace where data comes from and where it goes.
 
 ### Semgrep vs CodeQL

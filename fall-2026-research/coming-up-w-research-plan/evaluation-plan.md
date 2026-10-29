@@ -1,5 +1,7 @@
 # Evaluation plan
 
+This file is part of the planning record in `fall-2026-research/`. Carry out the study, save raw evidence and explanations, maintain working designs and architecture, and place any future application code under [CodeBeacon/](../../CodeBeacon/README.md); meeting records remain in `fall-2026-research/docs/`.
+
 Updated October 29, 2026, following the October 26 meeting and student instructions. The overall design was supported; detailed scoring and implementation choices remain proposals unless confirmed below. The open details are listed in [decisions and questions](decisions-and-professor-questions.md).
 
 ## Research question and methodology selection
@@ -128,10 +130,10 @@ The professor also discussed completing the project as a comparison study and re
 
 Source records:
 
-- October 26, 2026 transcript: [repository copy](../../docs/transcripts/10-26-Weekly%20CAHSI%20Meeting.docx). Shared coherent project: 38:52-55:25; justification and verification: 55:25-58:19; raw prompts and outputs: 54:40-58:53; next work: 1:09:47-1:10:47. See [selected conclusions](../../docs/meetings/conclusions/10-26-conclusions.md).
+- October 26, 2026 transcript: [repository copy](../docs/transcripts/10-26-Weekly%20CAHSI%20Meeting.docx). Shared coherent project: 38:52-55:25; justification and verification: 55:25-58:19; raw prompts and outputs: 54:40-58:53; next work: 1:09:47-1:10:47. See [selected conclusions](../docs/meetings/conclusions/10-26-conclusions.md).
 
 - October 5, 2026 transcript: `C:/Users/joser/Downloads/Weekly CAHSI Meeting.docx`, as identified in the repository context.
-- October 12, 2026 transcript: [repository copy](../../docs/transcripts/2026-10-12-weekly-cahsi-meeting.docx), originally supplied as `Weekly CAHSI Meeting (1).docx`. Selection and evidence are discussed at 1:22-6:59; detection, comparison, and suggestions at 7:14-17:04; the six methods at 17:35-23:07; comparison and milestones at 23:48-31:58.
+- October 12, 2026 transcript: [repository copy](../docs/transcripts/2026-10-12-weekly-cahsi-meeting.docx), originally supplied as `Weekly CAHSI Meeting (1).docx`. Selection and evidence are discussed at 1:22-6:59; detection, comparison, and suggestions at 7:14-17:04; the six methods at 17:35-23:07; comparison and milestones at 23:48-31:58.
 - Earlier student explanation: `C:/Users/joser/.codex/attachments/d878bb8c-8114-4c18-95aa-6346aba12cba/Pasted text.txt`.
 - Student follow-up decisions: three LLMs and three scanners, independent answers, partial-finding rules, accuracy scores, a shared final suggestion stage, and a possible retrieval agent.
 - Current student clarification and cleanup request: methodology selection, better or comparable all-AI results supporting all-AI development, fewer research files, and plain-English descriptions of six diagrams and one results document. Attached text: `C:/Users/joser/.codex/attachments/26f7a984-ae0d-4d9e-a6ff-7fc405f0213f/Pasted text.txt`.
