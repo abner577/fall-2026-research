@@ -2,6 +2,34 @@
 
 Recorded November 2, 2026, from the student's architecture approval and realism requirements. This is a design record; no application code or verified vulnerability cases have been produced by this documentation step.
 
+## Version selections, November 2
+
+The student subsequently authorized choosing and documenting the targets for
+both versions before generating application code. The selections are recorded
+in [Version A planning](version-a-planning.md) and
+[Version B planning](version-b-planning.md). These documents supersede the
+earlier approximate counts and statements that the version subsets are undecided.
+
+- Version A: eight types — hardcoded credentials, weak password requirements,
+  unsafe password storage through an insufficient-cost hash, secrets in logs,
+  missing endpoint authentication, missing device authorization, predictable
+  generated device credentials, and disabled certificate verification.
+- Version B: three types — unencrypted sensitive communication, missing device
+  authorization, and insufficient restriction of repeated login attempts.
+
+The versions cover all ten accepted types with missing device authorization as
+the only overlap, at the same user command-submission operation. Each type has
+one intended insertion site per version. This is not a verified final instance
+count or a claim of zero other vulnerabilities. The selected unsafe-storage
+defect refines the earlier plaintext illustration to a low-work-factor password
+hash that preserves ordinary login behavior.
+
+The planning files identify intended component/operation locations, protected
+comparisons, and verification requirements. Full endpoint inventory, exact
+routes/functions, per-file behavior, and runtime parameters remain the next
+design step. No executable application code or scored answer key is produced by
+this selection step. Keep both planning documents outside detector inputs.
+
 ### Root-file implementation update, November 2
 
 The student subsequently authorized the first four root files at
@@ -20,10 +48,11 @@ Direct dependency versions are pinned; transitive packages are not yet locked.
 
 No application operations or deliberate vulnerability instances are implemented
 by these root files. Required secrets and enrollment credentials remain blank.
-The exact Version A subset, defects, CWE mappings, and verification plans remain
-pending before implementing affected operations. Track the implementation in
-[the vulnerability record](vulnerability-record.md); no independent verification
-or scored run is claimed.
+At that root-file stage, the Version A subset and detailed defects were still
+pending. The version planning files now record the selections and intended
+defects. Maintain an implementation vulnerability record with final source
+locations and evidence as operations are built; no independent verification or
+scored run is claimed.
 
 ## Accepted application direction
 
@@ -75,9 +104,15 @@ Keep the record synchronized with code changes. If edits move lines or change be
 
 ## Next step and pending choices
 
-Before generating application code, select and document the exact weaknesses, CWE mappings, and intended placements within the accepted credential and communication/data-handling focus areas. For each proposed placement, identify the component, intended route/function or operation, baseline behavior, controlled change, realism rationale, and verification plan. Record final file/function locations and line ranges against the preserved code version once implementation exists.
+The version planning files now select the weakness types, planned CWE mappings,
+intended operations, protected comparisons, and verification goals. Before
+generating application code, complete the endpoint inventory and per-file plan:
+exact routes/functions, checks and omissions on each operation, controlled
+changes, runtime assumptions, and concrete verification procedures. Record final
+file/function locations and line ranges against the preserved source once
+implementation exists.
 
-The student accepted ten weakness types on November 2; see the [complete selection](../app-idea/selected-vulnerabilities.md#november-2-selection-update). These include predictable generated credentials, disabled certificate verification, and insufficient restriction of repeated authentication attempts in addition to the original seven choices. Exact defects, CWE mappings, placements, instance count, project versions, endpoint count, database schema/library confirmation, sensor model, and file structure remain to be finalized. Keep placements within the agreed focus areas.
+The student accepted ten weakness types on November 2; see the [complete selection](../app-idea/selected-vulnerabilities.md#november-2-selection-update). The version planning files assign eight to A and three to B. The shared structure and Psycopg 3 driver have been chosen. Final source-level defects and CWE mapping review, exact placements, verified instance count, endpoint count, database schema, sensor model, and runtime settings remain to be completed. Keep placements within the agreed focus areas.
 
 Keep this design record and later injection notes separate from the source packages supplied to detectors. No application code is authorized by this documentation-only request.
 
@@ -86,10 +121,10 @@ Keep this design record and later injection notes separate from the source packa
 ## Different code test cases
 - So now that I think about it, it makes alot of sense to have one application with at least two controlled code versions. Instead of just having one static version of code that we use. This lets us compare detection when more weaknesses are present and when most of the code is protected.
 
-Version A (About 8 weaknesses present)
+Version A (8 selected weakness types; see the current planning file)
 - Examine how many real weaknesses each detector finds when several are distributed through the application. The main thing we are trying to test is can we find them all, most likley you will find alot but how about all?
 
-Version B (About 3 weaknesses present)
+Version B (3 selected weakness types; see the current planning file)
 - Example if you hallucinate to make new weaknesses present that arent there or if because most of the code is good you hallucinate and maybe guess that the rest of the code will be safe.
 
 Both versions should preserve the same features, structure, and overall size. Version B should implement the protections for absent targets, rather than remove the relevant functionality. Otherwise, we would partly be comparing different applications.
