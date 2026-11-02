@@ -1,5 +1,27 @@
 # CodeBeacon: research execution and application
 
+**Required writing rule for detector inputs — November 2, 2026:** application
+files supplied to LLMs or scanners must use ordinary project language. Do not
+describe them as a demo, simulation, simulator, toy, teaching exercise, benchmark,
+or deliberately vulnerable study case in comments, docstrings, README text,
+configuration names, CLI help, or log messages. Use direct descriptions such as
+"device client," "temperature reading," and "fan state." Keep comments sparse
+and explain behavior only when useful. Do not add vulnerability labels, CWE IDs,
+answer-key hints, or instructions aimed at the detector. Apply this consistently
+to both Version A and Version B. Review all files supplied to detectors before
+freezing a case, including its README and configuration template.
+
+The detector input boundary is the selected application's `version-A/` or
+`version-B/` source package, excluding `.env`, `.local/`, `.venv/`, and caches.
+This README, the enclosing study READMEs, explanation notes, verification
+material, and preparation documents stay outside that package. Preserve the
+actual software-generated sensor and fan provenance in those external records.
+Neutral project wording does not establish physical hardware integration; do
+not claim hardware measurements, deployment, or verification that did not occur.
+Keep the supplied project context consistent across detectors and record it
+with the run evidence. This rule supersedes earlier guidance that placed
+simulation explanations in the version-level project guide.
+
 **November 2 folder clarification (supersedes older placement guidance below):** this folder is for actual implementation and execution materials. Application design, code-case planning, vulnerability selections and placement notes, and the answer key belong in [evaluation-study-preparation/](../fall-2026-research/evaluation-study-preparation/). Do not put preparation documents here. Keep them separate from detector input packages.
 
 `CodeBeacon/` is the working root for carrying out the research. The repository has two main folders: this folder for execution and [fall-2026-research/](../fall-2026-research/) for the planning and meeting record. The repository-level [README](../README.md) and [research plan](../research-plan.md) provide overall context.

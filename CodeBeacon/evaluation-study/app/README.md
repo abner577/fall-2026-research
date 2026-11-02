@@ -31,10 +31,11 @@ delivery will run as ordinary application operations.
 
 ## Current implementation status
 
-Only Version A's root configuration and documentation files exist. The backend,
-dashboard, device simulator, and database schema will be added in later steps.
-The configuration below defines their shared settings. Installing dependencies
-does not make the application runnable yet.
+Version A's root files and all five firmware modules exist. The backend,
+dashboard, and database schema remain pending. The simulator is verified against
+a local HTTPS fixture; application integration and independent review are pending.
+The current API contract and verification record are maintained in
+[evaluation preparation](../../../fall-2026-research/evaluation-study-preparation/version-a-firmware-implementation.md).
 
 ## Application workflow
 
@@ -55,7 +56,7 @@ simulation steps. Network timing is not guaranteed to be deterministic.
 
 ## Planned source layout
 
-Only the first four files currently exist. Other entries show the agreed layout.
+The four root files and `firmware/` files exist. Other entries show the agreed layout.
 
 ```text
 version-A/
@@ -151,8 +152,9 @@ The settings modules must load this version's `.env` by its explicit path, resol
 relative file paths against this folder, and let existing process environment
 variables take precedence. They must not search upward into the evaluation
 study's `.env`. The backend must reject a missing signing secret or database
-password; the simulator must reject missing enrollment credentials. These checks
-will be implemented with the settings modules.
+password when implemented. The simulator uses the bundled `room-monitor-01`
+profile when its token is blank; other device identities require an externally
+supplied enrollment token. Firmware settings validation is implemented.
 
 | Settings | Meaning |
 | --- | --- |
@@ -161,16 +163,18 @@ will be implemented with the settings modules.
 | `APP_SECRET_KEY`, `ACCOUNT_TOKEN_TTL_SECONDS` | Account token signing secret and lifetime in seconds. Tokens contain identifiers, not passwords or device secrets. |
 | `LOG_LEVEL` | Application logging verbosity, initially `INFO`. |
 | `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD` | Dedicated local PostgreSQL connection settings. |
-| `DB_SSLMODE`, `DB_CONNECT_TIMEOUT_SECONDS` | PostgreSQL transport preference and connection timeout. `prefer` is a loopback development setting and permits an unencrypted database connection. |
+| `DB_SSLMODE`, `DB_CONNECT_TIMEOUT_SECONDS` | PostgreSQL TLS mode and connection timeout. Default `require` prevents cleartext fallback; remote deployment needs `verify-full` with a trusted CA. |
 | `API_BASE_URL`, `API_CA_BUNDLE` | Flask HTTPS address and certificate trusted by both Python clients. |
 | `API_CONNECT_TIMEOUT_SECONDS`, `API_READ_TIMEOUT_SECONDS` | Connection and response timeouts for API requests. |
-| `DEVICE_ID`, `DEVICE_TOKEN` | Values issued by device enrollment; fill these before starting the simulator. |
+| `DEVICE_ID`, `DEVICE_TOKEN` | Bundled `room-monitor-01` profile, or both values issued by another device's enrollment. The backend must provision the bundled profile before it can authenticate. |
 | `DEVICE_READING_INTERVAL_SECONDS` | Interval between submitted readings. |
 | `DEVICE_COMMAND_POLL_INTERVAL_SECONDS` | Interval between command checks, independently of readings. |
 | `DEVICE_RECONNECT_DELAY_SECONDS` | Delay after communication failure. Retrying command acknowledgments must preserve the command identity. |
-| `SIMULATION_SEED` | Repeatable sensor noise seed; unrelated to secret generation. |
-| `SIMULATION_START_TEMPERATURE_C`, `SIMULATION_AMBIENT_TEMPERATURE_C` | Initial reading and ambient target, in Celsius. |
-| `SIMULATION_FAN_COOLING_C_PER_SECOND`, `SIMULATION_NOISE_STDDEV_C` | Cooling rate while the fan runs and sensor noise standard deviation. The sensor module will define the full model. |
+| `FIRMWARE_LOG_FILE` | Rotating firmware log, normally `.local/logs/firmware.log`. |
+| `SENSOR_SEED` | Repeatable sensor noise seed; unrelated to secret generation. |
+| `SENSOR_START_TEMPERATURE_C`, `SENSOR_AMBIENT_TEMPERATURE_C` | Initial reading and ambient target, in Celsius. |
+| `SENSOR_FAN_COOLING_C_PER_SECOND`, `SENSOR_NOISE_STDDEV_C` | Cooling rate while the fan runs and sensor noise standard deviation. |
+| `SENSOR_THERMAL_TIME_CONSTANT_SECONDS` | First-order room model time constant, initially 300 seconds. |
 
 ## Prepare PostgreSQL
 

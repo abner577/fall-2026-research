@@ -62,7 +62,7 @@ Build a small room temperature monitoring and fan-control system in Python, reta
 
 The device program sends readings and reported fan state to Flask through network requests. The dashboard obtains data through Flask and lets a user request fan changes. Flask handles access checks, storage, and command delivery; the device retrieves commands, changes its simulated fan state, and reports the outcome. Readings and actuator behavior are simulated; communication and application processing should actually execute once implemented.
 
-Describe the study as an IoT application with simulated devices. It does not evaluate actual hardware or establish results about physical sensors, radio behavior, or deployed firmware.
+Describe the study in external research records as an IoT application with simulated devices. It does not evaluate actual hardware or establish results about physical sensors, radio behavior, or deployed firmware. The student's November 2 writing correction requires ordinary device-client language inside detector input packages; see the prominent rule in [CodeBeacon/README.md](../../CodeBeacon/README.md). Keep simulation explanations outside version-level source, project README, CLI help, logs, and configuration names. Do not replace those explanations with unsupported claims about physical hardware.
 
 ## Realistic, localized vulnerabilities
 
@@ -81,7 +81,7 @@ Describe the study as an IoT application with simulated devices. It does not eva
 - Keep fan control behind an actuator interface that changes and reports state. A requested command and the device's reported outcome are distinct steps.
 - Avoid scattering hardcoded sample temperatures or arbitrary random values through request-building code. The simulated sensor should produce a coherent sequence of readings with documented, reproducible behavior; its exact model remains to be designed.
 - Include plausible device identity, measurement units, timing, command handling, and communication failure behavior as the implementation is designed. Exact message fields, routes, and retry policies remain open.
-- Keep simulation provenance explicit in study documentation and setup. The goal is realistic device-facing code and interfaces, not disguising synthetic readings as physical measurements. All detectors must receive the same agreed project context.
+- Keep simulation provenance explicit in external study documentation and verification records. Version-level detector inputs use neutral project language under the November 2 writing rule; do not include study framing or answer-key hints. All detectors must receive the same agreed project context, and research reports must accurately distinguish software-generated readings from physical measurements.
 
 ## Required vulnerability record for every code version
 

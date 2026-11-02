@@ -10,6 +10,11 @@ only `README.md`, `requirements.txt`, `.env`, and `.env.example`. The local `.en
 is ignored by Git. Runtime `.venv/` and `.local/` folders are also ignored and
 are not application source. The remaining source files are still planned.
 
+Firmware update, November 2: all five `firmware/` files below are implemented in
+Version A. Backend, frontend, and schema files remain pending. See the
+[firmware implementation record](version-a-firmware-implementation.md) for the
+current contract, source snapshot, and verification limits.
+
 README responsibilities: `CodeBeacon/evaluation-study/app/README.md` explains
 the enclosing study application folder, controlled versions, implementation
 status, and detailed shared development setup. Each version's `README.md` is a

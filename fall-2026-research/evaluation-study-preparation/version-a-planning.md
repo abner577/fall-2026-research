@@ -2,6 +2,13 @@
 
 Decision date: November 2, 2026.
 
+Implementation update, November 2: the four root files and five firmware modules
+now exist. The [firmware implementation record](version-a-firmware-implementation.md)
+defines the API contract, exact A-01/A-04/A-08 locations and hashes, test evidence,
+and pending backend provisioning, log-reader boundary, and independent review.
+Backend insertion sites remain planned. The selections and comparisons below
+continue to apply.
+
 ## Purpose and decision status
 
 Version A will contain **eight selected weakness types**, with one planned
