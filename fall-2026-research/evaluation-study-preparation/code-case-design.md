@@ -36,3 +36,64 @@ Before generating application code, select and document the exact weaknesses, CW
 The student accepted ten weakness types on November 2; see the [complete selection](../app-idea/selected-vulnerabilities.md#november-2-selection-update). These include predictable generated credentials, disabled certificate verification, and insufficient restriction of repeated authentication attempts in addition to the original seven choices. Exact defects, CWE mappings, placements, instance count, project versions, endpoint count, database schema/library confirmation, sensor model, and file structure remain to be finalized. Keep placements within the agreed focus areas.
 
 Keep this design record and later injection notes separate from the source packages supplied to detectors. No application code is authorized by this documentation-only request.
+
+---
+
+## Different code test cases
+- So now that I think about it, it makes alot of sense to have one application with at least two controlled code versions. Instead of just having one static version of code that we use. This lets us compare detection when more weaknesses are present and when most of the code is protected.
+
+Version A (About 8 weaknesses present)
+- Examine how many real weaknesses each detector finds when several are distributed through the application. The main thing we are trying to test is can we find them all, most likley you will find alot but how about all?
+
+Version B (About 3 weaknesses present)
+- Example if you hallucinate to make new weaknesses present that arent there or if because most of the code is good you hallucinate and maybe guess that the rest of the code will be safe.
+
+Both versions should preserve the same features, structure, and overall size. Version B should implement the protections for absent targets, rather than remove the relevant functionality. Otherwise, we would partly be comparing different applications.
+
+Your concern about false alarms is valid: a detector should be able to conclude that a requested weakness is absent. We should give each version the same instructions.
+
+## How we could represent each weakness
+
+These are possible examples for the code versions we build. We have not finalized the exact locations, and a version does not need to contain all ten weaknesses.
+
+### 1. Hardcoded credentials
+
+The device sends temperature readings to Flask and includes a secret access token, which acts like the device's password. While getting the connection working, a developer types that token directly into the device's Python file and forgets to move it into a protected setting. The device keeps using that token when it contacts Flask. Someone who obtains the code could copy the token and pretend to be the device. We could leave one working token in the connection setup; simply reusing a token is not the problem here, storing the secret directly in the code is.
+
+### 2. Weak password requirements
+
+When someone creates an account, the app checks that their password meets the rules we have defined. But when they change their password later, the developer forgets to run the same check. That screen accepts a password that the account-creation screen would reject. We could put the mistake in this one password-change operation while keeping the checks in account creation.
+
+### 3. Unsafe password storage
+
+Normally, the app turns a user's password into a protected value called a password hash before saving it in PostgreSQL. It can use that value to check later login attempts without keeping the readable password. In one password-update operation, a developer accidentally saves the password exactly as the user typed it. Anyone able to read that database entry could see the password. We would check how login works afterward so the example really stores a readable password and does not merely stop users from signing in.
+
+### 4. Unencrypted sensitive communication
+
+The device normally uses an HTTPS address to contact Flask, protecting the information sent over the connection. But one operation, such as checking for fan commands, uses a separate address accidentally left as HTTP. The device sends its secret access token over that connection without encryption, so someone able to observe that network traffic could read it. We could put the wrong address in that operation's settings while keeping the other connections protected.
+
+### 5. Secrets exposed in logs or files
+
+If the device fails to contact Flask, the program writes details to a log file to help explain what went wrong. A developer accidentally includes the device's secret access token in those details and leaves it readable to people who should not have it. Those people could obtain the secret from the log. We could make this happen only when a request fails, while normal logs contain temperatures, times, and error messages without secrets. Writing a log file by itself is not the vulnerability; exposing the secret is.
+
+### 6. Missing endpoint authentication
+
+The device asks Flask whether there are any fan commands waiting for it. Flask should check the device's secret token before returning those commands. A developer forgets that check in this one API operation, allowing someone to ask for the commands without proving that they are the device. Other sensitive operations still check who is contacting them. We would make sure a check elsewhere in Flask is not already protecting this operation.
+
+### 7. Missing endpoint authorization
+
+Alice and Bob each have an account and a device. Flask checks that Alice is signed in when she asks to turn on a fan, but forgets to check whether she is allowed to control the particular device she names. By changing the device ID in her request to Bob's device ID, Alice can send a command to Bob's fan. The missing check is permission to control that device, even though Flask already knows who Alice is.
+
+### 8. Predictable generated credentials
+
+When a new device is added, Flask creates a secret access token for it. A developer uses a random-number method that is suitable for things like generating sample temperatures but is not designed to create hard-to-guess secrets. The token may look random while being easier to predict than it should be. We could put the wrong method in the token-creation step. Unlike the hardcoded-credential example, the app creates a new secret here; the mistake is how it creates that secret.
+
+### 9. Disabled certificate verification
+
+The device uses HTTPS to contact Flask. As part of that connection, it should check the server's certificate, which helps confirm that it is talking to the intended server. After a connection error, a developer adds a retry that skips this check to get the request working. That retry could send the device's secret to an impersonating server. We could leave this mistake in the retry while the normal connection still checks the certificate. The connection uses encryption, but the device no longer properly checks who is receiving its information.
+
+### 10. Insufficient restriction of repeated authentication attempts
+
+Flask checks whether a username and password are correct when someone signs in. The app also has a check that slows down or temporarily blocks repeated failed attempts. One way of signing in accidentally skips that second check, allowing someone to keep guessing passwords without an effective restriction. We could make that login operation call the password-checking function directly and forget the attempt-limit check. We would confirm that no other part of the system already limits those attempts. The mistake is allowing repeated guesses, even though each guess is still checked.
+
+- How we are going to implement these weaknesses is that they are going to be plausible mistakes in a functioning workflow. Most of the code is going to be protected like a real-world case scenario and only have minor slip ups that would cause these vulnerabilities to be exposed.
