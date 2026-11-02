@@ -2,9 +2,32 @@
 
 Recorded November 2, 2026, from the student's architecture approval and realism requirements. This is a design record; no application code or verified vulnerability cases have been produced by this documentation step.
 
+### Root-file implementation update, November 2
+
+The student subsequently authorized the first four root files at
+`CodeBeacon/evaluation-study/app/version-A/`: `README.md`, `requirements.txt`,
+`.env`, and `.env.example`. That exact capitalization supersedes the lowercase
+version names in earlier notes; use `version-B/` for the counterpart when it is
+created. No counterpart or third version is created in this step.
+
+The root files define a local HTTPS API on port 8443, a loopback Streamlit UI on
+port 8501, explicit version-local environment loading, a dedicated PostgreSQL
+database, and timing/simulation settings. Psycopg 3 with its binary extra is the
+selected database driver. Werkzeug password hashing and ItsDangerous signed,
+expiring account tokens are the planned shared account mechanisms. These are
+implementation decisions, not evidence that the corresponding features exist.
+Direct dependency versions are pinned; transitive packages are not yet locked.
+
+No application operations or deliberate vulnerability instances are implemented
+by these root files. Required secrets and enrollment credentials remain blank.
+The exact Version A subset, defects, CWE mappings, and verification plans remain
+pending before implementing affected operations. Track the implementation in
+[the vulnerability record](vulnerability-record.md); no independent verification
+or scored run is claimed.
+
 ## Accepted application direction
 
-Before generating code or assigning vulnerability locations, check the [Markdown file-structure reference and future-chat instructions](project-file-structure.md). It is the sole structure reference; no Word document is required. Use the agreed structure for `version-a/` and `version-b/`; no baseline folder or third version is planned. Update the Markdown reference with any agreed structure changes and check existing application files against it. Earlier baseline-folder proposals are superseded; protected behavior still needs to be documented and verified within the two versions.
+Before generating code or assigning vulnerability locations, check the [Markdown file-structure reference and future-chat instructions](project-file-structure.md). It is the sole structure reference; no Word document is required. Use the agreed structure for `version-A/` and `version-B/`; no baseline folder or third version is planned. Update the Markdown reference with any agreed structure changes and check existing application files against it. Earlier baseline-folder proposals are superseded; protected behavior still needs to be documented and verified within the two versions.
 
 Build a small room temperature monitoring and fan-control system in Python, retaining Streamlit for the dashboard, Flask for the API, and PostgreSQL for storage. A device program will simulate the temperature sensor and fan instead of requiring physical hardware.
 

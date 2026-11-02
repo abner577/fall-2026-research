@@ -6,11 +6,11 @@ We are deciding what the application should do and which tools to use before wri
 
 ## General direction
 
-Before coming up with code, consult the [Markdown file-structure reference](project-file-structure.md) and the [current design decisions](code-case-design.md). The Markdown file is the sole structure reference; no Word document is required. The agreed application versions are `version-a/` and `version-b/`, with the same internal structure and no separate baseline folder. Follow the Markdown reference's instructions for checking existing files and updating the structure when it changes.
+Before coming up with code, consult the [Markdown file-structure reference](project-file-structure.md) and the [current design decisions](code-case-design.md). The Markdown file is the sole structure reference; no Word document is required. The agreed application versions are `version-A/` and `version-B/`, with the same internal structure and no separate baseline folder. The student placed the first version at `CodeBeacon/evaluation-study/app/version-A/`. Follow the Markdown reference's instructions for checking existing files and updating the structure when it changes.
 
 - Write the application in Python, using Streamlit for the UI, Flask for the backend APIs, and PostgreSQL for the database.
 - The UI will call the Flask APIs, and the backend will handle database access.
-- Psycopg 3 (`psycopg`) is the proposed library for connecting Python to PostgreSQL. Confirm that choice before adding it as a dependency.
+- Psycopg 3 (`psycopg`) was initially proposed for PostgreSQL. In the November 2 root-file implementation, it is selected with the `binary` extra for local Windows development. Installation and integration remain to be verified.
 - Build one connected application with a clear purpose, shared data, and features that work together. It should be substantial but manageable to understand, run, and review. We have not set a file or line count.
 
 ## Reference project
