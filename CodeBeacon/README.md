@@ -1,5 +1,7 @@
 # CodeBeacon: research execution and application
 
+**November 2 folder clarification (supersedes older placement guidance below):** this folder is for actual implementation and execution materials. Application design, code-case planning, vulnerability selections and placement notes, and the answer key belong in [evaluation-study-preparation/](../fall-2026-research/evaluation-study-preparation/). Do not put preparation documents here. Keep them separate from detector input packages.
+
 `CodeBeacon/` is the working root for carrying out the research. The repository has two main folders: this folder for execution and [fall-2026-research/](../fall-2026-research/) for the planning and meeting record. The repository-level [README](../README.md) and [research plan](../research-plan.md) provide overall context.
 
 `CodeBeacon/` has two main subfolders:

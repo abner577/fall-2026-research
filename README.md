@@ -8,6 +8,8 @@ The student completed an LREU in Spring 2026 and is starting a new project for F
 
 ## Repository structure and weekly meeting workflow
 
+**Folder clarification, November 2, 2026 (supersedes older placement guidance):** `CodeBeacon/` holds actual research implementation, including executable evaluation cases, scanner/run tooling, execution outputs, and any later app code. Planning and preparation belong under `fall-2026-research/`, specifically `evaluation-study-preparation/` for application design, code-case planning, vulnerability selection and placement notes, and the answer key. Keep these preparation documents separate from detector inputs. Earlier references below to saving working designs or answer keys in `CodeBeacon/` are superseded by this clarification.
+
 The two main folders are `CodeBeacon/` (Code Beacon) and `fall-2026-research/` (Fall 2026 Research). `CodeBeacon/` is the working root for carrying out the research and any later application development. `fall-2026-research/` preserves the planning, proposals, design decisions, diagrams, architecture discussions, and meeting records developed so far. The repository-level `README.md` and `research-plan.md` remain the overview and navigation guides.
 
 | Location | Intended purpose |

@@ -1,6 +1,33 @@
 # Selected security focus areas
 
-This file is part of the planning record in `fall-2026-research/`. Carry out the evaluation study and save its code, documents, prompts, logs, evidence, results, and working designs under [CodeBeacon/evaluation-study/](../../CodeBeacon/evaluation-study/). Place future application code, documentation, and architecture under [CodeBeacon/app/](../../CodeBeacon/app/) only if the app proceeds and time permits. Meeting records remain in `fall-2026-research/docs/`.
+This file is part of the planning record in `fall-2026-research/`. Under the student's November 2 folder clarification, code-case designs, selection and placement notes, and the answer key belong in [evaluation-study-preparation/](../evaluation-study-preparation/). Actual evaluation implementation and execution materials belong under [CodeBeacon/evaluation-study/](../../CodeBeacon/evaluation-study/); later app implementation belongs under [CodeBeacon/app/](../../CodeBeacon/app/) if it proceeds. Meeting records remain in `fall-2026-research/docs/`.
+
+## November 2 selection update
+
+The student confirmed these seven distinct weakness types: hardcoded credentials, weak password requirements, unsafe password storage, unencrypted sensitive communication, secrets exposed in logs or files, missing endpoint authentication, and missing endpoint authorization. Authentication and authorization are separate checks. The student subsequently accepted all three additions below, bringing the selection to ten weakness types. This does not yet fix the number of injected instances or project versions.
+
+The following three additions are accepted:
+
+| Accepted addition | Possible location in the temperature/fan application | Distinction from the original seven targets |
+| --- | --- | --- |
+| Predictable generated credentials | Device enrollment generates a credential from a device identifier or predictable sequence. | The application generates a guessable secret; it is not a fixed credential embedded in source or a weak user-chosen password. Already present in the candidate list below. |
+| Disabled certificate verification ([CWE-295](https://cwe.mitre.org/data/definitions/295.html)) | One device API-client path bypasses server certificate checks. | A TLS connection can encrypt traffic while failing to establish that the server is authentic. Already present in the candidate list below. |
+| Insufficient restriction of repeated authentication attempts ([CWE-307](https://cwe.mitre.org/data/definitions/307.html)) | One login path permits repeated password guesses without effective throttling or other restrictions. | Authentication exists, but repeated guesses are not adequately restricted. This is separate from missing authentication and weak password requirements. |
+
+These are plausible placements, not finalized routes, functions, or CWE mappings for all ten targets. Define exact defects and check shared middleware, infrastructure protections, and scanner coverage before freezing cases. The older text below records the original candidate rationale; it does not revoke the ten choices confirmed above.
+
+The complete accepted set is:
+
+1. Hardcoded credentials.
+2. Weak password requirements.
+3. Unsafe password storage.
+4. Unencrypted sensitive communication.
+5. Secrets exposed in logs or files.
+6. Missing endpoint authentication.
+7. Missing endpoint authorization.
+8. Predictable generated credentials.
+9. Disabled certificate verification.
+10. Insufficient restriction of repeated authentication attempts.
 
 **Status updated October 29, 2026:** the professor accepted these two broad focus areas on October 26 after clarifying that each contains multiple weaknesses. They are not two finalized individual CWE targets. Exact entries, checks, and placements in the coherent IoT project still need definition and review. For each selected weakness, document why it is included, why it belongs at that application location, the exact code change, and independent verification evidence. See [the decision list](../coming-up-w-research-plan/decisions-and-professor-questions.md).
 
@@ -16,6 +43,7 @@ We will look for:
 - **Predictable password generation:** Code that creates passwords using predictable values, such as a device identifier or a fixed pattern.
 - **Weak password requirements:** Registration or password-change logic that allows weak passwords under the policy we define for the prototype.
 - **Unsafe password storage:** User login passwords stored as readable text or processed with an unsuitable password hashing method. This also overlaps with category 7.
+- **Insufficient restriction of repeated authentication attempts:** A login path permits repeated password guesses without effective throttling or other restrictions. Accepted November 2; candidate mapping is CWE-307. Check protections in shared middleware and deployment configuration before confirming an instance.
 
 For login passwords that the app verifies, we will look for an appropriate password hashing method and salt. Credentials the app must send to another service need protected storage; hashing them is not always a usable replacement.
 
