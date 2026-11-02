@@ -4,6 +4,8 @@ Recorded November 2, 2026, from the student's architecture approval and realism 
 
 ## Accepted application direction
 
+Before generating code or assigning vulnerability locations, check the [Markdown file-structure reference and future-chat instructions](project-file-structure.md). It is the sole structure reference; no Word document is required. Use the agreed structure for `version-a/` and `version-b/`; no baseline folder or third version is planned. Update the Markdown reference with any agreed structure changes and check existing application files against it. Earlier baseline-folder proposals are superseded; protected behavior still needs to be documented and verified within the two versions.
+
 Build a small room temperature monitoring and fan-control system in Python, retaining Streamlit for the dashboard, Flask for the API, and PostgreSQL for storage. A device program will simulate the temperature sensor and fan instead of requiring physical hardware.
 
 The device program sends readings and reported fan state to Flask through network requests. The dashboard obtains data through Flask and lets a user request fan changes. Flask handles access checks, storage, and command delivery; the device retrieves commands, changes its simulated fan state, and reports the outcome. Readings and actuator behavior are simulated; communication and application processing should actually execute once implemented.
@@ -28,6 +30,25 @@ Describe the study as an IoT application with simulated devices. It does not eva
 - Avoid scattering hardcoded sample temperatures or arbitrary random values through request-building code. The simulated sensor should produce a coherent sequence of readings with documented, reproducible behavior; its exact model remains to be designed.
 - Include plausible device identity, measurement units, timing, command handling, and communication failure behavior as the implementation is designed. Exact message fields, routes, and retry policies remain open.
 - Keep simulation provenance explicit in study documentation and setup. The goal is realistic device-facing code and interfaces, not disguising synthetic readings as physical measurements. All detectors must receive the same agreed project context.
+
+## Required vulnerability record for every code version
+
+The student requires a separate, maintained document that explains every deliberately inserted vulnerability and exactly where it appears in each version. We must understand and explain each weakness rather than simply generate code and assume it contains the intended problems. Add any other vulnerabilities discovered during review, clearly distinguishing confirmed issues from concerns awaiting verification. Do not claim that the record proves there are no undiscovered vulnerabilities.
+
+Create the record alongside implementation when code generation begins; the document format remains open (for example, an Excel workbook or Word document). Store it under `fall-2026-research/evaluation-study-preparation/`, outside the source packages supplied to detectors. This requirement does not create the register or authorize code generation now.
+
+For each vulnerability instance in each code version, record:
+
+- A stable vulnerability ID, the weakness name, and the applicable CWE once confirmed.
+- The case/version ID and exact saved code revision or file hashes.
+- The file path, function or API operation, and exact line number or line range. For a missing check, identify the operation and lines where the check is required; there may be no single faulty line to point to.
+- What the code does, why that behavior is vulnerable, what must be true for it to be exploited, and the possible consequence, in plain language.
+- Why the weakness belongs in this part of the application and what changed from the protected baseline, including other files needed to understand the behavior.
+- How the behavior was verified, the evidence, reviewer, date, and whether independent review is complete. An AI-generated explanation alone is not verification.
+
+For each version, also identify which selected weaknesses are absent and explain the relevant protections. Include comparable safe examples and why they are not vulnerabilities where this helps distinguish a real issue from a false alarm. Record a resolved false alarm or disputed finding with its reasoning rather than silently losing it.
+
+Keep the record synchronized with code changes. If edits move lines or change behavior, update the affected entries and preserve the earlier version's locations and evidence. Freeze a matching source snapshot and answer-key version before scored runs so that file paths and line numbers always refer to identifiable code.
 
 ## Next step and pending choices
 

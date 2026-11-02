@@ -6,6 +6,8 @@ We are deciding what the application should do and which tools to use before wri
 
 ## General direction
 
+Before coming up with code, consult the [Markdown file-structure reference](project-file-structure.md) and the [current design decisions](code-case-design.md). The Markdown file is the sole structure reference; no Word document is required. The agreed application versions are `version-a/` and `version-b/`, with the same internal structure and no separate baseline folder. Follow the Markdown reference's instructions for checking existing files and updating the structure when it changes.
+
 - Write the application in Python, using Streamlit for the UI, Flask for the backend APIs, and PostgreSQL for the database.
 - The UI will call the Flask APIs, and the backend will handle database access.
 - Psycopg 3 (`psycopg`) is the proposed library for connecting Python to PostgreSQL. Confirm that choice before adding it as a dependency.
