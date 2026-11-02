@@ -111,3 +111,78 @@ they do not replace attempt restriction.
 These are selected-target controls to implement and verify, not assertions that
 the unfinished project is vulnerability-free. Other discovered weaknesses must
 be recorded and resolved or classified before freezing a scored case.
+
+--- 
+
+## Version B Implementation plan
+
+### Vulnerabilities found in version B
+1. V4 — Unencrypted sensitive communication
+Files: firmware/api_client.py and firmware/settings.py
+Supporting server setup: backend/main.py and backend/settings.py
+
+- The device will regularly ask the server, “Are there any fan commands waiting for me?”
+
+For this particular request, we will use ordinary HTTP instead of HTTPS. The request will include the device’s secret token, so someone who can observe that network connection could read and copy it.
+
+2. V7 — Missing endpoint authorization
+File: backend/routes/commands.py
+Related command handling: backend/services/devices.py
+
+- A signed-in user will submit a request to turn a particular device’s fan on or off.
+
+We will check that the user is signed in, but forget to check whether that device belongs to them. Alice could therefore submit a command containing Bob’s device identifier, and the server would accept it.
+
+3. V10 — Insufficient restriction of repeated login attempts
+File: backend/routes/accounts.py
+Related functions: backend/security.py and backend/services/accounts.py
+
+- The login endpoint will receive a username and password and check whether they are correct.
+
+However, we will deliberately forget to call the function that restricts repeated failed attempts. Someone could keep submitting password guesses without encountering the intended temporary block.
+
+---
+
+### Vulnerabilities not found in version B
+1. V1 — Hardcoded credentials: protected
+Files: firmware/settings.py and backend/settings.py
+
+- The device token and other required secrets will be read from separate local settings rather than written directly into Python source files.
+
+2. V2 — Weak password requirements: protected
+
+File: backend/services/accounts.py
+Requests handled by: backend/routes/accounts.py
+
+Both account creation and password changes will call the same password-strength checking function.
+
+If a password is too weak during account creation, it will also be rejected during a password change
+
+3. V3 — Unsafe password storage: protected
+File: backend/services/accounts.py
+
+- Both account creation and password changes will turn passwords into protected stored values using the same suitable password-hashing settings.
+
+4. V5 — Secrets exposed in logs or files: protected
+File: firmware/api_client.py
+
+- If submitting a temperature reading fails, we will still record useful information, such as which operation failed and the server’s response status.
+
+However, we will leave the device token and complete credential-bearing request headers out of the log
+
+5. V6 — Missing endpoint authentication: protected
+Files: backend/routes/commands.py, backend/routes/readings.py, and backend/security.py
+
+- When a device asks for commands, submits readings, or confirms a completed command, the server will call the device-authentication function.
+
+- That function will check both that the token is valid and that it belongs to the device named in the request. Knowing a device identifier alone will not be enough.
+
+6. V8 — Predictable generated credentials: protected
+File: backend/services/devices.py
+
+- When a device is registered, its token will come from a secret generator designed to produce hard-to-guess values. We will not generate it from the device identifier, the temperature simulation’s starting value, or a predictable sequence
+
+7. V9 — Disabled certificate verification: protected
+Files: firmware/api_client.py and frontend/api_client.py
+
+- Every HTTPS request will check the server’s certificate. If that check fails, the client will stop that request and report the problem.

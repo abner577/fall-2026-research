@@ -99,3 +99,74 @@ uses PostgreSQL `sslmode=prefer`, and the browser accesses Streamlit over loopba
 HTTP. Define and document those trust boundaries, or strengthen the defaults, in
 the common deployment plan. Do not silently ignore another in-scope cleartext
 credential path while marking CWE-319 absent.
+
+---
+
+## Version A implementation plan
+
+### Vulnerabilities detected in version A
+1. V1 - Hardcoded credentials
+File: firmware/settings.py
+
+- The simulated device needs a secret token when it sends readings to the server. We will write one working device token directly into this Python file instead of reading it from the separate local settings file.
+
+- The server must recognize that token, so it actually works as the device’s password. Someone who obtains the source code could copy it and pretend to be that device. An unused sample token would not demonstrate this vulnerability.
+
+2. V2 - Weak password requirements
+File: backend/services/accounts.py
+Request handled by: backend/routes/accounts.py
+
+- When someone creates an account, we will call a shared function that checks whether their password meets our password rules.
+
+- When that person changes their password, we will deliberately forget to call that same strength-checking function. They could therefore change their password to something that account creation would reject.
+
+It's kind of like we have one endpoint for creating an account, right? In that endpoint, the password requirements are properly enforced, but we have another endpoint for changing a password. In that endpoint, we forget to enforce these password creation rules
+
+3. V3 - Unsafe password storage
+File: backend/services/accounts.py
+
+- When an account is created, the server will turn its password into a stored value called a password hash. However, we will choose a setting that makes this calculation take too little work.
+
+- Login will still work normally. The problem appears if someone steals the stored password data: they can try possible passwords against it much faster than they should.
+
+- Password changes will use the stronger storage setting. This keeps two separate mistakes: V2 accepts a weak new password; V3 gives stored passwords insufficient protection.
+
+4. V5 - Secrets exposed in logs
+File: firmware/api_client.py
+
+- The device will send a temperature reading to the server. If that request fails, an error-handling section will write diagnostic information to a log.
+
+- We will make that section include the device’s secret token, such as by recording the complete request information containing it. Someone who can read that log could copy the token and impersonate the device. Normal messages will leave secrets out.
+
+5. V6 - Missing endpoitn authentication
+File: backend/routes/commands.py
+
+- That endpoint should check the device’s secret token before returning its commands. We will deliberately omit that check and let the caller request commands using the device’s identifier alone. Someone who knows that identifier could retrieve its pending commands without proving they are the device.
+
+6. V7 - Missing endpoint authorization
+File: backend/routes/commands.py
+Related command handling: backend/services/devices.py
+
+- There will be another endpoint where a signed-in user asks to turn a particular device’s fan on or off. We will check that the user is signed in, but forget to check whether the requested device belongs to them. Alice could submit a fan command using Bob’s device identifier, and the server would accept it.
+
+7. V8 - Predictable generated credentials
+File: backend/services/devices.py
+
+- When a user registers a new device, the server will generate its secret access token. We will use a random-number generator intended for ordinary simulations, and start it from a predictable value. Its output may look random, but someone who knows how it starts could reproduce the sequence and work out device tokens.
+
+8. V9 - Disabled certificate vertification
+File: firmware/api_client.py
+
+- When the device sends a temperature reading over HTTPS, it will initially check the server’s certificate—the evidence that it is talking to the expected server. If that check fails, we will make the error-handling section retry the request with certificate checking switched off. The device would then send its authenticated request without properly checking who receives it.
+
+### Vulnerabilities detected in version B
+1. V4 - Unencrypyed sensitive communication: protected
+Files: firmware/settings.py, firmware/api_client.py, frontend/api_client.py, and backend/main.py
+
+- The device and dashboard will use HTTPS when communicating with the API. The server will provide the HTTPS connection, and neither client will retry a failed request using ordinary HTTP.For example, the device’s secret token will travel inside an encrypted request when it submits readings.
+
+2. V10 - Unrestrictied repeated login attempts: protected
+Files: backend/routes/accounts.py and backend/security.py
+Supporting storage: database/schema.sql
+
+- When a login request arrives, the endpoint will first call a shared function that checks whether too many failed attempts have already occurred. Failed attempts will be recorded. Once the limit is reached, the server will temporarily reject further attempts before checking another password.

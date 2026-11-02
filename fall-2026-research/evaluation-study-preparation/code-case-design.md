@@ -87,7 +87,7 @@ Describe the study as an IoT application with simulated devices. It does not eva
 
 The student requires a separate, maintained document that explains every deliberately inserted vulnerability and exactly where it appears in each version. We must understand and explain each weakness rather than simply generate code and assume it contains the intended problems. Add any other vulnerabilities discovered during review, clearly distinguishing confirmed issues from concerns awaiting verification. Do not claim that the record proves there are no undiscovered vulnerabilities.
 
-Create the record alongside implementation when code generation begins; the document format remains open (for example, an Excel workbook or Word document). Store it under `fall-2026-research/evaluation-study-preparation/`, outside the source packages supplied to detectors. This requirement does not create the register or authorize code generation now.
+November 2 clarification: the student selected an Excel constants/reference workbook, maintained in a personal folder outside this repository. Its requirements and progress live in [application-constants-progress.md](application-constants-progress.md) under `fall-2026-research/evaluation-study-preparation/`. The initial workbook has only the V1–V10 overview. Add the version-specific records described below alongside implementation when requested; Version A and Version B tabs remain deferred. Keep the workbook and answer-key information outside detector inputs. This supersedes the earlier open-format and repository-storage proposal for the workbook and does not authorize code generation. Agents can use the Markdown requirements without access to the external file.
 
 For each vulnerability instance in each code version, record:
 

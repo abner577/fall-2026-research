@@ -1,5 +1,7 @@
 # Fall 2026 CAHSI LREU: Program and Repository Context
 
+**External Excel constants reference, November 2:** read [workbook requirements and progress](fall-2026-research/evaluation-study-preparation/application-constants-progress.md) when the student mentions the constants Excel sheet, vulnerability workbook, or version-case tabs. The student keeps the actual workbook in another folder on their computer, outside this repository; its external path is unspecified. The repository documents its purpose, V1–V10 IDs, contents, planned additions, and last known progress. The initial workbook contains only the vulnerability overview; Version A and Version B tabs are deferred. Future agents can plan from these Markdown notes without accessing the Excel file.
+
 ## Purpose of this file
 
 This is a portable context guide for the student's Fall 2026 Local Research Experiences for Undergraduates (LREU) project through the Computing Alliance of Hispanic-Serving Institutions (CAHSI).
