@@ -1,0 +1,33 @@
+{
+  "date": "2026-11-02",
+  "reviewer": "Codex author checks; not independent review",
+  "python": "3.14.0",
+  "dependencies": {
+    "streamlit": "1.66.1",
+    "requests": "2.34.2",
+    "python-dotenv": "1.2.4",
+    "altair": "6.3.0",
+    "pandas": "3.1.0"
+  },
+  "compileall_passed": true,
+  "tests_run": 4,
+  "tests_passed": true,
+  "test_cases": [
+    "frontend_checks.FrontendChecks.test_account_registration_login_password_change_and_sign_out",
+    "frontend_checks.FrontendChecks.test_device_enrollment_readings_and_command_acknowledgment",
+    "frontend_checks.FrontendChecks.test_expired_and_revoked_sessions_clear_credentials",
+    "frontend_checks.FrontendChecks.test_https_transport_and_failures"
+  ],
+  "output": "test_account_registration_login_password_change_and_sign_out (frontend_checks.FrontendChecks.test_account_registration_login_password_change_and_sign_out) ... ok\ntest_device_enrollment_readings_and_command_acknowledgment (frontend_checks.FrontendChecks.test_device_enrollment_readings_and_command_acknowledgment) ... 2026-11-02 21:08:12.752 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n2026-11-02 21:08:12.752 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\nok\ntest_expired_and_revoked_sessions_clear_credentials (frontend_checks.FrontendChecks.test_expired_and_revoked_sessions_clear_credentials) ... 2026-11-02 21:08:13.098 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n2026-11-02 21:08:13.098 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n2026-11-02 21:08:13.098 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n2026-11-02 21:08:13.347 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n2026-11-02 21:08:13.347 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n2026-11-02 21:08:13.347 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\nok\ntest_https_transport_and_failures (frontend_checks.FrontendChecks.test_https_transport_and_failures) ... ok\n\n----------------------------------------------------------------------\nRan 4 tests in 2.640s\n\nOK\n",
+  "sha256": {
+    "frontend/api_client.py": "c7fe3da3e0f8430e1e10f542f4731e6358dbfee3bc903dea634fb2bcd83aa5c8",
+    "frontend/main.py": "2ffe9833e2c9e09a91d67e879a1a3bb8f3ad2754a01ea79f0f5983f1df13e045",
+    "frontend/views/account.py": "cb2da012bb7784b3afe5865db2662bed74af4c36fc3bb7e96443d76b6d178861",
+    "frontend/views/dashboard.py": "bb81cdc3029e603b785d029bd6f7cd81180c02c1fdd41446e4b51525c066e88a"
+  },
+  "limits": [
+    "HTTP exchanges and UI API operations use doubles; no real TLS or PostgreSQL integration exercised.",
+    "AppTest verifies rendered element values and interactions, not browser layout or the wall-clock auto-refresh timer.",
+    "Database schema, default-device provisioning, full-system integration, and independent review remain pending."
+  ]
+}

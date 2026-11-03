@@ -16,11 +16,17 @@ Version A. Firmware explanations are in
 firmware implementation-record link pointed to a file absent from this checkout.
 
 Backend update, November 2: all ten `backend/` modules below are now implemented
-without changing this structure. Frontend and schema files remain pending.
+without changing this structure. The schema remains pending.
 See the [backend implementation record](version-a-backend-implementation.md) for
 the current API/schema contracts, source locations and hashes, focused checks,
 and verification limits. Verification files live outside the version package at
 `CodeBeacon/evaluation-study/verification/version-a/`.
+
+Frontend update, November 2: all four `frontend/` modules below are implemented
+with the agreed responsibilities and filenames. See
+[frontend-version-a.md](explaining-code-files/frontend-version-a.md) for the API
+client, account flows, dashboard behavior, source hashes, and focused checks.
+No Version B files or database schema were created in this step.
 
 README responsibilities: `CodeBeacon/evaluation-study/app/README.md` explains
 the enclosing study application folder, controlled versions, implementation

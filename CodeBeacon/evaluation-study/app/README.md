@@ -31,8 +31,12 @@ delivery will run as ordinary application operations.
 
 ## Current implementation status
 
-Version A's root files, five firmware modules, and ten backend modules exist.
-The dashboard and database schema remain pending. Six focused backend checks
+Version A's root files, five firmware modules, ten backend modules, and four
+frontend modules exist. The database schema remains pending. Four focused
+frontend checks pass using Streamlit AppTest and mocked API responses; compilation
+and dependency checks pass. See the
+[frontend implementation notes](../../../fall-2026-research/evaluation-study-preparation/explaining-code-files/frontend-version-a.md)
+for behavior, source hashes, and verification limits. Six focused backend checks
 pass using database doubles; PostgreSQL integration, default-device provisioning,
 and independent review remain pending. The current API and database contracts,
 source locations, and verification limits are maintained in the
@@ -60,7 +64,7 @@ simulation steps. Network timing is not guaranteed to be deterministic.
 
 ## Planned source layout
 
-The four root files, `firmware/`, and `backend/` files exist. Other entries show the agreed layout.
+The four root files, `firmware/`, `backend/`, and `frontend/` files exist. The schema shows the agreed layout.
 
 ```text
 version-A/
@@ -109,8 +113,8 @@ The [requirements file](version-A/requirements.txt) pins direct dependencies: Fl
 API, Werkzeug for password hashing, ItsDangerous for expiring signed account
 tokens, Psycopg 3 for PostgreSQL, Streamlit for the dashboard, Requests for API
 clients, and python-dotenv for configuration. PostgreSQL and OpenSSL are separate
-system prerequisites. Package installation and application integration have not
-yet been verified on this workstation.
+system prerequisites. The pinned packages are installed in Version A's local
+environment and `pip check` passes. Full application integration remains pending.
 
 Package release references: [Flask](https://pypi.org/project/Flask/3.1.3/),
 [Werkzeug](https://pypi.org/project/Werkzeug/3.1.9/),
@@ -158,7 +162,7 @@ variables take precedence. They must not search upward into the evaluation
 study's `.env`. The backend rejects a missing signing secret or database
 password. The simulator uses the bundled `room-monitor-01`
 profile when its token is blank; other device identities require an externally
-supplied enrollment token. Backend and firmware settings validation are implemented.
+supplied enrollment token. Backend, firmware, and frontend settings validation are implemented.
 
 | Settings | Meaning |
 | --- | --- |

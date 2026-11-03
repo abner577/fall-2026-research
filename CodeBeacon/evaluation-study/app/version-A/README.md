@@ -4,8 +4,8 @@ A room-temperature dashboard and fan controller built with Python, Flask,
 Streamlit, and PostgreSQL. The device client sends temperature readings to the
 API, receives fan commands, and reports its current state.
 
-**Status:** The device client and Flask backend are implemented. The Streamlit
-dashboard and database schema are pending. Database initialization and device
+**Status:** The device client, Flask backend, and Streamlit dashboard are implemented.
+The database schema is pending. Database initialization and device
 enrollment are required before the client can exchange data with the API.
 
 ## Features
@@ -40,7 +40,7 @@ If `.env` does not already exist, copy `.env.example` to `.env`. Set
 .\.venv\Scripts\python.exe -c "import secrets; print(secrets.token_urlsafe(48))"
 ```
 
-The backend and firmware read only this project's `.env`, with process environment variables
+The backend, firmware, and dashboard read only this project's `.env`, with process environment variables
 taking precedence. Relative paths resolve against this project folder regardless
 of the terminal's current directory. Keep `.env` local. The firmware does not need
 the backend signing secret or database password.
@@ -131,7 +131,7 @@ To assign an existing device credential to a registered account, run:
 Enter the device's existing token at the hidden prompt. The command requires an
 existing account and does not replace an already registered device.
 
-## Run the full application when available
+## Run the full application after database initialization
 
 Open separate PowerShell terminals in the project folder. Start the API:
 
@@ -154,6 +154,16 @@ and start its device client:
 .\.venv\Scripts\python.exe -m firmware.main
 ```
 
-The dashboard displays incoming temperatures and fan state. Use its controls to
-request a fan change and wait for the device to report the result. Stop each
-process with `Ctrl+C`.
+Save the device ID and token from the registration panel before dismissing it;
+the token cannot be retrieved later. The dashboard keeps the issued credential
+in the current session until dismissed or signed out.
+
+The dashboard refreshes readings and command history every five seconds while
+open. It displays the latest temperature, reported fan state, and up to 100
+recent readings and commands. Readings become stale after 30 seconds without an
+update. Use the fan controls to queue a request; acknowledgment and the fan state
+reported in a reading are displayed separately. Times are shown in UTC.
+
+Account settings let you change your password using your current password.
+Expired or revoked sessions require signing in again. Signing out clears the
+dashboard session. Stop each process with `Ctrl+C`.
