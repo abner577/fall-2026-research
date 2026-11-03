@@ -11,9 +11,16 @@ is ignored by Git. Runtime `.venv/` and `.local/` folders are also ignored and
 are not application source. The remaining source files are still planned.
 
 Firmware update, November 2: all five `firmware/` files below are implemented in
-Version A. Backend, frontend, and schema files remain pending. See the
-[firmware implementation record](version-a-firmware-implementation.md) for the
-current contract, source snapshot, and verification limits.
+Version A. Firmware explanations are in
+[firmware-version-a.md](explaining-code-files/firmware-version-a.md); the earlier
+firmware implementation-record link pointed to a file absent from this checkout.
+
+Backend update, November 2: all ten `backend/` modules below are now implemented
+without changing this structure. Frontend and schema files remain pending.
+See the [backend implementation record](version-a-backend-implementation.md) for
+the current API/schema contracts, source locations and hashes, focused checks,
+and verification limits. Verification files live outside the version package at
+`CodeBeacon/evaluation-study/verification/version-a/`.
 
 README responsibilities: `CodeBeacon/evaluation-study/app/README.md` explains
 the enclosing study application folder, controlled versions, implementation

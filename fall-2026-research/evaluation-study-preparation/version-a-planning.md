@@ -2,12 +2,17 @@
 
 Decision date: November 2, 2026.
 
-Implementation update, November 2: the four root files and five firmware modules
-now exist. The [firmware implementation record](version-a-firmware-implementation.md)
-defines the API contract, exact A-01/A-04/A-08 locations and hashes, test evidence,
-and pending backend provisioning, log-reader boundary, and independent review.
-Backend insertion sites remain planned. The selections and comparisons below
-continue to apply.
+Implementation update, November 2: the four root files, five firmware modules,
+and ten backend modules now exist. The
+[backend implementation record](version-a-backend-implementation.md) defines the
+13-operation API, database dependency, exact A-02/A-03/A-05/A-06/A-07 locations,
+hashes, and focused verification limits. Schema creation, A-01 device
+provisioning, the A-04 log-reader boundary, PostgreSQL integration, and independent
+review remain pending. The earlier firmware implementation-record link pointed
+to a missing file; current firmware explanations are in
+[firmware-version-a.md](explaining-code-files/firmware-version-a.md).
+The selections and comparisons below continue to apply; future-tense selection
+text records the original plan rather than completion evidence.
 
 ## Purpose and decision status
 

@@ -4,9 +4,9 @@ A room-temperature dashboard and fan controller built with Python, Flask,
 Streamlit, and PostgreSQL. The device client sends temperature readings to the
 API, receives fan commands, and reports its current state.
 
-**Status:** The device client is implemented. The Flask backend, Streamlit
-dashboard, and database schema are pending. The client needs a compatible API
-and an enrolled device to exchange data; the complete application cannot run yet.
+**Status:** The device client and Flask backend are implemented. The Streamlit
+dashboard and database schema are pending. Database initialization and device
+enrollment are required before the client can exchange data with the API.
 
 ## Features
 
@@ -40,7 +40,7 @@ If `.env` does not already exist, copy `.env.example` to `.env`. Set
 .\.venv\Scripts\python.exe -c "import secrets; print(secrets.token_urlsafe(48))"
 ```
 
-The firmware reads only this project's `.env`, with process environment variables
+The backend and firmware read only this project's `.env`, with process environment variables
 taking precedence. Relative paths resolve against this project folder regardless
 of the terminal's current directory. Keep `.env` local. The firmware does not need
 the backend signing secret or database password.
@@ -107,6 +107,29 @@ with bounded connect/read timeouts. A slow request can delay the next operation.
 
 Press `Ctrl+C` to stop. The fan state returns to off locally; shutdown does
 not submit a final reading to the API.
+
+## Run the API
+
+After the database schema is available and initialized, start the HTTPS API:
+
+```powershell
+.\.venv\Scripts\python.exe -m backend.main
+```
+
+The API provides account registration and login under `/api/accounts`, device
+enrollment under `/api/devices`, and device-specific reading and command routes.
+Registration accepts a username and a password of 15 to 128 characters. Login
+returns an expiring bearer token for account requests. Device enrollment returns
+a device ID and a separate device token; save the token when it is issued.
+
+To assign an existing device credential to a registered account, run:
+
+```powershell
+.\.venv\Scripts\python.exe -m flask --app backend.main:create_app provision-device --username YOUR_USERNAME --device-id room-monitor-01 --name "Room monitor"
+```
+
+Enter the device's existing token at the hidden prompt. The command requires an
+existing account and does not replace an already registered device.
 
 ## Run the full application when available
 

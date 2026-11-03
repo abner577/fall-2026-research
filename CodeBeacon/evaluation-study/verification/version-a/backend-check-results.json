@@ -1,0 +1,482 @@
+{
+  "recorded_at": "2026-11-02T18:22:49.125076-05:00",
+  "author": "Codex; not independently reviewed",
+  "source_root": "CodeBeacon/evaluation-study/app/version-A",
+  "snapshot_sha256": "87fd0ab23b4030f4a45d79dc9201bf9e077de36c0b11c0aeb4b9c04add704a67",
+  "files": [
+    {
+      "path": ".env.example",
+      "sha256": "c25e97e1416c60d69e2fe8699b70dcb5a77dddd89e6ab5c499f44220846b3681"
+    },
+    {
+      "path": "backend/database.py",
+      "sha256": "5d100677b57208ca47a9216d9a7365aac2dc6236f0a441679a7b1161d8ba7932",
+      "functions": [
+        {
+          "name": "get_db",
+          "start": 6,
+          "end": 22
+        },
+        {
+          "name": "close_db",
+          "start": 25,
+          "end": 28
+        }
+      ]
+    },
+    {
+      "path": "backend/main.py",
+      "sha256": "95eb3082ef491bd6fc843b1091b0e14245b6bd2a46aaef94477fddebbb8ebf9d",
+      "functions": [
+        {
+          "name": "create_app",
+          "start": 19,
+          "end": 94
+        },
+        {
+          "name": "main",
+          "start": 97,
+          "end": 111
+        }
+      ]
+    },
+    {
+      "path": "backend/routes/accounts.py",
+      "sha256": "a16b336fea0031662e996d17a8c04025e27afd872a96bf3eab94cdf10c77ad3a",
+      "functions": [
+        {
+          "name": "_account_response",
+          "start": 13,
+          "end": 14
+        },
+        {
+          "name": "_session_response",
+          "start": 17,
+          "end": 18
+        },
+        {
+          "name": "register",
+          "start": 22,
+          "end": 26
+        },
+        {
+          "name": "login",
+          "start": 30,
+          "end": 39
+        },
+        {
+          "name": "me",
+          "start": 44,
+          "end": 45
+        },
+        {
+          "name": "change_password",
+          "start": 50,
+          "end": 55
+        }
+      ]
+    },
+    {
+      "path": "backend/routes/commands.py",
+      "sha256": "709e35c7149f634013c54f57f88a4210d4519ef8be81c1de5cf70c34f3e14d22",
+      "functions": [
+        {
+          "name": "submit",
+          "start": 14,
+          "end": 18
+        },
+        {
+          "name": "history",
+          "start": 23,
+          "end": 25
+        },
+        {
+          "name": "pending",
+          "start": 29,
+          "end": 31
+        },
+        {
+          "name": "acknowledge",
+          "start": 36,
+          "end": 40
+        }
+      ]
+    },
+    {
+      "path": "backend/routes/devices.py",
+      "sha256": "7108ddf0e9574aa218c28383bb53628b3bbc36702592d9d9606e4f611d038eb8",
+      "functions": [
+        {
+          "name": "enroll",
+          "start": 11,
+          "end": 16
+        },
+        {
+          "name": "list_devices",
+          "start": 21,
+          "end": 23
+        },
+        {
+          "name": "device_detail",
+          "start": 28,
+          "end": 31
+        }
+      ]
+    },
+    {
+      "path": "backend/routes/readings.py",
+      "sha256": "50408805169b70fb59663f9008aebf1e68179b2bc0e3fa8273e8ac3cdf3c1eb2",
+      "functions": [
+        {
+          "name": "submit",
+          "start": 13,
+          "end": 16
+        },
+        {
+          "name": "history",
+          "start": 21,
+          "end": 23
+        }
+      ]
+    },
+    {
+      "path": "backend/security.py",
+      "sha256": "a357651077e63337a9fee2e6ef8aa7157040fd7f2e40c03d77f22d41609f14ff",
+      "functions": [
+        {
+          "name": "ApiError",
+          "start": 22,
+          "end": 28
+        },
+        {
+          "name": "json_body",
+          "start": 31,
+          "end": 35
+        },
+        {
+          "name": "bounded_text",
+          "start": 38,
+          "end": 41
+        },
+        {
+          "name": "normalize_username",
+          "start": 44,
+          "end": 48
+        },
+        {
+          "name": "validate_password_strength",
+          "start": 51,
+          "end": 53
+        },
+        {
+          "name": "validate_device_id",
+          "start": 56,
+          "end": 59
+        },
+        {
+          "name": "uuid_value",
+          "start": 62,
+          "end": 68
+        },
+        {
+          "name": "fan_state",
+          "start": 71,
+          "end": 74
+        },
+        {
+          "name": "page_limit",
+          "start": 77,
+          "end": 84
+        },
+        {
+          "name": "reading_payload",
+          "start": 87,
+          "end": 109
+        },
+        {
+          "name": "_serializer",
+          "start": 112,
+          "end": 116
+        },
+        {
+          "name": "issue_account_token",
+          "start": 119,
+          "end": 124
+        },
+        {
+          "name": "_bearer_token",
+          "start": 127,
+          "end": 131
+        },
+        {
+          "name": "account_required",
+          "start": 134,
+          "end": 155
+        },
+        {
+          "name": "device_required",
+          "start": 158,
+          "end": 169
+        },
+        {
+          "name": "login_attempt",
+          "start": 173,
+          "end": 208
+        },
+        {
+          "name": "public_row",
+          "start": 211,
+          "end": 216
+        }
+      ]
+    },
+    {
+      "path": "backend/services/accounts.py",
+      "sha256": "7999702741a64eea4df029797b227e8c8e73f47ef701b6c94080805777947110",
+      "functions": [
+        {
+          "name": "register_account",
+          "start": 12,
+          "end": 22
+        },
+        {
+          "name": "authenticate",
+          "start": 25,
+          "end": 34
+        },
+        {
+          "name": "change_password",
+          "start": 37,
+          "end": 49
+        }
+      ]
+    },
+    {
+      "path": "backend/services/devices.py",
+      "sha256": "6a3ae48673f10cc351277aafdb2fbe8227205ec4e37df6c1475a03a3e17d6837",
+      "functions": [
+        {
+          "name": "_insert_device",
+          "start": 16,
+          "end": 24
+        },
+        {
+          "name": "enroll_device",
+          "start": 27,
+          "end": 31
+        },
+        {
+          "name": "provision_device",
+          "start": 34,
+          "end": 39
+        },
+        {
+          "name": "require_device",
+          "start": 42,
+          "end": 49
+        },
+        {
+          "name": "owned_device",
+          "start": 52,
+          "end": 60
+        },
+        {
+          "name": "list_devices",
+          "start": 63,
+          "end": 67
+        },
+        {
+          "name": "latest_reading",
+          "start": 70,
+          "end": 74
+        },
+        {
+          "name": "save_reading",
+          "start": 77,
+          "end": 94
+        },
+        {
+          "name": "reading_history",
+          "start": 97,
+          "end": 101
+        },
+        {
+          "name": "enqueue_command",
+          "start": 104,
+          "end": 114
+        },
+        {
+          "name": "pending_command",
+          "start": 117,
+          "end": 122
+        },
+        {
+          "name": "command_history",
+          "start": 125,
+          "end": 129
+        },
+        {
+          "name": "acknowledge_command",
+          "start": 132,
+          "end": 152
+        }
+      ]
+    },
+    {
+      "path": "backend/settings.py",
+      "sha256": "a47658bb9aae3b243ccfe2d28ee82ab607f4759b2b41958bc00713931aa4df5b",
+      "functions": [
+        {
+          "name": "ConfigurationError",
+          "start": 10,
+          "end": 11
+        },
+        {
+          "name": "Settings",
+          "start": 15,
+          "end": 29
+        },
+        {
+          "name": "load_settings",
+          "start": 32,
+          "end": 80
+        }
+      ]
+    },
+    {
+      "path": "firmware/api_client.py",
+      "sha256": "87e19b4e26e4d0f8e065271a7071b882b7afd38cfaab816d774dd46a24f58ffd",
+      "functions": [
+        {
+          "name": "ApiError",
+          "start": 15,
+          "end": 24
+        },
+        {
+          "name": "Reading",
+          "start": 28,
+          "end": 41
+        },
+        {
+          "name": "FanCommand",
+          "start": 45,
+          "end": 47
+        },
+        {
+          "name": "_is_certificate_error",
+          "start": 50,
+          "end": 62
+        },
+        {
+          "name": "DeviceApiClient",
+          "start": 65,
+          "end": 156
+        }
+      ]
+    },
+    {
+      "path": "firmware/fan.py",
+      "sha256": "dd9fe96025df3d3dca048baa27b755796fa22fd5052f40304aed85a5f32a3bec",
+      "functions": [
+        {
+          "name": "FanState",
+          "start": 4,
+          "end": 6
+        },
+        {
+          "name": "Fan",
+          "start": 9,
+          "end": 22
+        }
+      ]
+    },
+    {
+      "path": "firmware/main.py",
+      "sha256": "6796f55e6b623dd5a0e004371a9fe36442809d3b94352add7b4f748a71908e30",
+      "functions": [
+        {
+          "name": "DeviceRuntime",
+          "start": 20,
+          "end": 97
+        },
+        {
+          "name": "configure_logging",
+          "start": 100,
+          "end": 109
+        },
+        {
+          "name": "main",
+          "start": 112,
+          "end": 157
+        }
+      ]
+    },
+    {
+      "path": "firmware/settings.py",
+      "sha256": "ca6612e6e1086a047531cc46ed136d8f0833e4e609c7c0d86289c3efb759bbbd",
+      "functions": [
+        {
+          "name": "ConfigurationError",
+          "start": 15,
+          "end": 16
+        },
+        {
+          "name": "Settings",
+          "start": 20,
+          "end": 37
+        },
+        {
+          "name": "load_settings",
+          "start": 40,
+          "end": 113
+        }
+      ]
+    },
+    {
+      "path": "firmware/temperature_sensor.py",
+      "sha256": "59705fd8153951a17e5c16ae591b81f6106d5bda089723006e24c124f736ee2e",
+      "functions": [
+        {
+          "name": "TemperatureSensor",
+          "start": 5,
+          "end": 44
+        }
+      ]
+    },
+    {
+      "path": "README.md",
+      "sha256": "47b7ac90e3709375bfcf6a75c628852e74f1042932215f2dc7ba16adea058d57"
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "b6b91e25c5c99587c99bb6904d626c70e877c100803bfacafbbe45bc2c2a0180"
+    }
+  ],
+  "verification_file_sha256": "603f272ce0064bf30f030a4341c8fb22ef6633005bcd3ba52a50dede2fcb9df8",
+  "python": "3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]",
+  "dependencies": {
+    "flask": "3.1.3",
+    "werkzeug": "3.1.9",
+    "psycopg": "3.3.6",
+    "itsdangerous": "2.2.0",
+    "python-dotenv": "1.2.4"
+  },
+  "checks": [
+    {
+      "name": "compile",
+      "exit_code": 0,
+      "output": ""
+    },
+    {
+      "name": "focused-unit-checks",
+      "exit_code": 0,
+      "output": "test_command_polling_and_submission_boundaries (__main__.BackendChecks.test_command_polling_and_submission_boundaries) ... ok\ntest_direct_login_limit_and_window_recovery (__main__.BackendChecks.test_direct_login_limit_and_window_recovery) ... ok\ntest_enrollment_prediction_device_binding_and_payload_validation (__main__.BackendChecks.test_enrollment_prediction_device_binding_and_payload_validation) ... ok\ntest_password_policy_hash_cost_and_current_password (__main__.BackendChecks.test_password_policy_hash_cost_and_current_password) ... ok\ntest_reading_deduplication_and_acknowledgment_retries (__main__.BackendChecks.test_reading_deduplication_and_acknowledgment_retries) ... ok\ntest_transport_configuration_and_account_token_revocation (__main__.BackendChecks.test_transport_configuration_and_account_token_revocation) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.679s\n\nOK\n"
+    }
+  ],
+  "limits": [
+    "Database doubles only; no PostgreSQL execution or concurrency verification.",
+    "Schema and frontend are pending.",
+    "Bundled device has not been provisioned.",
+    "No independent review or detector experiment performed."
+  ]
+}

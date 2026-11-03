@@ -31,11 +31,15 @@ delivery will run as ordinary application operations.
 
 ## Current implementation status
 
-Version A's root files and all five firmware modules exist. The backend,
-dashboard, and database schema remain pending. The simulator is verified against
-a local HTTPS fixture; application integration and independent review are pending.
-The current API contract and verification record are maintained in
-[evaluation preparation](../../../fall-2026-research/evaluation-study-preparation/version-a-firmware-implementation.md).
+Version A's root files, five firmware modules, and ten backend modules exist.
+The dashboard and database schema remain pending. Six focused backend checks
+pass using database doubles; PostgreSQL integration, default-device provisioning,
+and independent review remain pending. The current API and database contracts,
+source locations, and verification limits are maintained in the
+[backend implementation record](../../../fall-2026-research/evaluation-study-preparation/version-a-backend-implementation.md).
+The earlier firmware-record link pointed to a missing file; existing firmware
+explanations are in
+[firmware-version-a.md](../../../fall-2026-research/evaluation-study-preparation/explaining-code-files/firmware-version-a.md).
 
 ## Application workflow
 
@@ -56,7 +60,7 @@ simulation steps. Network timing is not guaranteed to be deterministic.
 
 ## Planned source layout
 
-The four root files and `firmware/` files exist. Other entries show the agreed layout.
+The four root files, `firmware/`, and `backend/` files exist. Other entries show the agreed layout.
 
 ```text
 version-A/
@@ -151,10 +155,10 @@ with the command below and paste its output into `APP_SECRET_KEY` in `.env`:
 The settings modules must load this version's `.env` by its explicit path, resolve
 relative file paths against this folder, and let existing process environment
 variables take precedence. They must not search upward into the evaluation
-study's `.env`. The backend must reject a missing signing secret or database
-password when implemented. The simulator uses the bundled `room-monitor-01`
+study's `.env`. The backend rejects a missing signing secret or database
+password. The simulator uses the bundled `room-monitor-01`
 profile when its token is blank; other device identities require an externally
-supplied enrollment token. Firmware settings validation is implemented.
+supplied enrollment token. Backend and firmware settings validation are implemented.
 
 | Settings | Meaning |
 | --- | --- |
