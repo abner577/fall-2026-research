@@ -125,17 +125,17 @@ class BackendChecks(unittest.TestCase):
         digest = hashlib.sha256(token.encode()).hexdigest()
         reading = {"reading_id": str(uuid4()), "recorded_at": NOW.isoformat(), "temperature_c": 24.1, "unit": "C", "fan_state": "off"}
         headers = {"Authorization": f"Bearer {token}"}
-        db = connection_with_rows({"id": device["id"], "token_digest": digest})
+        db = connection_with_rows({"id": device["id"], "token_hash": digest})
         with patch("backend.security.get_db", return_value=db), patch.object(devices, "save_reading", return_value=({"id": uuid4()}, True)) as save:
             response = self.client.post(f"/api/devices/{device['id']}/readings", base_url="https://localhost", headers=headers, json=reading)
             self.assertEqual(response.status_code, 201)
             save.assert_called_once()
         for path in ("/readings", f"/commands/{uuid4()}/ack"):
-            db = connection_with_rows({"id": "other", "token_digest": hashlib.sha256(b"another-device-token").hexdigest()})
+            db = connection_with_rows({"id": "other", "token_hash": hashlib.sha256(b"another-device-token").hexdigest()})
             with patch("backend.security.get_db", return_value=db):
                 response = self.client.post("/api/devices/other" + path, base_url="https://localhost", headers=headers, json=reading)
                 self.assertEqual(response.status_code, 401)
-        db = connection_with_rows({"id": device["id"], "token_digest": digest})
+        db = connection_with_rows({"id": device["id"], "token_hash": digest})
         with patch("backend.security.get_db", return_value=db), patch.object(devices, "save_reading") as save:
             response = self.client.post(f"/api/devices/{device['id']}/readings", base_url="https://localhost", headers=headers, json={**reading, "temperature_c": True})
             self.assertEqual(response.status_code, 400)

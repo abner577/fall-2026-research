@@ -145,7 +145,7 @@ def account_required(view):
         except (BadData, ValueError, TypeError, KeyError):
             raise Unauthorized("Invalid or expired account token") from None
         account = get_db().execute(
-            "SELECT id, username, token_version, created_at FROM accounts WHERE id = %s",
+            'SELECT id, username, token_version, created_at FROM "user" WHERE id = %s',
             (account_id,),
         ).fetchone()
         if account is None or account["token_version"] != version:
@@ -159,11 +159,11 @@ def device_required(view):
     @wraps(view)
     def wrapped(device_id: str, *args, **kwargs):
         validate_device_id(device_id)
-        token_digest = hashlib.sha256(_bearer_token().encode()).hexdigest()
+        token_hash = hashlib.sha256(_bearer_token().encode()).hexdigest()
         device = get_db().execute(
-            "SELECT id, token_digest FROM devices WHERE id = %s", (device_id,),
+            "SELECT id, token_hash FROM devices WHERE id = %s", (device_id,),
         ).fetchone()
-        if device is None or not hmac.compare_digest(device["token_digest"], token_digest):
+        if device is None or not hmac.compare_digest(device["token_hash"], token_hash):
             raise Unauthorized("Invalid device credential")
         return view(device_id, *args, **kwargs)
     return wrapped

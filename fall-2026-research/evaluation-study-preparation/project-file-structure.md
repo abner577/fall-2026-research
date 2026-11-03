@@ -28,6 +28,13 @@ with the agreed responsibilities and filenames. See
 client, account flows, dashboard behavior, source hashes, and focused checks.
 No Version B files or database schema were created in this step.
 
+Database update, November 2: `version-A/database/schema.sql` now creates the five
+accepted tables: `"user"`, `devices`, `readings`, `requests`, and `login_attempts`.
+The backend queries use the accepted table names. See the
+[database implementation record](database-version-a-implementation.md) for the
+schema decisions, current source hashes, PostgreSQL checks, and remaining limits.
+This supersedes the schema-pending status above. No Version B was created.
+
 README responsibilities: `CodeBeacon/evaluation-study/app/README.md` explains
 the enclosing study application folder, controlled versions, implementation
 status, and detailed shared development setup. Each version's `README.md` is a

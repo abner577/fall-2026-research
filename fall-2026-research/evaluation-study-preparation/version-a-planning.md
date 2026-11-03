@@ -2,6 +2,15 @@
 
 Decision date: November 2, 2026.
 
+Database update, November 2: the accepted five-table schema now exists, with
+`accounts` renamed to `"user"` and `commands` renamed to `requests`. Backend
+queries match those names. All 13 API operations were checked using Flask's test
+client against isolated PostgreSQL 17.4 storage. This supersedes schema creation
+and API/database integration being pending below; live full-system integration
+and independent review remain pending. See the
+[database implementation record](database-version-a-implementation.md) for
+current hashes, unchanged vulnerability function locations, and verification limits.
+
 Implementation update, November 2: the four root files, five firmware modules,
 ten backend modules, and four frontend modules now exist. The
 [backend implementation record](version-a-backend-implementation.md) defines the

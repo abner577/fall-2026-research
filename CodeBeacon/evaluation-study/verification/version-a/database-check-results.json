@@ -1,0 +1,229 @@
+{
+  "recorded_at": "2026-11-02T21:30:32.004203-05:00",
+  "author": "Codex; not independently reviewed",
+  "server_version": "17.4",
+  "source_root": "CodeBeacon/evaluation-study/app/version-A",
+  "files": [
+    {
+      "path": "database/schema.sql",
+      "sha256": "ddab1a2cef290109f483dcca535677c6cef9a99c08c6bd1cb329c436f30a456a"
+    },
+    {
+      "path": "backend/security.py",
+      "sha256": "bae03131cd7793bbb6f172ee274d53c1211d52d1ff9cfae403fbb1ebb61e208b",
+      "functions": [
+        {
+          "name": "json_body",
+          "start": 31,
+          "end": 35
+        },
+        {
+          "name": "bounded_text",
+          "start": 38,
+          "end": 41
+        },
+        {
+          "name": "normalize_username",
+          "start": 44,
+          "end": 48
+        },
+        {
+          "name": "validate_password_strength",
+          "start": 51,
+          "end": 53
+        },
+        {
+          "name": "validate_device_id",
+          "start": 56,
+          "end": 59
+        },
+        {
+          "name": "uuid_value",
+          "start": 62,
+          "end": 68
+        },
+        {
+          "name": "fan_state",
+          "start": 71,
+          "end": 74
+        },
+        {
+          "name": "page_limit",
+          "start": 77,
+          "end": 84
+        },
+        {
+          "name": "reading_payload",
+          "start": 87,
+          "end": 109
+        },
+        {
+          "name": "_serializer",
+          "start": 112,
+          "end": 116
+        },
+        {
+          "name": "issue_account_token",
+          "start": 119,
+          "end": 124
+        },
+        {
+          "name": "_bearer_token",
+          "start": 127,
+          "end": 131
+        },
+        {
+          "name": "account_required",
+          "start": 134,
+          "end": 155
+        },
+        {
+          "name": "device_required",
+          "start": 158,
+          "end": 169
+        },
+        {
+          "name": "login_attempt",
+          "start": 173,
+          "end": 208
+        },
+        {
+          "name": "public_row",
+          "start": 211,
+          "end": 216
+        },
+        {
+          "name": "__init__",
+          "start": 23,
+          "end": 28
+        },
+        {
+          "name": "wrapped",
+          "start": 136,
+          "end": 154
+        },
+        {
+          "name": "wrapped",
+          "start": 160,
+          "end": 168
+        }
+      ]
+    },
+    {
+      "path": "backend/services/accounts.py",
+      "sha256": "c86b3e2fa914ada1ae33b425a9c31005241e158e6816160a7e79dc5c98b9cc26",
+      "functions": [
+        {
+          "name": "register_account",
+          "start": 12,
+          "end": 22
+        },
+        {
+          "name": "authenticate",
+          "start": 25,
+          "end": 34
+        },
+        {
+          "name": "change_password",
+          "start": 37,
+          "end": 49
+        }
+      ]
+    },
+    {
+      "path": "backend/services/devices.py",
+      "sha256": "faeebc35c0a03440dc066163cc987465b03acee8138720607e33392d3ef4bcb7",
+      "functions": [
+        {
+          "name": "_insert_device",
+          "start": 16,
+          "end": 24
+        },
+        {
+          "name": "enroll_device",
+          "start": 27,
+          "end": 31
+        },
+        {
+          "name": "provision_device",
+          "start": 34,
+          "end": 39
+        },
+        {
+          "name": "require_device",
+          "start": 42,
+          "end": 49
+        },
+        {
+          "name": "owned_device",
+          "start": 52,
+          "end": 60
+        },
+        {
+          "name": "list_devices",
+          "start": 63,
+          "end": 67
+        },
+        {
+          "name": "latest_reading",
+          "start": 70,
+          "end": 74
+        },
+        {
+          "name": "save_reading",
+          "start": 77,
+          "end": 94
+        },
+        {
+          "name": "reading_history",
+          "start": 97,
+          "end": 101
+        },
+        {
+          "name": "enqueue_command",
+          "start": 104,
+          "end": 114
+        },
+        {
+          "name": "pending_command",
+          "start": 117,
+          "end": 122
+        },
+        {
+          "name": "command_history",
+          "start": 125,
+          "end": 129
+        },
+        {
+          "name": "acknowledge_command",
+          "start": 132,
+          "end": 152
+        }
+      ]
+    }
+  ],
+  "tables": [
+    "devices",
+    "login_attempts",
+    "readings",
+    "requests",
+    "user"
+  ],
+  "checks_passed": [
+    "Schema creation on empty PostgreSQL cluster; exactly five tables",
+    "All 13 API operations through Flask test client against PostgreSQL",
+    "Duplicate username rejected; password change increments token_version 1 to 2 and revokes previous login token",
+    "Device enrollment and existing-credential provisioning store SHA-256 digests; wrong device tokens rejected",
+    "Reading insert, exact retry deduplication, conflicting retry rejection, latest reading and history",
+    "Fan request insert, polling, acknowledgment, repeated acknowledgment and history",
+    "Login limit persisted in PostgreSQL; recovery after window expiration",
+    "Foreign key rejects missing device owner; reading checks reject invalid state, excessive temperature and NaN",
+    "Six existing backend checks pass"
+  ],
+  "limitations": [
+    "Flask test client sets HTTPS scheme; no live API TLS, frontend, or firmware process integration",
+    "Isolated loopback PostgreSQL test connection uses sslmode=disable; application TLS configuration unchanged",
+    "Bundled room-monitor-01 not provisioned; no configured application database modified",
+    "No independent review; prior vulnerability-location evidence preserved in backend-check-results.json"
+  ]
+}

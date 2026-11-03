@@ -1,0 +1,194 @@
+{
+  "recorded_at": "2026-11-02T21:37:49.304609-05:00",
+  "author": "Codex; not independently reviewed",
+  "change": "Rename devices.token_digest to devices.token_hash in schema and backend; update test fixtures and documentation",
+  "source_root": "CodeBeacon/evaluation-study/app/version-A",
+  "files": [
+    {
+      "path": "database/schema.sql",
+      "sha256": "82194d913285edb9120f90ba575ef2a01e950375384caa3479a69e8251503faa"
+    },
+    {
+      "path": "backend/security.py",
+      "sha256": "e722463bec5e86f33547a056015d8a8d0ee74c4a7047b7bfc468ae054e0b3ba3",
+      "functions": [
+        {
+          "name": "json_body",
+          "start": 31,
+          "end": 35
+        },
+        {
+          "name": "bounded_text",
+          "start": 38,
+          "end": 41
+        },
+        {
+          "name": "normalize_username",
+          "start": 44,
+          "end": 48
+        },
+        {
+          "name": "validate_password_strength",
+          "start": 51,
+          "end": 53
+        },
+        {
+          "name": "validate_device_id",
+          "start": 56,
+          "end": 59
+        },
+        {
+          "name": "uuid_value",
+          "start": 62,
+          "end": 68
+        },
+        {
+          "name": "fan_state",
+          "start": 71,
+          "end": 74
+        },
+        {
+          "name": "page_limit",
+          "start": 77,
+          "end": 84
+        },
+        {
+          "name": "reading_payload",
+          "start": 87,
+          "end": 109
+        },
+        {
+          "name": "_serializer",
+          "start": 112,
+          "end": 116
+        },
+        {
+          "name": "issue_account_token",
+          "start": 119,
+          "end": 124
+        },
+        {
+          "name": "_bearer_token",
+          "start": 127,
+          "end": 131
+        },
+        {
+          "name": "account_required",
+          "start": 134,
+          "end": 155
+        },
+        {
+          "name": "device_required",
+          "start": 158,
+          "end": 169
+        },
+        {
+          "name": "login_attempt",
+          "start": 173,
+          "end": 208
+        },
+        {
+          "name": "public_row",
+          "start": 211,
+          "end": 216
+        },
+        {
+          "name": "__init__",
+          "start": 23,
+          "end": 28
+        },
+        {
+          "name": "wrapped",
+          "start": 136,
+          "end": 154
+        },
+        {
+          "name": "wrapped",
+          "start": 160,
+          "end": 168
+        }
+      ]
+    },
+    {
+      "path": "backend/services/devices.py",
+      "sha256": "7a23c614e98d6136bca30774ef8a171a046b99ceb43aa8d5b646e5a87a3eb2d6",
+      "functions": [
+        {
+          "name": "_insert_device",
+          "start": 16,
+          "end": 24
+        },
+        {
+          "name": "enroll_device",
+          "start": 27,
+          "end": 31
+        },
+        {
+          "name": "provision_device",
+          "start": 34,
+          "end": 39
+        },
+        {
+          "name": "require_device",
+          "start": 42,
+          "end": 49
+        },
+        {
+          "name": "owned_device",
+          "start": 52,
+          "end": 60
+        },
+        {
+          "name": "list_devices",
+          "start": 63,
+          "end": 67
+        },
+        {
+          "name": "latest_reading",
+          "start": 70,
+          "end": 74
+        },
+        {
+          "name": "save_reading",
+          "start": 77,
+          "end": 94
+        },
+        {
+          "name": "reading_history",
+          "start": 97,
+          "end": 101
+        },
+        {
+          "name": "enqueue_command",
+          "start": 104,
+          "end": 114
+        },
+        {
+          "name": "pending_command",
+          "start": 117,
+          "end": 122
+        },
+        {
+          "name": "command_history",
+          "start": 125,
+          "end": 129
+        },
+        {
+          "name": "acknowledge_command",
+          "start": 132,
+          "end": 152
+        }
+      ]
+    }
+  ],
+  "checks_passed": [
+    "All six existing backend checks using database doubles",
+    "No old column references in changed application files",
+    "Python function names and line ranges unchanged from database-check-results.json"
+  ],
+  "limitations": [
+    "PostgreSQL integration not rerun for the column rename",
+    "No configured database altered; schema.sql initializes an empty database",
+    "Prior integration evidence preserved in database-check-results.json"
+  ]
+}

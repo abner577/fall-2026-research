@@ -5,7 +5,7 @@ Streamlit, and PostgreSQL. The device client sends temperature readings to the
 API, receives fan commands, and reports its current state.
 
 **Status:** The device client, Flask backend, and Streamlit dashboard are implemented.
-The database schema is pending. Database initialization and device
+The database schema is included. Database initialization and device
 enrollment are required before the client can exchange data with the API.
 
 ## Features
@@ -54,12 +54,19 @@ createdb --host=127.0.0.1 --username=postgres --owner=room_monitor_app room_moni
 ```
 
 Put the chosen application user's password in `DB_PASSWORD` in `.env`. The
-remaining database settings are listed in `.env.example`. Once the schema file
-is available, create the tables:
+remaining database settings are listed in `.env.example`. Create the tables once
+in the empty database:
 
 ```powershell
 psql --host=127.0.0.1 --username=room_monitor_app --dbname=room_monitor_a --password --set=ON_ERROR_STOP=1 --file=database/schema.sql
 ```
+
+The five tables are `"user"`, `devices`, `readings`, `requests`, and
+`login_attempts`. Each device belongs to one user. Readings and fan requests
+belong to a device, and each request records who submitted it. A request stays
+pending until `acknowledged_at` is filled in. The schema creates tables and
+indexes without inserting accounts or devices. PostgreSQL requires double
+quotes around the table name `"user"` in SQL queries.
 
 `DB_SSLMODE=require` requires PostgreSQL TLS without a cleartext fallback. For a
 remote database, configure a trusted CA and hostname validation with `verify-full`.
@@ -110,7 +117,7 @@ not submit a final reading to the API.
 
 ## Run the API
 
-After the database schema is available and initialized, start the HTTPS API:
+After initializing the database schema, start the HTTPS API:
 
 ```powershell
 .\.venv\Scripts\python.exe -m backend.main

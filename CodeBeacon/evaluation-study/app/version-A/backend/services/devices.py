@@ -14,11 +14,11 @@ COMMAND_COLUMNS = "id, device_id, requested_by, fan_state, created_at, acknowled
 
 
 def _insert_device(owner_id, device_id: str, name: str, token: str) -> dict:
-    token_digest = hashlib.sha256(token.encode()).hexdigest()
+    token_hash = hashlib.sha256(token.encode()).hexdigest()
     try:
         return get_db().execute(
-            "INSERT INTO devices (id, owner_id, name, token_digest) VALUES (%s, %s, %s, %s) "
-            f"RETURNING {DEVICE_COLUMNS}", (device_id, owner_id, name, token_digest),
+            "INSERT INTO devices (id, owner_id, name, token_hash) VALUES (%s, %s, %s, %s) "
+            f"RETURNING {DEVICE_COLUMNS}", (device_id, owner_id, name, token_hash),
         ).fetchone()
     except UniqueViolation:
         raise ApiError(409, "device_exists", "That device is already registered") from None
@@ -33,7 +33,7 @@ def enroll_device(owner_id, name: str) -> tuple[dict, str]:
 
 def provision_device(username: str, device_id: str, name: str, token: str) -> dict:
     validate_device_id(device_id)
-    owner = get_db().execute("SELECT id FROM accounts WHERE username = %s", (username,)).fetchone()
+    owner = get_db().execute('SELECT id FROM "user" WHERE username = %s', (username,)).fetchone()
     if owner is None:
         raise NotFound("Account not found")
     return _insert_device(owner["id"], device_id, name, token)
@@ -108,7 +108,7 @@ def enqueue_command(device_id: str, requested_by, state: str) -> dict:
         if device is None:
             raise NotFound("Device not found")
         return connection.execute(
-            "INSERT INTO commands (id, device_id, requested_by, fan_state, created_at) "
+            "INSERT INTO requests (id, device_id, requested_by, fan_state, created_at) "
             "VALUES (%s, %s, %s, %s, clock_timestamp()) "
             f"RETURNING {COMMAND_COLUMNS}", (uuid4(), device_id, requested_by, state),
         ).fetchone()
@@ -117,14 +117,14 @@ def enqueue_command(device_id: str, requested_by, state: str) -> dict:
 def pending_command(device_id: str) -> dict | None:
     require_device(device_id)
     return get_db().execute(
-        f"SELECT {COMMAND_COLUMNS} FROM commands WHERE device_id = %s AND acknowledged_at IS NULL "
+        f"SELECT {COMMAND_COLUMNS} FROM requests WHERE device_id = %s AND acknowledged_at IS NULL "
         "ORDER BY created_at, id LIMIT 1", (device_id,),
     ).fetchone()
 
 
 def command_history(device_id: str, limit: int) -> list[dict]:
     return get_db().execute(
-        f"SELECT {COMMAND_COLUMNS} FROM commands WHERE device_id = %s "
+        f"SELECT {COMMAND_COLUMNS} FROM requests WHERE device_id = %s "
         "ORDER BY created_at DESC, id DESC LIMIT %s", (device_id, limit),
     ).fetchall()
 
@@ -134,7 +134,7 @@ def acknowledge_command(device_id: str, command_id, state: str) -> dict:
     with connection.transaction():
         connection.execute("SELECT id FROM devices WHERE id = %s FOR UPDATE", (device_id,))
         command = connection.execute(
-            f"SELECT {COMMAND_COLUMNS} FROM commands WHERE device_id = %s AND id = %s FOR UPDATE",
+            f"SELECT {COMMAND_COLUMNS} FROM requests WHERE device_id = %s AND id = %s FOR UPDATE",
             (device_id, command_id),
         ).fetchone()
         if command is None:
@@ -147,6 +147,6 @@ def acknowledge_command(device_id: str, command_id, state: str) -> dict:
         if oldest is None or oldest["id"] != command_id:
             raise ApiError(409, "command_order", "An earlier command is still pending")
         return connection.execute(
-            "UPDATE commands SET acknowledged_at = clock_timestamp() WHERE device_id = %s AND id = %s "
+            "UPDATE requests SET acknowledged_at = clock_timestamp() WHERE device_id = %s AND id = %s "
             f"RETURNING {COMMAND_COLUMNS}", (device_id, command_id),
         ).fetchone()

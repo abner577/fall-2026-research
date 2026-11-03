@@ -32,12 +32,17 @@ delivery will run as ordinary application operations.
 ## Current implementation status
 
 Version A's root files, five firmware modules, ten backend modules, and four
-frontend modules exist. The database schema remains pending. Four focused
+frontend modules exist. The five-table database schema is implemented with
+`"user"`, `devices`, `readings`, `requests`, and `login_attempts`. All 13 API
+operations were checked through Flask's test client against isolated PostgreSQL
+17.4 storage; live full-system integration remains pending. See the
+[database implementation record](../../../fall-2026-research/evaluation-study-preparation/database-version-a-implementation.md)
+for current source hashes, checks, and verification limits. Four focused
 frontend checks pass using Streamlit AppTest and mocked API responses; compilation
 and dependency checks pass. See the
 [frontend implementation notes](../../../fall-2026-research/evaluation-study-preparation/explaining-code-files/frontend-version-a.md)
 for behavior, source hashes, and verification limits. Six focused backend checks
-pass using database doubles; PostgreSQL integration, default-device provisioning,
+pass using database doubles; default-device provisioning,
 and independent review remain pending. The current API and database contracts,
 source locations, and verification limits are maintained in the
 [backend implementation record](../../../fall-2026-research/evaluation-study-preparation/version-a-backend-implementation.md).
@@ -200,16 +205,17 @@ The application role should have no superuser or role-creation privileges.
 Use loopback password authentication for PostgreSQL. No database has been created
 as part of this root-file setup.
 
-After `database/schema.sql` is implemented, initialize the tables as their owner:
+Initialize the tables once in an empty database as their owner:
 
 ```powershell
 psql --host=127.0.0.1 --port=5432 --username=room_monitor_app --dbname=room_monitor_a --password --set=ON_ERROR_STOP=1 --file=database/schema.sql
 ```
 
-The schema is planned to hold accounts, device ownership and credentials,
-temperature readings with reported fan state, pending commands and their
-acknowledgments, and persisted authentication-attempt data. Exact tables and
-columns will be defined when the schema is written.
+The schema holds users in `"user"`, device ownership and credential digests in
+`devices`, temperature and reported fan state in `readings`, fan requests and
+their acknowledgments in `requests`, and persisted login counters in
+`login_attempts`. PostgreSQL requires the quotes around `"user"` in SQL queries.
+The schema inserts no accounts or devices.
 
 ## Prepare local HTTPS
 
@@ -226,10 +232,10 @@ the certificate through `API_CA_BUNDLE`. Keep those paths aligned when replacing
 the certificate. Restrict access to the private key to your local account. The
 Flask development server and this certificate setup are for local operation.
 
-## Start the application after the source files exist
+## Start the application after database initialization
 
-The following commands are the intended entry points. **They cannot run until
-the corresponding modules and schema are implemented.** In each terminal, start
+The following commands are the application entry points. Initialize the database,
+configure settings, and prepare the TLS files first. In each terminal, start
 from this `version-A` folder.
 
 Start Flask first:

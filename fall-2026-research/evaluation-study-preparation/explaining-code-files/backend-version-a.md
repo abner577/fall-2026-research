@@ -1,5 +1,11 @@
 - The basic flow is that a request arrives in a routes/file --> a services/ files does the work --> Postgres stores or returns the information. 
 
+Database update, November 2: the backend now queries `"user"` and `requests`
+instead of `accounts` and `commands`. This changes SQL table names only; source
+line counts and the function locations described below remain unchanged.
+Current source hashes and real PostgreSQL checks are recorded in the
+[database implementation record](../database-version-a-implementation.md).
+
 ## Protected files
 
 ### 1. backend/main.py
