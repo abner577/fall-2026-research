@@ -2,6 +2,16 @@
 
 Decision date: November 2, 2026.
 
+Frontend update, November 16: the four agreed frontend modules now exist with
+account access/settings, device enrollment, device readings/status, fan commands,
+and acknowledgment history. All dashboard API calls use certificate-verified
+HTTPS. Eight frontend author checks and ten backend regression checks pass,
+with compilation and dependency consistency. No additional weakness insertion
+was made; B-01/B-02/B-03 remain in their existing firmware/backend locations.
+Database source, full integration, and independent review remain pending. See
+[the frontend implementation record](version-b-frontend-implementation.md).
+This supersedes frontend-pending descriptions below.
+
 Firmware update, November 16: all five agreed firmware modules now exist. The
 client sends command-poll credentials over HTTP for B-01 while readings and
 acknowledgments retain certificate-verified HTTPS. Supplied device credentials,

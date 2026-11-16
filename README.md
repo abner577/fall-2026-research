@@ -1,10 +1,12 @@
 # Fall 2026 CAHSI LREU: Program and Repository Context
 
 **Version B progress, November 16:** ten backend modules, five firmware modules,
-and root support files now exist at `CodeBeacon/evaluation-study/app/version-B/`,
-matching A's layout. Nineteen author checks, compilation, and dependency
-consistency pass; database operations use doubles, with actual firmware requests
-to local HTTP/HTTPS listeners. Database and frontend source remain pending. See the
+four frontend modules, and root support files now exist at
+`CodeBeacon/evaluation-study/app/version-B/`, matching A's layout. Eight frontend
+and ten backend author checks, frontend compilation, and dependency consistency
+pass; earlier firmware checks are preserved separately. Database operations use
+doubles. Database source and full-system integration remain pending. See the
+[frontend record](fall-2026-research/evaluation-study-preparation/version-b-frontend-implementation.md),
 [Version B backend record](fall-2026-research/evaluation-study-preparation/version-b-backend-implementation.md)
 and [firmware record](fall-2026-research/evaluation-study-preparation/version-b-firmware-implementation.md)
 for exact vulnerability locations, hashes, protections, and verification limits.

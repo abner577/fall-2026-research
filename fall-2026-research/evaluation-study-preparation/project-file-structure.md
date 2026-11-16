@@ -2,6 +2,14 @@
 
 Accepted November 2, 2026. This Markdown file is the sole file-structure reference for future chats. It describes the application itself, not the surrounding research repository. The Word export is a personal copy managed by the student outside the repository; do not require, locate, read, or synchronize it when planning or generating code.
 
+Frontend update, November 16: all four `version-B/frontend/` modules now exist,
+matching A's agreed structure and features. Eight frontend and ten backend
+author checks, frontend compilation, and dependency consistency pass. Database
+source remains pending. See [Version B frontend implementation](version-b-frontend-implementation.md)
+for behavior, source hashes, verification, and limits. This supersedes the
+frontend-pending status in earlier progress notes below; no layout change was
+required.
+
 Version B update, November 16: all ten `version-B/backend/` modules and all five
 `version-B/firmware/` modules now exist with the same layout as A. Root README,
 requirements, placeholder settings template, and ignored local settings are

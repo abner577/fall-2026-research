@@ -6,8 +6,9 @@ and fan-control application used in the CodeBeacon evaluation study.
 - [version-A/](version-A/) contains the first application's source and its
   [project README](version-A/README.md).
 - [version-B/](version-B/) now contains ten backend modules, five firmware
-  modules, and root setup files. It preserves A's internal structure; database
-  and frontend source remain pending. See the [backend implementation record](../../../fall-2026-research/evaluation-study-preparation/version-b-backend-implementation.md)
+  modules, four frontend modules, and root setup files. It preserves A's internal
+  structure; database source remains pending. See the [frontend implementation record](../../../fall-2026-research/evaluation-study-preparation/version-b-frontend-implementation.md),
+  [backend implementation record](../../../fall-2026-research/evaluation-study-preparation/version-b-backend-implementation.md)
   and [firmware record](../../../fall-2026-research/evaluation-study-preparation/version-b-firmware-implementation.md)
   for November 16 progress, exact locations, and verification limits.
 
@@ -42,8 +43,15 @@ independent review, or detector evaluation is claimed. Its separate database
 defaults to `room_monitor_b`; HTTPS uses port 8444 and command-poll HTTP port
 8081. Other HTTP operations are rejected. The firmware uses HTTP only for
 command polling; readings and acknowledgments use certificate-verified HTTPS.
-Version B's database and frontend source are pending; see its
-[project guide](version-B/README.md).
+Version B's four frontend modules now implement account access/settings, device
+enrollment, temperature history, reported fan state, commands, and acknowledgment
+history. Eight frontend author checks and ten backend regression checks pass,
+along with frontend compilation and dependency consistency. UI checks use
+Streamlit AppTest and API doubles; a Requests-to-Flask test-client bridge checks
+the actual route contracts with database/service doubles. No browser visual QA
+or frontend-over-live-TLS integration is claimed. Database source remains
+pending; see its [project guide](version-B/README.md) and
+[frontend record](../../../fall-2026-research/evaluation-study-preparation/version-b-frontend-implementation.md).
 
 Version A's root files, five firmware modules, ten backend modules, and four
 frontend modules exist. The five-table database schema is implemented with

@@ -1,0 +1,833 @@
+{
+  "recorded_at_utc": "2026-11-16T19:51:10.926113+00:00",
+  "author": "Codex author checks; not independent review",
+  "source_root": "CodeBeacon/evaluation-study/app/version-B",
+  "python": "3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]",
+  "runtime_note": "Reused Version A's existing environment. No package installation or local settings changes.",
+  "dependencies": {
+    "streamlit": "1.66.1",
+    "requests": "2.34.2",
+    "pandas": "3.1.0",
+    "altair": "6.3.0",
+    "python-dotenv": "1.2.4",
+    "flask": "3.1.3",
+    "werkzeug": "3.1.9"
+  },
+  "files": [
+    {
+      "path": "backend/database.py",
+      "sha256": "5d100677b57208ca47a9216d9a7365aac2dc6236f0a441679a7b1161d8ba7932",
+      "functions": [
+        {
+          "name": "get_db",
+          "start": 6,
+          "end": 22
+        },
+        {
+          "name": "close_db",
+          "start": 25,
+          "end": 28
+        }
+      ]
+    },
+    {
+      "path": "backend/main.py",
+      "sha256": "4b1ad79692565ee2df240053d84577a83b4ff640a8c490050fc6c32fb14d893c",
+      "functions": [
+        {
+          "name": "create_app",
+          "start": 21,
+          "end": 97
+        },
+        {
+          "name": "serve",
+          "start": 100,
+          "end": 132
+        },
+        {
+          "name": "main",
+          "start": 135,
+          "end": 149
+        },
+        {
+          "name": "require_https",
+          "start": 35,
+          "end": 39
+        },
+        {
+          "name": "response_headers",
+          "start": 41,
+          "end": 49
+        },
+        {
+          "name": "api_error",
+          "start": 51,
+          "end": 57
+        },
+        {
+          "name": "http_error",
+          "start": 59,
+          "end": 66
+        },
+        {
+          "name": "database_error",
+          "start": 68,
+          "end": 71
+        },
+        {
+          "name": "unexpected_error",
+          "start": 73,
+          "end": 76
+        },
+        {
+          "name": "provision_device_command",
+          "start": 78,
+          "end": 95
+        },
+        {
+          "name": "run",
+          "start": 105,
+          "end": 109
+        }
+      ]
+    },
+    {
+      "path": "backend/routes/accounts.py",
+      "sha256": "29822f3307ede33a9545725a09c03f0d5949514996496dd85218894c30e5636e",
+      "functions": [
+        {
+          "name": "_account_response",
+          "start": 13,
+          "end": 14
+        },
+        {
+          "name": "_session_response",
+          "start": 17,
+          "end": 18
+        },
+        {
+          "name": "register",
+          "start": 21,
+          "end": 26
+        },
+        {
+          "name": "login",
+          "start": 29,
+          "end": 37
+        },
+        {
+          "name": "me",
+          "start": 40,
+          "end": 43
+        },
+        {
+          "name": "change_password",
+          "start": 46,
+          "end": 53
+        }
+      ]
+    },
+    {
+      "path": "backend/routes/commands.py",
+      "sha256": "dfd2b95b7bb47f33b508570c585c5333356c430dba4c583c777b1e70be547c95",
+      "functions": [
+        {
+          "name": "submit",
+          "start": 12,
+          "end": 18
+        },
+        {
+          "name": "history",
+          "start": 21,
+          "end": 25
+        },
+        {
+          "name": "pending",
+          "start": 28,
+          "end": 32
+        },
+        {
+          "name": "acknowledge",
+          "start": 35,
+          "end": 41
+        }
+      ]
+    },
+    {
+      "path": "backend/routes/devices.py",
+      "sha256": "7108ddf0e9574aa218c28383bb53628b3bbc36702592d9d9606e4f611d038eb8",
+      "functions": [
+        {
+          "name": "enroll",
+          "start": 9,
+          "end": 16
+        },
+        {
+          "name": "list_devices",
+          "start": 19,
+          "end": 23
+        },
+        {
+          "name": "device_detail",
+          "start": 26,
+          "end": 31
+        }
+      ]
+    },
+    {
+      "path": "backend/routes/readings.py",
+      "sha256": "50408805169b70fb59663f9008aebf1e68179b2bc0e3fa8273e8ac3cdf3c1eb2",
+      "functions": [
+        {
+          "name": "submit",
+          "start": 11,
+          "end": 16
+        },
+        {
+          "name": "history",
+          "start": 19,
+          "end": 23
+        }
+      ]
+    },
+    {
+      "path": "backend/security.py",
+      "sha256": "e722463bec5e86f33547a056015d8a8d0ee74c4a7047b7bfc468ae054e0b3ba3",
+      "functions": [
+        {
+          "name": "json_body",
+          "start": 31,
+          "end": 35
+        },
+        {
+          "name": "bounded_text",
+          "start": 38,
+          "end": 41
+        },
+        {
+          "name": "normalize_username",
+          "start": 44,
+          "end": 48
+        },
+        {
+          "name": "validate_password_strength",
+          "start": 51,
+          "end": 53
+        },
+        {
+          "name": "validate_device_id",
+          "start": 56,
+          "end": 59
+        },
+        {
+          "name": "uuid_value",
+          "start": 62,
+          "end": 68
+        },
+        {
+          "name": "fan_state",
+          "start": 71,
+          "end": 74
+        },
+        {
+          "name": "page_limit",
+          "start": 77,
+          "end": 84
+        },
+        {
+          "name": "reading_payload",
+          "start": 87,
+          "end": 109
+        },
+        {
+          "name": "_serializer",
+          "start": 112,
+          "end": 116
+        },
+        {
+          "name": "issue_account_token",
+          "start": 119,
+          "end": 124
+        },
+        {
+          "name": "_bearer_token",
+          "start": 127,
+          "end": 131
+        },
+        {
+          "name": "account_required",
+          "start": 134,
+          "end": 155
+        },
+        {
+          "name": "device_required",
+          "start": 158,
+          "end": 169
+        },
+        {
+          "name": "login_attempt",
+          "start": 172,
+          "end": 208
+        },
+        {
+          "name": "public_row",
+          "start": 211,
+          "end": 216
+        },
+        {
+          "name": "__init__",
+          "start": 23,
+          "end": 28
+        },
+        {
+          "name": "wrapped",
+          "start": 135,
+          "end": 154
+        },
+        {
+          "name": "wrapped",
+          "start": 159,
+          "end": 168
+        }
+      ]
+    },
+    {
+      "path": "backend/services/accounts.py",
+      "sha256": "685abd077eede809ee841268053f58d64b86a7233ff37e5c5e64187950da5de0",
+      "functions": [
+        {
+          "name": "register_account",
+          "start": 12,
+          "end": 22
+        },
+        {
+          "name": "authenticate",
+          "start": 25,
+          "end": 34
+        },
+        {
+          "name": "change_password",
+          "start": 37,
+          "end": 50
+        }
+      ]
+    },
+    {
+      "path": "backend/services/devices.py",
+      "sha256": "50a5e790531fc796a2e4e01436698a7ee9d84aee378778e68842663081451652",
+      "functions": [
+        {
+          "name": "_insert_device",
+          "start": 16,
+          "end": 24
+        },
+        {
+          "name": "enroll_device",
+          "start": 27,
+          "end": 30
+        },
+        {
+          "name": "provision_device",
+          "start": 33,
+          "end": 38
+        },
+        {
+          "name": "require_device",
+          "start": 41,
+          "end": 48
+        },
+        {
+          "name": "owned_device",
+          "start": 51,
+          "end": 59
+        },
+        {
+          "name": "list_devices",
+          "start": 62,
+          "end": 66
+        },
+        {
+          "name": "latest_reading",
+          "start": 69,
+          "end": 73
+        },
+        {
+          "name": "save_reading",
+          "start": 76,
+          "end": 93
+        },
+        {
+          "name": "reading_history",
+          "start": 96,
+          "end": 100
+        },
+        {
+          "name": "enqueue_command",
+          "start": 103,
+          "end": 113
+        },
+        {
+          "name": "pending_command",
+          "start": 116,
+          "end": 121
+        },
+        {
+          "name": "command_history",
+          "start": 124,
+          "end": 128
+        },
+        {
+          "name": "acknowledge_command",
+          "start": 131,
+          "end": 151
+        }
+      ]
+    },
+    {
+      "path": "backend/settings.py",
+      "sha256": "93ecfb38f8a8d923462eb7cd874031ec72908beb2f1e9f0a74afcc3b65be98e3",
+      "functions": [
+        {
+          "name": "load_settings",
+          "start": 33,
+          "end": 87
+        },
+        {
+          "name": "text",
+          "start": 36,
+          "end": 37
+        },
+        {
+          "name": "integer",
+          "start": 39,
+          "end": 46
+        },
+        {
+          "name": "local_path",
+          "start": 48,
+          "end": 49
+        }
+      ]
+    },
+    {
+      "path": "firmware/api_client.py",
+      "sha256": "7876251e4d715aeace01f049b91bb203148dcc104e75ad8eb40172218756aab9",
+      "functions": [
+        {
+          "name": "_is_certificate_error",
+          "start": 50,
+          "end": 62
+        },
+        {
+          "name": "__init__",
+          "start": 16,
+          "end": 24
+        },
+        {
+          "name": "payload",
+          "start": 34,
+          "end": 41
+        },
+        {
+          "name": "__init__",
+          "start": 66,
+          "end": 74
+        },
+        {
+          "name": "__enter__",
+          "start": 76,
+          "end": 77
+        },
+        {
+          "name": "__exit__",
+          "start": 79,
+          "end": 80
+        },
+        {
+          "name": "_exchange",
+          "start": 82,
+          "end": 110
+        },
+        {
+          "name": "_post_reading",
+          "start": 112,
+          "end": 123
+        },
+        {
+          "name": "submit_reading",
+          "start": 125,
+          "end": 126
+        },
+        {
+          "name": "poll_command",
+          "start": 128,
+          "end": 143
+        },
+        {
+          "name": "acknowledge_command",
+          "start": 145,
+          "end": 150
+        }
+      ]
+    },
+    {
+      "path": "firmware/fan.py",
+      "sha256": "dd9fe96025df3d3dca048baa27b755796fa22fd5052f40304aed85a5f32a3bec",
+      "functions": [
+        {
+          "name": "__init__",
+          "start": 10,
+          "end": 11
+        },
+        {
+          "name": "state",
+          "start": 13,
+          "end": 15
+        },
+        {
+          "name": "is_on",
+          "start": 17,
+          "end": 19
+        },
+        {
+          "name": "set_state",
+          "start": 21,
+          "end": 22
+        }
+      ]
+    },
+    {
+      "path": "firmware/main.py",
+      "sha256": "6796f55e6b623dd5a0e004371a9fe36442809d3b94352add7b4f748a71908e30",
+      "functions": [
+        {
+          "name": "configure_logging",
+          "start": 100,
+          "end": 109
+        },
+        {
+          "name": "main",
+          "start": 112,
+          "end": 157
+        },
+        {
+          "name": "__init__",
+          "start": 21,
+          "end": 39
+        },
+        {
+          "name": "_advance_sensor",
+          "start": 41,
+          "end": 44
+        },
+        {
+          "name": "_send_reading",
+          "start": 46,
+          "end": 65
+        },
+        {
+          "name": "_process_command",
+          "start": 67,
+          "end": 86
+        },
+        {
+          "name": "step",
+          "start": 88,
+          "end": 94
+        },
+        {
+          "name": "stop",
+          "start": 96,
+          "end": 97
+        },
+        {
+          "name": "request_stop",
+          "start": 135,
+          "end": 136
+        }
+      ]
+    },
+    {
+      "path": "firmware/settings.py",
+      "sha256": "8939f8923c08c3a4b14d61d6bc12f71631bf74662b488f50f07ae2f6f336f988",
+      "functions": [
+        {
+          "name": "load_settings",
+          "start": 39,
+          "end": 116
+        },
+        {
+          "name": "text",
+          "start": 42,
+          "end": 43
+        },
+        {
+          "name": "number",
+          "start": 45,
+          "end": 52
+        },
+        {
+          "name": "local_path",
+          "start": 54,
+          "end": 56
+        },
+        {
+          "name": "origin",
+          "start": 58,
+          "end": 73
+        }
+      ]
+    },
+    {
+      "path": "firmware/temperature_sensor.py",
+      "sha256": "59705fd8153951a17e5c16ae591b81f6106d5bda089723006e24c124f736ee2e",
+      "functions": [
+        {
+          "name": "__init__",
+          "start": 6,
+          "end": 32
+        },
+        {
+          "name": "advance",
+          "start": 34,
+          "end": 41
+        },
+        {
+          "name": "read_celsius",
+          "start": 43,
+          "end": 44
+        }
+      ]
+    },
+    {
+      "path": "frontend/api_client.py",
+      "sha256": "78ce9194858746f3666a1297639edc4b2aa9fc559615a8314bbff0c877882f02",
+      "functions": [
+        {
+          "name": "load_settings",
+          "start": 37,
+          "end": 75
+        },
+        {
+          "name": "__init__",
+          "start": 20,
+          "end": 26
+        },
+        {
+          "name": "text",
+          "start": 40,
+          "end": 41
+        },
+        {
+          "name": "timeout",
+          "start": 43,
+          "end": 50
+        },
+        {
+          "name": "__init__",
+          "start": 79,
+          "end": 83
+        },
+        {
+          "name": "__enter__",
+          "start": 85,
+          "end": 86
+        },
+        {
+          "name": "__exit__",
+          "start": 88,
+          "end": 89
+        },
+        {
+          "name": "_request",
+          "start": 91,
+          "end": 130
+        },
+        {
+          "name": "_device_path",
+          "start": 132,
+          "end": 136
+        },
+        {
+          "name": "register",
+          "start": 138,
+          "end": 139
+        },
+        {
+          "name": "login",
+          "start": 141,
+          "end": 142
+        },
+        {
+          "name": "current_account",
+          "start": 144,
+          "end": 145
+        },
+        {
+          "name": "change_password",
+          "start": 147,
+          "end": 150
+        },
+        {
+          "name": "enroll_device",
+          "start": 152,
+          "end": 153
+        },
+        {
+          "name": "list_devices",
+          "start": 155,
+          "end": 156
+        },
+        {
+          "name": "device_detail",
+          "start": 158,
+          "end": 159
+        },
+        {
+          "name": "readings",
+          "start": 161,
+          "end": 162
+        },
+        {
+          "name": "commands",
+          "start": 164,
+          "end": 165
+        },
+        {
+          "name": "request_fan",
+          "start": 167,
+          "end": 170
+        }
+      ]
+    },
+    {
+      "path": "frontend/main.py",
+      "sha256": "bbf715d19ad845367925f8ab5bf0685167b243b702e7650b8faa626eccacf901",
+      "functions": []
+    },
+    {
+      "path": "frontend/views/account.py",
+      "sha256": "48e6eab086ea8ba1f8b8d387f5ebd4f781eb6a355533864d981ec9075fefc95e",
+      "functions": [
+        {
+          "name": "clear_session",
+          "start": 8,
+          "end": 12
+        },
+        {
+          "name": "save_session",
+          "start": 15,
+          "end": 20
+        },
+        {
+          "name": "require_session",
+          "start": 23,
+          "end": 28
+        },
+        {
+          "name": "show_api_error",
+          "start": 31,
+          "end": 34
+        },
+        {
+          "name": "handle_authenticated_error",
+          "start": 37,
+          "end": 41
+        },
+        {
+          "name": "render_sign_in",
+          "start": 44,
+          "end": 74
+        },
+        {
+          "name": "render_settings",
+          "start": 77,
+          "end": 97
+        }
+      ]
+    },
+    {
+      "path": "frontend/views/dashboard.py",
+      "sha256": "ca783279c661df87dfe359fc7eed4203f9639154adf8e0c3a6e44f4ca73c57fb",
+      "functions": [
+        {
+          "name": "_dismiss_credentials",
+          "start": 11,
+          "end": 13
+        },
+        {
+          "name": "_render_enrollment",
+          "start": 16,
+          "end": 40
+        },
+        {
+          "name": "render_dashboard",
+          "start": 43,
+          "end": 64
+        },
+        {
+          "name": "_render_device",
+          "start": 67,
+          "end": 144
+        }
+      ]
+    },
+    {
+      "path": "README.md",
+      "sha256": "b095cee06475d29292aba864a35399ed8f9623f896f9c893ad1925ce6fa9fd5e"
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "b6b91e25c5c99587c99bb6904d626c70e877c100803bfacafbbe45bc2c2a0180"
+    },
+    {
+      "path": ".env.example",
+      "sha256": "3616f4e51f41b8b93257f8f3f55fc74223fc990abab389afd8674a406fc4991f"
+    }
+  ],
+  "verification_files": [
+    {
+      "path": "test_frontend.py",
+      "sha256": "008c281a7d415a5bec7e2d213e862c41cca4fc6941db117fd0ee533b197b33f8"
+    },
+    {
+      "path": "test_backend.py",
+      "sha256": "8e57637615d7533fe424696b9c6ad38026f3809bdc268221e4dda95fb42d17cd"
+    },
+    {
+      "path": "run_frontend_checks.py",
+      "sha256": "af511b49fdfb790a707a58407274689be192df040cf7475943698ae8539a1c07"
+    }
+  ],
+  "checks": [
+    {
+      "name": "compile-frontend",
+      "exit_code": 0,
+      "output": ""
+    },
+    {
+      "name": "frontend-ui-and-flask-contract",
+      "exit_code": 0,
+      "output": "test_account_registration_login_password_change_and_sign_out (__main__.FrontendChecks.test_account_registration_login_password_change_and_sign_out) ... 2026-11-16 14:51:03.745 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\nok\ntest_api_client_matches_actual_flask_routes (__main__.FrontendChecks.test_api_client_matches_actual_flask_routes) ... ok\ntest_device_enrollment_readings_and_command_acknowledgment (__main__.FrontendChecks.test_device_enrollment_readings_and_command_acknowledgment) ... 2026-11-16 14:51:05.869 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n2026-11-16 14:51:05.870 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\nok\ntest_empty_and_stale_readings_and_rejected_command (__main__.FrontendChecks.test_empty_and_stale_readings_and_rejected_command) ... 2026-11-16 14:51:06.234 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n2026-11-16 14:51:06.234 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\nok\ntest_expired_and_revoked_sessions_clear_credentials (__main__.FrontendChecks.test_expired_and_revoked_sessions_clear_credentials) ... 2026-11-16 14:51:06.508 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n2026-11-16 14:51:06.508 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n2026-11-16 14:51:06.508 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n2026-11-16 14:51:06.771 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n2026-11-16 14:51:06.771 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n2026-11-16 14:51:06.771 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\nok\ntest_https_transport_and_failures (__main__.FrontendChecks.test_https_transport_and_failures) ... ok\ntest_password_rejection_keeps_session_and_shows_server_error (__main__.FrontendChecks.test_password_rejection_keeps_session_and_shows_server_error) ... 2026-11-16 14:51:07.039 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n2026-11-16 14:51:07.040 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\nok\ntest_version_local_settings_and_https_only_origin (__main__.FrontendChecks.test_version_local_settings_and_https_only_origin) ... ok\n\n----------------------------------------------------------------------\nRan 8 tests in 3.578s\n\nOK\n"
+    },
+    {
+      "name": "backend-regression",
+      "exit_code": 0,
+      "output": "test_cross_owner_command_submission_and_other_owner_checks (__main__.BackendChecks.test_cross_owner_command_submission_and_other_owner_checks) ... ok\ntest_direct_login_attempts_reach_password_verification (__main__.BackendChecks.test_direct_login_attempts_reach_password_verification) ... ok\ntest_enrollment_secrets_and_digest_storage (__main__.BackendChecks.test_enrollment_secrets_and_digest_storage) ... ok\ntest_http_scope_session_revocation_and_configuration (__main__.BackendChecks.test_http_scope_session_revocation_and_configuration) ... ok\ntest_live_http_and_trusted_https_listeners_and_shutdown (__main__.BackendChecks.test_live_http_and_trusted_https_listeners_and_shutdown) ... [2026-11-16 14:51:08,460] INFO in main: API listening on HTTPS port 0 and command-poll HTTP port 0\n127.0.0.1 - - [16/Nov/2026 14:51:08] \"GET /api/devices/room/commands/pending HTTP/1.1\" 200 -\n127.0.0.1 - - [16/Nov/2026 14:51:08] \"GET /api/devices/room/commands/pending HTTP/1.1\" 401 -\n127.0.0.1 - - [16/Nov/2026 14:51:08] \"GET /api/devices/room/commands/pending HTTP/1.1\" 200 -\n127.0.0.1 - - [16/Nov/2026 14:51:08] \"POST /api/accounts/login HTTP/1.1\" 400 -\nok\ntest_partial_listener_startup_closes_bound_socket (__main__.BackendChecks.test_partial_listener_startup_closes_bound_socket) ... ok\ntest_password_strength_storage_and_current_password (__main__.BackendChecks.test_password_strength_storage_and_current_password) ... ok\ntest_polling_authentication_and_device_binding_on_both_transports (__main__.BackendChecks.test_polling_authentication_and_device_binding_on_both_transports) ... ok\ntest_reading_and_acknowledgment_require_device_identity (__main__.BackendChecks.test_reading_and_acknowledgment_require_device_identity) ... ok\ntest_reading_deduplication_and_acknowledgment (__main__.BackendChecks.test_reading_deduplication_and_acknowledgment) ... ok\n\n----------------------------------------------------------------------\nRan 10 tests in 1.966s\n\nOK\n"
+    },
+    {
+      "name": "dependency-consistency",
+      "exit_code": 0,
+      "output": "No broken requirements found.\n"
+    }
+  ],
+  "limitations": [
+    "Eight frontend tests use Streamlit AppTest with mocked API methods, mocked transport, and a real Flask test-client bridge with database/service doubles.",
+    "The Flask bridge checks frontend request/response contracts, not real HTTPS transport, certificate validation, or PostgreSQL integration.",
+    "Transport-option tests assert CA validation, timeouts, redirect rejection, and safe error messages using mocked Requests responses.",
+    "Ten backend regression tests include local HTTP/HTTPS listeners with database doubles; they do not execute the frontend client over live TLS.",
+    "No browser visual QA, timed browser fragment-refresh test, or complete running device/backend/dashboard integration performed.",
+    "Version B database schema remains pending. Existing backend/firmware evidence is preserved separately.",
+    "Software simulates sensor/fan behavior; no physical hardware, independent review, detector evaluation, or external workbook update."
+  ]
+}

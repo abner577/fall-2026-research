@@ -1,9 +1,8 @@
 # Room temperature monitoring and fan control
 
 The API manages accounts, device enrollment, temperature readings, and fan
-commands using Flask and PostgreSQL. The backend and device client are
-implemented. The database schema and dashboard are pending in their
-respective folders.
+commands using Flask and PostgreSQL. The backend, device client, and Streamlit
+dashboard are implemented. The database schema remains pending in `database/`.
 
 ## Setup
 
@@ -90,5 +89,34 @@ An existing device credential can be assigned to an account through:
 
 The command prompts for the token without displaying it. Database connections
 require TLS; use `DB_SSLMODE=verify-full` with trusted CA configuration for a
-remote database. Full application startup remains dependent on the remaining
-components and database setup.
+remote database. Full application startup remains dependent on the database
+schema and database setup.
+
+## Run the dashboard
+
+After the database is initialized and the backend is running, open a separate
+terminal in this folder:
+
+```powershell
+.\.venv\Scripts\python.exe -m streamlit run frontend/main.py --server.address 127.0.0.1 --server.port 8502 --server.headless true --browser.gatherUsageStats false
+```
+
+Open `http://127.0.0.1:8502`. Create an account, sign in, and register a device.
+Save its issued ID and token before dismissing the credentials panel, then use
+them to configure the device client. Select a device to view its latest reading,
+temperature history, reported fan state, and command acknowledgments. Fan
+requests remain pending until the device acknowledges them; the reported fan
+state updates with subsequent readings. The dashboard refreshes device data
+every five seconds and includes a manual refresh button. Times are shown in UTC;
+readings received more than 30 seconds ago are marked stale.
+
+Account settings allows password changes and keeps the replacement account
+token for the current session. Sign out clears the dashboard session and any
+undismissed device credentials. Expired or rejected account sessions return to
+sign-in. Closing or reloading the browser tab can discard the Streamlit session.
+
+The dashboard uses `API_BASE_URL=https://localhost:8444` and verifies the API
+certificate with `API_CA_BUNDLE`; it does not use the device polling address.
+It loads `.env` from this project folder, with process environment overrides.
+The browser connects to Streamlit locally while Streamlit contacts Flask over
+HTTPS. Keep the dashboard bound to loopback for this local setup.

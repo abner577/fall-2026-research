@@ -10,10 +10,11 @@ Do not assume the workbook exists at a repository-relative path, search for a pe
 
 ## Scope and progress
 
-November 16 implementation note: Version B's backend and firmware now exist.
+November 16 implementation note: Version B's backend, firmware, and frontend now exist.
 Their exact locations, source hashes, author checks, and pending work are
 maintained in [version-b-backend-implementation.md](version-b-backend-implementation.md)
-and [version-b-firmware-implementation.md](version-b-firmware-implementation.md).
+and [version-b-firmware-implementation.md](version-b-firmware-implementation.md),
+with frontend progress in [version-b-frontend-implementation.md](version-b-frontend-implementation.md).
 This is a repository documentation update only; the external workbook was not
 accessed, edited, or synchronized, and its current contents remain unconfirmed.
 
