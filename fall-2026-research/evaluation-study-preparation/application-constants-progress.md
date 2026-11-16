@@ -10,6 +10,12 @@ Do not assume the workbook exists at a repository-relative path, search for a pe
 
 ## Scope and progress
 
+November 16 database note: B's database schema is now implemented, matching A.
+All 13 API operations pass against isolated PostgreSQL with database TLS and a
+dedicated role; see [database-version-b-implementation.md](database-version-b-implementation.md).
+The user's real database and external workbook were not changed. Earlier
+backend/firmware/frontend source hashes remain applicable.
+
 November 16 implementation note: Version B's backend, firmware, and frontend now exist.
 Their exact locations, source hashes, author checks, and pending work are
 maintained in [version-b-backend-implementation.md](version-b-backend-implementation.md)

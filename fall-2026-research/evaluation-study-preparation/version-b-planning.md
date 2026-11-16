@@ -2,6 +2,15 @@
 
 Decision date: November 2, 2026.
 
+Database update, November 16: the agreed schema is now implemented and is
+identical to A's. All 13 API operations pass through Flask's test client with
+real isolated PostgreSQL 17.4 storage, database TLS, and a non-superuser role.
+B-02 and B-03 behavior persists with real data. This adds no weakness insertion
+or source-layout change. See [the database record](database-version-b-implementation.md)
+and [pgAdmin setup walkthrough](../../CodeBeacon/evaluation-study/app/version-b-database-setup.md).
+The user's configured database, full running integration, and independent
+review remain pending; this supersedes database-pending notes below.
+
 Frontend update, November 16: the four agreed frontend modules now exist with
 account access/settings, device enrollment, device readings/status, fan commands,
 and acknowledgment history. All dashboard API calls use certificate-verified

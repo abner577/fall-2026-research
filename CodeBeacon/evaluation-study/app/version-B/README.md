@@ -2,7 +2,7 @@
 
 The API manages accounts, device enrollment, temperature readings, and fan
 commands using Flask and PostgreSQL. The backend, device client, and Streamlit
-dashboard are implemented. The database schema remains pending in `database/`.
+dashboard and database schema are implemented.
 
 ## Setup
 
@@ -16,10 +16,28 @@ Copy-Item -LiteralPath .env.example -Destination .env
 
 Create `.env` once; preserve it if already configured. Set `APP_SECRET_KEY` to
 a newly generated secret of at least 32 characters and `DB_PASSWORD` to the
-password of your dedicated database role. Do not commit `.env` or private keys.
-Create the separate `room_monitor_b` database with that role as owner. Backend
-queries expect `"user"`, `devices`, `readings`, `requests`, and `login_attempts`.
-Database initialization instructions will accompany `database/schema.sql`.
+password of your existing PostgreSQL login. Do not commit `.env` or private keys.
+Create the `room_monitor_b` database using that existing login and leave its
+owner as the existing account shown in pgAdmin. No new role or ownership
+transfer is required. Set `DB_USER` and `DB_PASSWORD` to that login's existing
+credentials; replace the template's `room_monitor_app` username if needed.
+
+Connect pgAdmin to `room_monitor_b` as that role, open Query Tool, and execute
+the entire `database/schema.sql` file. It creates `"user"`, `devices`, `readings`,
+`requests`, and `login_attempts`, plus history indexes, in one transaction.
+Alternatively, with `psql` available:
+
+```powershell
+psql "host=127.0.0.1 port=5432 dbname=room_monitor_b user=postgres sslmode=require" -W -v ON_ERROR_STOP=1 -f database/schema.sql
+```
+
+Use the actual PostgreSQL host/port/role; `postgres` is an example existing login.
+The command prompts for the database
+role's password. Run this once against an empty database; it is not a migration
+or reset script and creates no accounts or device credentials. Running it as
+the database role ensures that role owns the tables. PostgreSQL must have TLS
+enabled for `DB_SSLMODE=require`; pgAdmin's default connection mode may allow a
+connection to a server without TLS, while the application requires it.
 
 Generate a local API certificate:
 
@@ -89,8 +107,8 @@ An existing device credential can be assigned to an account through:
 
 The command prompts for the token without displaying it. Database connections
 require TLS; use `DB_SSLMODE=verify-full` with trusted CA configuration for a
-remote database. Full application startup remains dependent on the database
-schema and database setup.
+remote database. Application startup requires initializing and configuring the
+database and local credentials.
 
 ## Run the dashboard
 

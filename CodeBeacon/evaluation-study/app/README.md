@@ -7,7 +7,10 @@ and fan-control application used in the CodeBeacon evaluation study.
   [project README](version-A/README.md).
 - [version-B/](version-B/) now contains ten backend modules, five firmware
   modules, four frontend modules, and root setup files. It preserves A's internal
-  structure; database source remains pending. See the [frontend implementation record](../../../fall-2026-research/evaluation-study-preparation/version-b-frontend-implementation.md),
+  structure; its database schema is now implemented, identical to A's. See the
+  [pgAdmin setup walkthrough](version-b-database-setup.md),
+  [database record](../../../fall-2026-research/evaluation-study-preparation/database-version-b-implementation.md),
+  [frontend implementation record](../../../fall-2026-research/evaluation-study-preparation/version-b-frontend-implementation.md),
   [backend implementation record](../../../fall-2026-research/evaluation-study-preparation/version-b-backend-implementation.md)
   and [firmware record](../../../fall-2026-research/evaluation-study-preparation/version-b-firmware-implementation.md)
   for November 16 progress, exact locations, and verification limits.
@@ -33,6 +36,15 @@ behavior are simulated; network requests, account handling, storage, and command
 delivery will run as ordinary application operations.
 
 ## Current implementation status
+
+Database update, November 16: Version B now has all agreed source files,
+including `database/schema.sql`. All 13 API operations pass against isolated
+PostgreSQL 17.4 storage with TLS and a dedicated non-superuser owner. The user's
+configured database and complete running device/backend/dashboard workflow are
+not verified. Follow [the pgAdmin walkthrough](version-b-database-setup.md) to
+create B's real database and configure its credentials. This supersedes the
+database-pending and no-PostgreSQL-execution status in earlier notes below; see
+[the database implementation record](../../../fall-2026-research/evaluation-study-preparation/database-version-b-implementation.md).
 
 Version B: all ten backend and five firmware modules exist, retaining the same
 13 API operations. Ten backend and nine firmware author checks pass, including

@@ -5,7 +5,12 @@ four frontend modules, and root support files now exist at
 `CodeBeacon/evaluation-study/app/version-B/`, matching A's layout. Eight frontend
 and ten backend author checks, frontend compilation, and dependency consistency
 pass; earlier firmware checks are preserved separately. Database operations use
-doubles. Database source and full-system integration remain pending. See the
+doubles in those earlier checks. B's database schema is now implemented,
+identical to A's. All 13 API operations also pass against an isolated PostgreSQL
+17.4 cluster using a non-superuser role over database TLS. The configured user
+database and full-system integration remain pending. See the
+[database record](fall-2026-research/evaluation-study-preparation/database-version-b-implementation.md),
+[pgAdmin setup walkthrough](CodeBeacon/evaluation-study/app/version-b-database-setup.md),
 [frontend record](fall-2026-research/evaluation-study-preparation/version-b-frontend-implementation.md),
 [Version B backend record](fall-2026-research/evaluation-study-preparation/version-b-backend-implementation.md)
 and [firmware record](fall-2026-research/evaluation-study-preparation/version-b-firmware-implementation.md)

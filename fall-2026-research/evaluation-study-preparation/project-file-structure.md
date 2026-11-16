@@ -2,6 +2,14 @@
 
 Accepted November 2, 2026. This Markdown file is the sole file-structure reference for future chats. It describes the application itself, not the surrounding research repository. The Word export is a personal copy managed by the student outside the repository; do not require, locate, read, or synchronize it when planning or generating code.
 
+Database update, November 16: `version-B/database/schema.sql` now exists and
+matches A's schema byte for byte. Both versions have all agreed source files.
+All 13 B API operations pass against isolated PostgreSQL 17.4 with TLS and a
+dedicated non-superuser role. See [the database record](database-version-b-implementation.md)
+and [pgAdmin setup walkthrough](../../CodeBeacon/evaluation-study/app/version-b-database-setup.md).
+The configured user database and full-system integration remain pending. This
+supersedes the database-pending status below.
+
 Frontend update, November 16: all four `version-B/frontend/` modules now exist,
 matching A's agreed structure and features. Eight frontend and ten backend
 author checks, frontend compilation, and dependency consistency pass. Database
