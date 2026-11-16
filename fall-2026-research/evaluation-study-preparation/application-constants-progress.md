@@ -10,6 +10,12 @@ Do not assume the workbook exists at a repository-relative path, search for a pe
 
 ## Scope and progress
 
+November 16 implementation note: Version B's backend now exists. Its exact
+backend locations, source hashes, author checks, and pending firmware/client
+work are maintained in [version-b-backend-implementation.md](version-b-backend-implementation.md).
+This is a repository documentation update only; the external workbook was not
+accessed, edited, or synchronized, and its current contents remain unconfirmed.
+
 - **Vulnerabilities — create now:** one row for each selected type, V1–V10, with a simple definition, why it matters, a typical cause, the vulnerability boundary and a safe comparison, and the planned temperature/fan application example. Include planned CWE references and keep the wording short.
 - **Version A and Version B test cases — later:** eventually record exactly which types are present and absent, each instance's file, function/operation, line range, saved code revision/hash, explanation, safe comparison, and verification evidence/status. Do not create these tabs now. Planned placement is not a confirmed finding.
 - **Explanation content — requirements recorded, tab deferred:** explain where each finding is, what the code does, why it is vulnerable, why it matters, the conditions needed, and what vulnerable versus protected behavior looks like. Include supporting code, a suggested change and setup instructions where needed, guidance sources, and missing context. This follows the existing [report design](../coming-up-w-research-plan/application-workflows.md#saved-uploads-and-findings-reports).

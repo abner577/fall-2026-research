@@ -2,6 +2,18 @@
 
 Decision date: November 2, 2026.
 
+Implementation update, November 16, 2026: Version B's ten backend modules now
+exist at `CodeBeacon/evaluation-study/app/version-B/backend/`, with the same
+filenames and responsibilities as A. B-02 and B-03 are implemented; B-01 has
+working HTTP server support, with its firmware transmission path still pending.
+Ten author checks, compilation, and dependency consistency pass. Exact locations,
+source hashes, protections, runtime decisions, and remaining verification are in
+[the backend implementation record](version-b-backend-implementation.md).
+The database, firmware, and frontend source files remain pending. Original
+future-tense text below records the design stage; this update supersedes claims
+that no Version B folder or source exists. No independent review or scored
+answer-key freeze is claimed.
+
 ## Purpose and decision status
 
 Version B will contain **three selected weakness types**, with one planned

@@ -1,5 +1,15 @@
 # Fall 2026 CAHSI LREU: Program and Repository Context
 
+**Version B progress, November 16:** the ten backend modules and root support
+files now exist at `CodeBeacon/evaluation-study/app/version-B/`, matching A's
+backend layout. Ten author checks, compilation, and dependency consistency pass;
+database operations use doubles, with actual local HTTP/HTTPS listener checks.
+Database, firmware, and frontend source remain pending. See the
+[Version B backend record](fall-2026-research/evaluation-study-preparation/version-b-backend-implementation.md)
+for exact vulnerability locations, hashes, protections, and verification limits.
+The external Excel workbook was not updated. This supersedes older summaries
+of version-generation progress below.
+
 **External Excel constants reference, November 2:** read [workbook requirements and progress](fall-2026-research/evaluation-study-preparation/application-constants-progress.md) when the student mentions the constants Excel sheet, vulnerability workbook, or version-case tabs. The student keeps the actual workbook in another folder on their computer, outside this repository; its external path is unspecified. The repository documents its purpose, V1–V10 IDs, contents, planned additions, and last known progress. The initial workbook contains only the vulnerability overview; Version A and Version B tabs are deferred. Future agents can plan from these Markdown notes without accessing the Excel file.
 
 ## Purpose of this file

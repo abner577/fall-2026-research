@@ -2,6 +2,14 @@
 
 Accepted November 2, 2026. This Markdown file is the sole file-structure reference for future chats. It describes the application itself, not the surrounding research repository. The Word export is a personal copy managed by the student outside the repository; do not require, locate, read, or synchronize it when planning or generating code.
 
+Version B update, November 16: all ten `version-B/backend/` modules now exist
+with the same layout as A. Root README, requirements, placeholder settings
+template, and ignored local settings are present. `database/`, `frontend/`,
+and `firmware/` are empty local directories awaiting their source files; Git
+does not retain empty directories. See [Version B backend implementation](version-b-backend-implementation.md)
+for exact progress, ten passing author checks, source hashes, and limits. This
+supersedes older statements below that Version B has not been created.
+
 Implementation update, November 2: the student explicitly chose
 `CodeBeacon/evaluation-study/app/version-A/` for the first version. Use the exact
 capitalized suffixes `version-A/` and `version-B/` going forward; lowercase names

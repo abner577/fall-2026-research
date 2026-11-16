@@ -1,0 +1,14 @@
+# API and account security.
+Flask==3.1.3
+Werkzeug==3.1.9
+itsdangerous==2.2.0
+
+# PostgreSQL.
+psycopg[binary]==3.3.6
+
+# Dashboard and API clients.
+streamlit==1.66.1
+requests==2.34.2
+
+# Local configuration.
+python-dotenv==1.2.4
