@@ -3,6 +3,15 @@
 Recorded November 16, 2026. This is an implementation and author-verification
 record, not an independently reviewed answer key or detector experiment.
 
+Subsequent firmware update, November 16: all five firmware modules are now
+implemented. B-01's actual client transmission path and current combined source
+hashes are documented in [the firmware record](version-b-firmware-implementation.md)
+and `firmware-check-results.json`. Nine firmware checks and all ten backend
+regression checks pass. Backend source is unchanged. Database/frontend source
+and independent review remain pending. The sections below preserve the earlier
+backend implementation snapshot; references to pending firmware describe that
+earlier stage, and the original evidence is retained.
+
 ## Completed scope and structure
 
 `CodeBeacon/evaluation-study/app/version-B/` now has all ten backend modules,

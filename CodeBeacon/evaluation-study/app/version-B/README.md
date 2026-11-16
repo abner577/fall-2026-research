@@ -1,8 +1,9 @@
 # Room temperature monitoring and fan control
 
 The API manages accounts, device enrollment, temperature readings, and fan
-commands using Flask and PostgreSQL. The backend is implemented. The database
-schema, dashboard, and device client are pending in their respective folders.
+commands using Flask and PostgreSQL. The backend and device client are
+implemented. The database schema and dashboard are pending in their
+respective folders.
 
 ## Setup
 
@@ -48,6 +49,38 @@ require passwords of 15 to 128 characters. Login returns an expiring account
 bearer token. Enrollment returns a device ID and a device token; retain both
 for device configuration because the token is not retrievable afterward.
 Commands stay pending until acknowledged, and reading retries retain their IDs.
+
+## Run the device client
+
+After enrolling a device, set `DEVICE_ID` and `DEVICE_TOKEN` in `.env` to the
+issued pair. Both are required; there is no bundled credential. Use
+`API_BASE_URL=https://localhost:8444` for reading submission and command
+acknowledgment, `DEVICE_COMMAND_POLL_BASE_URL=http://127.0.0.1:8081` for command
+polling, and `API_CA_BUNDLE=.local/tls/server.crt` for the trusted certificate.
+Keep these addresses aligned with backend ports. Origin addresses cannot include
+credentials, paths, query strings, or fragments.
+
+```powershell
+.\.venv\Scripts\python.exe -m firmware.main --check-config
+.\.venv\Scripts\python.exe -m firmware.main
+```
+
+The configuration check validates settings and the certificate file's existence;
+it does not contact the API, parse the certificate, or verify device enrollment.
+The running client sends readings every five seconds and polls commands every
+two seconds by default. It applies the requested fan state before acknowledging
+the command. Reading failures preserve the same reading identity and contents;
+failed acknowledgments preserve the command identity and pause further polling
+until acknowledgment succeeds. Transient errors defer the affected operation
+for `DEVICE_RECONNECT_DELAY_SECONDS`, default five seconds. Requests run
+sequentially with bounded connect/read timeouts, so a slow operation can delay
+the next one. Pending work is held in memory and is lost when the process stops.
+
+HTTPS certificate failures and permanent API rejections stop the client with
+exit code 1. Invalid local settings use exit code 2. Logs go to the terminal and
+`FIRMWARE_LOG_FILE`, with three rotated backups of up to 1 MB each. Failure logs
+contain operation/status details. `Ctrl+C` stops the client and turns the fan
+off locally; it does not submit a final reading or command acknowledgment.
 
 An existing device credential can be assigned to an account through:
 

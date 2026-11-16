@@ -2,6 +2,17 @@
 
 Decision date: November 2, 2026.
 
+Firmware update, November 16: all five agreed firmware modules now exist. The
+client sends command-poll credentials over HTTP for B-01 while readings and
+acknowledgments retain certificate-verified HTTPS. Supplied device credentials,
+safe failure logs, and rejection of untrusted certificates replace A's firmware
+defects. Nine firmware checks and ten backend regression checks pass, including
+actual firmware requests to local backend listeners with database doubles.
+See [the firmware implementation record](version-b-firmware-implementation.md)
+for exact locations, hashes, evidence, and remaining limits. Database/frontend
+source, PostgreSQL integration, and independent review remain pending. This
+supersedes earlier firmware-pending descriptions below.
+
 Implementation update, November 16, 2026: Version B's ten backend modules now
 exist at `CodeBeacon/evaluation-study/app/version-B/backend/`, with the same
 filenames and responsibilities as A. B-02 and B-03 are implemented; B-01 has

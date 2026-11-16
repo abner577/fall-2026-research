@@ -5,10 +5,11 @@ and fan-control application used in the CodeBeacon evaluation study.
 
 - [version-A/](version-A/) contains the first application's source and its
   [project README](version-A/README.md).
-- [version-B/](version-B/) now contains the ten backend modules and root setup
-  files. It preserves A's internal structure; database, firmware, and frontend
-  source remain pending. See the [backend implementation record](../../../fall-2026-research/evaluation-study-preparation/version-b-backend-implementation.md)
-  for the November 16 progress, exact locations, and verification limits.
+- [version-B/](version-B/) now contains ten backend modules, five firmware
+  modules, and root setup files. It preserves A's internal structure; database
+  and frontend source remain pending. See the [backend implementation record](../../../fall-2026-research/evaluation-study-preparation/version-b-backend-implementation.md)
+  and [firmware record](../../../fall-2026-research/evaluation-study-preparation/version-b-firmware-implementation.md)
+  for November 16 progress, exact locations, and verification limits.
 
 This README contains the shared architecture, implementation status, and detailed
 development setup. Each version's README is the user-facing project guide.
@@ -32,14 +33,17 @@ delivery will run as ordinary application operations.
 
 ## Current implementation status
 
-Version B backend: all ten modules exist, retaining the same 13 API operations.
-Ten author checks pass, including actual local HTTP/HTTPS listener requests;
+Version B: all ten backend and five firmware modules exist, retaining the same
+13 API operations. Ten backend and nine firmware author checks pass, including
+actual firmware requests to local HTTP/HTTPS listeners;
 compilation and dependency consistency pass. Database queries use doubles in
 these checks. No Version B PostgreSQL execution, full application integration,
 independent review, or detector evaluation is claimed. Its separate database
 defaults to `room_monitor_b`; HTTPS uses port 8444 and command-poll HTTP port
-8081. Other HTTP operations are rejected. Version B's remaining source folders
-are pending; see its [project guide](version-B/README.md).
+8081. Other HTTP operations are rejected. The firmware uses HTTP only for
+command polling; readings and acknowledgments use certificate-verified HTTPS.
+Version B's database and frontend source are pending; see its
+[project guide](version-B/README.md).
 
 Version A's root files, five firmware modules, ten backend modules, and four
 frontend modules exist. The five-table database schema is implemented with
