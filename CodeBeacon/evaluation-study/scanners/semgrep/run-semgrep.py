@@ -66,11 +66,11 @@ def write_manifest(log, label, paths, suffixes):
     log.flush()
 
 
-def stream_scan(command, env, findings, log):
+def stream_scan(command, env, findings, log, cwd=BASE_DIR):
     """Drain both pipes concurrently, saving and displaying their original text."""
     events = queue.Queue()
     process = subprocess.Popen(
-        command, cwd=BASE_DIR, env=env, stdout=subprocess.PIPE,
+        command, cwd=cwd, env=env, stdout=subprocess.PIPE,
         stderr=subprocess.PIPE, text=True, encoding="utf-8", errors="replace",
     )
 
@@ -132,6 +132,9 @@ def main(argv=None):
     targets = ([BASE_DIR / "practice" / "tls_example.py"] if args.case == "practice"
                else [STUDY_DIR / "app" / args.case / name
                      for name in ("backend", "frontend", "firmware")])
+    # Include globs can discard paths outside the working directory. Scan from
+    # the selected case root, using relative targets, to keep Python files in scope.
+    scan_dir = BASE_DIR if args.case == "practice" else STUDY_DIR / "app" / args.case
     executable = (args.semgrep or BASE_DIR / ".venv" /
                   ("Scripts/semgrep.exe" if os.name == "nt" else "bin/semgrep")).resolve()
     command = [str(executable), "scan", "--oss-only", "--text", "--strict", "--error",
@@ -139,7 +142,7 @@ def main(argv=None):
                "--config", str(config), "--include", "*.py"]
     for exclusion in EXCLUSIONS:
         command.extend(("--exclude", exclusion))
-    command.extend(str(path) for path in targets)
+    command.extend(path.relative_to(scan_dir).as_posix() for path in targets)
     env = os.environ.copy()
     env.update(PYTHONUTF8="1", PYTHONIOENCODING="utf-8", NO_COLOR="1")
     env.pop("SEMGREP_FORCE_COLOR", None)
@@ -154,7 +157,7 @@ def main(argv=None):
     with (folder / "findings.txt").open("w", encoding="utf-8") as findings, \
             (folder / "run-log.txt").open("w", encoding="utf-8") as log:
         log.write(f"Semgrep CE run\nCase: {args.case}\nStart: {started.isoformat()} (EST)\n"
-                  f"Working directory: {BASE_DIR}\nPython: {sys.version}\n"
+                  f"Working directory: {scan_dir}\nPython: {sys.version}\n"
                   f"Executable: {executable}\nRules: {config}\n"
                   f"Targets: {', '.join(map(str, targets))}\n"
                   f"Scope: Python only; excludes {', '.join(EXCLUSIONS)}; "
@@ -170,7 +173,7 @@ def main(argv=None):
             log.write(f"\nVersion command: {command_text(version_command)}\n")
             log.flush()
             version = subprocess.run(
-                version_command, cwd=BASE_DIR, env=env, capture_output=True,
+                version_command, cwd=scan_dir, env=env, capture_output=True,
                 text=True, encoding="utf-8", errors="replace", timeout=30,
             )
             log.write(f"Version stdout:\n{version.stdout}\nVersion stderr:\n{version.stderr}\n"
@@ -183,7 +186,7 @@ def main(argv=None):
             log.write("\n--- Scanner warnings, errors, and progress (stderr) ---\n")
             log.flush()
             status = "FAILED / INCOMPLETE; any findings are partial"
-            scan_exit = stream_scan(command, env, findings, log)
+            scan_exit = stream_scan(command, env, findings, log, cwd=scan_dir)
             runner_exit = scan_exit if scan_exit in (0, 1) else 2
             status = {0: "COMPLETED / NO FINDINGS", 1: "COMPLETED / FINDINGS REPORTED"}.get(
                 scan_exit, "FAILED / INCOMPLETE; any findings are partial")

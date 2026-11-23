@@ -66,6 +66,11 @@ part of this approach. Those earlier suggestions aren't part of this decision.
 We're using the existing application versions, so the results describe these
 cases; general rules alone don't prove how well a scanner works on every project.
 
-The next step is to write the general descriptions for the ten categories, then
-find existing checks and add custom rules where needed. This note records the
-approach; it doesn't implement or claim coverage for those rules yet.
+Implemented November 23: the general descriptions and selected checks now live
+in [semgrep/rules/study.yml](semgrep/rules/study.yml), with provenance and coverage
+limits beside the rules. Five upstream checks and eleven custom checks pass
+independent positive/negative [rule fixtures](semgrep/tests/study.py). General
+missing authorization is an explicit gap; authentication and throttling checks
+cover only explicit disabling of known library protections. The scanner README
+records verification commands and unscored smoke checks. No rules were tuned
+against application findings, and no scored evaluation or full coverage is claimed.

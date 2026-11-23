@@ -45,7 +45,7 @@ November 2 update: the student accepted a room temperature monitoring and fan-co
 
 Use the selected tools: **Semgrep Community Edition, CodeQL, and Snyk Code**. Snyk Code replaces Bandit. See the [scanner notes](../../../coming-up-w-research-plan/scanner-tools.md).
 
-- [ ] Install/configure Semgrep CE, record its version and dependencies, and run an example rule against a practice file. Save the command, rule, original report, and any errors.
+- [x] Install/configure Semgrep CE, record its version and dependencies, and run an example rule against a practice file. Completed November 23: Semgrep CE 1.186.0 runs the TLS practice check with the expected finding; commands, rule/source hashes, diagnostics, and outcomes are saved by the [runner](../../../../CodeBeacon/evaluation-study/scanners/README.md). The separate local environment is installed; CodeQL and Snyk verification remain pending.
 - [ ] Install/configure CodeQL, record CLI and query-pack versions, and verify Python database creation and an example query on practice code. Save the commands, configuration, original report, and any errors.
 - [ ] Set up Snyk Code access and its CLI, record versions, and test source-code analysis and report export on practice code. Verify actual account limits and report usability using the free plan only; no paid upgrade is authorized.
 - [ ] Confirm that each scanner can read the chosen framework and project layout. Document excluded files, analysis limits, and report fields; distinguish a failed scan from a successful scan with no findings.
@@ -53,7 +53,7 @@ Use the selected tools: **Semgrep Community Edition, CodeQL, and Snyk Code**. Sn
 ## 5. Prepare the rules, queries, and scanner commands
 
 - [ ] Map every selected weakness to each scanner's relevant existing checks. Record rule/query IDs, sources, versions, applicable usage terms, and any coverage gaps; language support alone does not establish target coverage.
-- [ ] Select, adapt, or write the Semgrep rule files needed for the chosen application and targets. Document what each rule checks and test it on separate target-present and target-absent practice cases.
+- [x] Select, adapt, or write the Semgrep rule files needed for the chosen application and targets. Completed November 23: [study.yml](../../../../CodeBeacon/evaluation-study/scanners/semgrep/rules/study.yml) contains five pinned upstream checks and eleven custom checks; all sixteen pass independent positive/negative fixtures. The YAML documents coverage limits, including unsupported general authorization checks and partial authentication/throttling coverage; application smoke checks are unscored and were not used to tune rules.
 - [ ] Select, adapt, or write the CodeQL queries and query suite needed for the application and targets. Document what each query checks and test it on separate target-present and target-absent practice cases.
 - [ ] Determine which Snyk Code checks and configuration options are available for the targets. Document coverage and limitations rather than assuming it accepts custom rule files like Semgrep or CodeQL.
 - [ ] Set a common target scope and a documented treatment of unsupported checks. Identify custom versus built-in checks in reporting; do not use hardcoded answer locations or tune checks against scored-case outputs.

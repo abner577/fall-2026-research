@@ -4,6 +4,10 @@ Agreed November 23, 2026. This is the implementation guide for future agents
 working on Semgrep Community Edition, CodeQL, and Snyk Code. Only the Semgrep
 runner is implemented. Do not treat the other two as installed or verified.
 
+For the later Application Constants Excel update, see
+[scanner-rules-excel-plan.md](scanner-rules-excel-plan.md). It saves the user's
+workflow and requested Semgrep table; no workbook editing is requested yet.
+
 ## Shared behavior for all three scanners
 
 Use one runner per scanner and the existing `evaluation-study/evaluation-runs/`
@@ -134,19 +138,41 @@ if findings are empty.
 
 ## Application scans and rule selection
 
-Version A and B require an explicit local configuration. For example, these
-commands use the current practice rule only to check the application layout:
+Version A and B require an explicit local configuration. The selected Python
+checks are in [semgrep/rules/study.yml](semgrep/rules/study.yml): five unchanged
+upstream rules at a pinned commit and eleven custom rules. Each rule's purpose,
+CWE, provenance, and important limits are recorded in that YAML file. Preserve
+the upstream license notice and review its restrictions before redistribution.
+The original `practice.yml` remains the one-rule installation check.
 
 ```powershell
-python .\run-semgrep.py --case version-A --config .\rules\practice.yml
-python .\run-semgrep.py --case version-B --config .\rules\practice.yml
+python .\run-semgrep.py --case version-A --config .\rules\study.yml
+python .\run-semgrep.py --case version-B --config .\rules\study.yml
 ```
 
-These examples are not scored study runs or complete weakness coverage. They
-are not executed automatically. Select and test the research rules on separate
-practice cases before scored runs. Replace the `--config` argument with your
-chosen local YAML file or directory when it is ready. Relative custom paths
-resolve from your terminal's current directory; built-in paths do not.
+These commands do not establish complete weakness coverage or scored results.
+Rules were designed from the general requirements and tested on independent
+examples, without using application source or placement notes to choose patterns.
+The separate [rule fixtures](semgrep/tests/study.py) include target-present and
+target-absent controls for every rule. From the Semgrep folder, repeat validation:
+
+```powershell
+.\.venv\Scripts\semgrep.exe scan --validate --oss-only --config .\rules\study.yml --metrics=off --disable-version-check
+.\.venv\Scripts\semgrep.exe scan --test --config .\rules\study.yml .\tests\study.py --metrics=off --disable-version-check
+```
+
+Sixteen rule tests pass with Semgrep CE 1.186.0. This is local pattern verification,
+not an independent answer key or a detector accuracy score. General missing
+authorization remains unsupported; authentication and login throttling checks
+cover explicit library bypass settings only. Missing custom guards, ownership
+checks, or lockouts are coverage gaps. See the YAML header for all ten categories.
+Do not revise rules to catch missed application locations.
+
+Relative custom config paths resolve from your terminal's current directory;
+built-in paths do not. The runner executes Semgrep from the chosen application's
+root with relative `backend`, `frontend`, and `firmware` targets. This avoids an
+include-filter issue when scanning directories outside Semgrep's working directory.
+Practice runs execute from the Semgrep folder.
 
 The runner analyzes only Python files under the selected version's `backend`,
 `frontend`, and `firmware` directories. It excludes `.venv`, `__pycache__`,
@@ -185,9 +211,21 @@ failure, missing executable, required explicit application configuration, and
 EST/repeat-name behavior. These checks used controlled subprocess outputs for
 failure/status scenarios; only the separate practice scan above used real Semgrep.
 
-This verifies installation and practice reporting, not full ten-target coverage,
-application integration, independent case review, or readiness for scored runs.
-No application-version scan is claimed by this change.
+Additional November 23 verification: `study.yml` validates with zero configuration
+errors and all sixteen annotated rule tests pass. Saved evidence is in
+`../../evaluation-runs/semgrep/2026-11-23_03-23-PM_EST_rule-verification-practice/`.
+The unchanged final rules were also used for unscored layout smoke checks in
+`2026-11-23_03-27-PM_EST_practice/`, `2026-11-23_03-27-PM_EST_version-A/`, and
+`2026-11-23_03-27-PM_EST_version-B/` under the same results directory. Each retains
+the two standard text outputs. These checks verify file selection and scanner
+execution; no rule changes were made in response to application findings.
+
+Earlier `03-24-PM` application attempts selected zero files due to the runner's
+working-directory/include interaction. Preserve those attempts; their empty
+findings do not establish target absence. Inspect file counts and omissions even
+when the runner says `COMPLETED / NO FINDINGS`. None of these checks establishes
+full ten-target coverage, application integration, independent case review, or
+readiness for scored runs. CodeQL and Snyk Code remain pending.
 
 Future agents should implement CodeQL and Snyk Code with the same two-file and
 EST naming contract, preserving their different exit-code meanings and query

@@ -1,0 +1,570 @@
+# General requirements (independent of application names/locations/secret values):
+# V1: literal credentials, including default function parameters.
+# V2: explicitly short password length checks (policy floor here: 8 characters).
+# V3: fast general-purpose password hashes and direct plaintext SQL password writes.
+# V4: HTTP request URLs / authentication over HTTP.
+# V5: credential-like data sent to logging/console/file output.
+# V6: explicit Flask-Login authentication bypass. Missing checks elsewhere: gap.
+# V7: missing authorization: COVERAGE GAP. CE cannot infer ownership/role policy
+#     or prove that decorators, services, middleware, or database queries omit it.
+#     No "all routes are vulnerable" rule is included.
+# V8: noncryptographic randomness/time/UUID1 reaching credential-like sinks.
+# V9: explicit disabled verification in Requests, Sessions, HTTPX, stdlib SSL.
+# V10: explicit Flask-Limiter disabling. Missing/ineffective custom
+#      lockouts or throttling, and middleware configuration: COVERAGE GAP.
+#
+#
+# UPSTREAM provenance: semgrep/semgrep-rules
+# Commit: a5ad1714f00c9f7fde980cab0ea1d6dc6d414fd2
+# The five upstream rule objects below are unchanged; IDs/metadata retained.
+# Semgrep Rules License v1.0. For more details, visit https://semgrep.dev/legal/rules-license
+# Upstream terms restrict redistribution/service use; retain notices. This
+# local selection does not grant permission to publish upstream rules.
+# Custom study-* rules below are newly authored for this research, version 1.
+# Syntax: https://semgrep.dev/docs/writing-rules/rule-syntax
+# Testing: https://semgrep.dev/docs/writing-rules/testing-rules
+rules:
+
+# Upstream source: https://github.com/semgrep/semgrep-rules/blob/a5ad1714f00c9f7fde980cab0ea1d6dc6d414fd2/python/lang/security/audit/hardcoded-password-default-argument.yaml
+- id: hardcoded-password-default-argument
+  message: >-
+    Hardcoded password is used as a default argument to '$FUNC'. This could be dangerous
+    if
+    a real password is not supplied.
+  languages: [python]
+  severity: WARNING
+  patterns:
+    - pattern: |
+        def $FUNC(..., password="...", ...):
+          ...
+    - pattern-not: |
+        def $FUNC(..., password="", ...):
+          ...
+  metadata:
+    cwe:
+    - 'CWE-798: Use of Hard-coded Credentials'
+    category: security
+    technology:
+    - python
+    owasp:
+    - A07:2021 - Identification and Authentication Failures
+    - A07:2025 - Authentication Failures
+    references:
+    - https://owasp.org/Top10/A07_2021-Identification_and_Authentication_Failures
+    cwe2022-top25: true
+    cwe2021-top25: true
+    subcategory:
+    - audit
+    likelihood: LOW
+    impact: MEDIUM
+    confidence: LOW
+
+# Upstream source: https://github.com/semgrep/semgrep-rules/blob/a5ad1714f00c9f7fde980cab0ea1d6dc6d414fd2/python/lang/security/audit/logging/logger-credential-leak.yaml
+- id: python-logger-credential-disclosure
+  patterns:
+  - pattern: |
+      $LOGGER_OBJ.$LOGGER_CALL($FORMAT_STRING,...)
+  - metavariable-regex:
+      metavariable: $LOGGER_OBJ
+      regex: (?i)(_logger|logger|self.logger|log)
+  - metavariable-regex:
+      metavariable: $LOGGER_CALL
+      regex: (debug|info|warn|warning|error|exception|critical)
+  - metavariable-regex:
+      metavariable: $FORMAT_STRING
+      regex: (?i).*(api.key|secret|credential|token|password).*\%s.*
+  message: >-
+    Detected a python logger call with a potential hardcoded secret
+    $FORMAT_STRING being logged. This may lead to secret credentials
+    being exposed. Make sure that the logger is not logging 
+    sensitive information.
+  severity: WARNING
+  languages: [python]
+  metadata:
+    cwe:
+    - 'CWE-532: Insertion of Sensitive Information into Log File'
+    category: security
+    technology:
+    - python
+    owasp:
+    - A09:2021 - Security Logging and Monitoring Failures
+    - A09:2025 - Security Logging & Alerting Failures
+    references:
+    - https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures
+    subcategory:
+    - vuln
+    likelihood: LOW
+    impact: MEDIUM
+    confidence: MEDIUM
+
+# Upstream source: https://github.com/semgrep/semgrep-rules/blob/a5ad1714f00c9f7fde980cab0ea1d6dc6d414fd2/python/lang/security/audit/insecure-transport/requests/request-with-http.yaml
+- id: request-with-http
+  fix-regex:
+    regex: '[Hh][Tt][Tt][Pp]://'
+    replacement: https://
+    count: 1
+  message: >-
+    Detected a request using 'http://'. This request will be unencrypted,
+    and attackers could listen into traffic on the network and be able
+    to obtain sensitive information. Use 'https://' instead.
+  metadata:
+    owasp:
+    - A03:2017 - Sensitive Data Exposure
+    - A02:2021 - Cryptographic Failures
+    - A04:2025 - Cryptographic Failures
+    cwe:
+    - 'CWE-319: Cleartext Transmission of Sensitive Information'
+    asvs:
+      section: V9 Communications Verification Requirements
+      control_id: 9.1.1 Weak TLS
+      control_url: https://github.com/OWASP/ASVS/blob/master/4.0/en/0x17-V9-Communications.md#v92-server-communications-security-requirements
+      version: '4'
+    category: security
+    technology:
+    - requests
+    references:
+    - https://owasp.org/Top10/A02_2021-Cryptographic_Failures
+    subcategory:
+    - audit
+    likelihood: LOW
+    impact: LOW
+    confidence: MEDIUM
+  languages: [python]
+  severity: INFO
+  options:
+      symbolic_propagation: true
+  mode: taint
+  pattern-sources:
+    - patterns:
+        - pattern: |
+            "$URL"
+        - metavariable-pattern:
+            metavariable: $URL
+            language: regex
+            patterns:
+              - pattern-regex: http://
+              - pattern-not-regex: >-
+                  .*://localhost
+              - pattern-not-regex: >-
+                  .*://127\.0\.0\.1
+  pattern-sinks:
+    - patterns:
+        - pattern-either:
+            - pattern: requests.$W($SINK, ...)
+            - pattern: requests.request($METHOD, $SINK, ...)
+            - pattern: requests.Request($METHOD, $SINK, ...)
+        - focus-metavariable: $SINK
+
+# Upstream source: https://github.com/semgrep/semgrep-rules/blob/a5ad1714f00c9f7fde980cab0ea1d6dc6d414fd2/python/requests/security/no-auth-over-http.yaml
+- id: no-auth-over-http
+  fix-regex:
+    regex: http:\/\/
+    replacement: https://
+    count: 1
+  message: >-
+    Authentication detected over HTTP. HTTP does not provide any
+    encryption or protection for these authentication credentials.
+    This may expose these credentials to unauthorized parties.
+    Use 'https://' instead.
+  metadata:
+    cwe:
+    - 'CWE-523: Unprotected Transport of Credentials'
+    owasp:
+    - A02:2017 - Broken Authentication
+    - A02:2021 - Cryptographic Failures
+    - A04:2025 - Cryptographic Failures
+    source-rule-url: https://pypi.org/project/flake8-flask/
+    references:
+    - https://semgrep.dev/blog/2020/bento-check-no-auth-over-http/
+    - https://bento.dev/checks/requests/no-auth-over-http/
+    category: security
+    technology:
+    - requests
+    subcategory:
+    - audit
+    likelihood: LOW
+    impact: LOW
+    confidence: LOW
+  languages: [python]
+  severity: ERROR
+  pattern-either:
+  - pattern: requests.$W("=~/http:\/\/.*/", ..., auth=$X, ...)
+  - pattern: |
+      $URL = "=~/http:\/\/.../"
+      ...
+      requests.$W($URL, ..., auth=$X, ...)
+
+# Upstream source: https://github.com/semgrep/semgrep-rules/blob/a5ad1714f00c9f7fde980cab0ea1d6dc6d414fd2/python/requests/security/disabled-cert-validation.yaml
+- id: disabled-cert-validation
+  message: >-
+    Certificate verification has been explicitly disabled. This
+    permits insecure connections to insecure servers. Re-enable
+    certification validation.
+  metadata:
+    cwe:
+    - 'CWE-295: Improper Certificate Validation'
+    owasp:
+    - A03:2017 - Sensitive Data Exposure
+    - A07:2021 - Identification and Authentication Failures
+    - A07:2025 - Authentication Failures
+    references:
+    - https://stackoverflow.com/questions/41740361/is-it-safe-to-disable-ssl-certificate-verification-in-pythonss-requests-lib
+    category: security
+    technology:
+    - requests
+    subcategory:
+    - audit
+    likelihood: LOW
+    impact: LOW
+    confidence: LOW
+  languages: [python]
+  severity: ERROR
+  pattern-either:
+  - pattern: requests.put(..., verify=False, ...)
+  - pattern: requests.patch(..., verify=False, ...)
+  - pattern: requests.delete(..., verify=False, ...)
+  - pattern: requests.head(..., verify=False, ...)
+  - pattern: requests.options(..., verify=False, ...)
+  - pattern: requests.request(..., verify=False, ...)
+  - pattern: requests.get(..., verify=False, ...)
+  - pattern: requests.post(..., verify=False, ...)
+  fix-regex:
+    regex: verify(\s)*=(\s)*False
+    replacement: verify=True
+
+# CUSTOM: V1. Identifiers/keys are semantic hints, not application names.
+# Empty strings and environment-only credentials are excluded. A placeholder
+# string can still match; this is not a validated secret detector.
+- id: study-python-hardcoded-credential
+  languages: [python]
+  severity: WARNING
+  message: A credential-like variable or key has a nonempty literal value. Load real credentials from protected configuration instead.
+  metadata:
+    category: security
+    technology: [python]
+    cwe: ['CWE-798: Use of Hard-coded Credentials']
+    confidence: MEDIUM
+    origin: custom
+    rule-version: 1
+  patterns:
+  - pattern-either:
+    - pattern: $NAME = "$VALUE"
+    - pattern: $OBJ.$NAME = "$VALUE"
+    - pattern: $OBJ["$NAME"] = "$VALUE"
+    - pattern: '{..., "$NAME": "$VALUE", ...}'
+    - pattern: os.getenv("$NAME", "$VALUE")
+    - pattern: os.environ.get("$NAME", "$VALUE")
+  - metavariable-regex:
+      metavariable: $NAME
+      regex: (?i)^(?:(?:[a-z0-9]+_)*(?:password|passwd|pwd|secret|secret_key|api_key|access_token|auth_token|device_token|client_secret|credential)s?)$
+  - metavariable-regex:
+      metavariable: $VALUE
+      regex: .+
+
+# CUSTOM: V2. This detects an explicitly permissive numeric floor, not the
+# absence of a policy, blocklists, maximum length, or all password requirements.
+# Eight is a documented screening threshold, not a claim of policy compliance.
+- id: study-python-short-password-length
+  languages: [python]
+  severity: WARNING
+  message: A password length check uses a minimum below the configured screening floor of eight characters. Review the complete server-side password policy.
+  metadata:
+    category: security
+    technology: [python]
+    cwe: ['CWE-521: Weak Password Requirements']
+    confidence: LOW
+    origin: custom
+    rule-version: 1
+  pattern-either:
+  - patterns:
+    - pattern-either:
+      - pattern: len($PW) < $N
+      - pattern: len($PW) >= $N
+    - metavariable-regex:
+        metavariable: $PW
+        regex: (?i)^(?:[a-z0-9]+_)*(?:password|passwd|pwd)$
+    - metavariable-comparison:
+        metavariable: $N
+        comparison: $N > 0 and $N < 8
+  - patterns:
+    - pattern-either:
+      - pattern: len($PW) <= $N
+      - pattern: len($PW) > $N
+    - metavariable-regex:
+        metavariable: $PW
+        regex: (?i)^(?:[a-z0-9]+_)*(?:password|passwd|pwd)$
+    - metavariable-comparison:
+        metavariable: $N
+        comparison: $N >= 0 and $N < 7
+
+# CUSTOM: V3. Only password-like input reaching a fast hash is selected;
+# ordinary file checksums are controls. Does not inspect KDF cost parameters.
+- id: study-python-fast-password-hash
+  languages: [python]
+  severity: WARNING
+  message: Password-like input reaches a fast general-purpose hash. Password storage needs a salted password KDF such as scrypt, Argon2, or appropriately configured PBKDF2.
+  metadata:
+    category: security
+    technology: [python, hashlib]
+    cwe: ['CWE-916: Use of Password Hash With Insufficient Computational Effort']
+    confidence: MEDIUM
+    origin: custom
+    rule-version: 1
+  mode: taint
+  pattern-sources:
+  - patterns:
+    - pattern: $PW
+    - metavariable-regex:
+        metavariable: $PW
+        regex: (?i)^(?:[a-z0-9]+_)*(?:password|passwd|pwd)$
+    exact: true
+  pattern-sinks:
+  - patterns:
+    - pattern-either:
+      - pattern: hashlib.$HASH($DATA, ...)
+      - pattern: hashlib.new($HASH, $DATA, ...)
+    - metavariable-regex:
+        metavariable: $HASH
+        regex: (?i)^["']?(?:md5|sha1|sha224|sha256|sha384|sha512|sha3_224|sha3_256|sha3_384|sha3_512|blake2b|blake2s)["']?$
+    - focus-metavariable: $DATA
+
+# CUSTOM: V3. Direct parameterized INSERT/UPDATE statements mentioning a
+# password column only. Dynamic SQL, ORMs, helper calls, and non-password
+# schemas are gaps. A password used for a WHERE comparison can be a false alarm.
+# KDF calls sanitize their full expression (exact:false), which avoids CE
+# re-tainting nested password arguments; SQL side effects nested inside a KDF
+# call would be missed. Recognizing a KDF does not validate its cost parameters.
+- id: study-python-plaintext-password-sql
+  languages: [python]
+  severity: WARNING
+  message: Raw password-like input reaches SQL that writes a password field. Check that only a salted password KDF result is stored.
+  metadata:
+    category: security
+    technology: [python, sql]
+    cwe: ['CWE-256: Plaintext Storage of a Password']
+    confidence: MEDIUM
+    origin: custom
+    rule-version: 1
+  mode: taint
+  pattern-sources:
+  - patterns:
+    - pattern: $PW
+    - metavariable-regex:
+        metavariable: $PW
+        regex: (?i)^(?:[a-z0-9]+_)*(?:password|passwd|pwd)$
+    exact: true
+  pattern-sanitizers:
+  - pattern-either:
+    - pattern: werkzeug.security.generate_password_hash(...)
+    - pattern: bcrypt.hashpw(...)
+    - pattern: argon2.PasswordHasher(...).hash(...)
+    - pattern: hashlib.scrypt(...)
+    - pattern: hashlib.pbkdf2_hmac(...)
+    exact: false
+  pattern-sinks:
+  - patterns:
+    - pattern: $DB.execute($SQL, $VALUES, ...)
+    - metavariable-regex:
+        metavariable: $SQL
+        regex: (?is)^["'].*\b(?:insert\s+into|update)\b.*\b(?:password|passwd|pwd|password_hash)\b.*
+    - focus-metavariable: $VALUES
+
+# CUSTOM: V5. Taint supplements the upstream percent-format logger check with
+# print/logging, f-strings, and aliases in the same function. Recognized digest
+# suffixes do not count as secret sources. Other redaction helpers are unknown.
+- id: study-python-secret-in-output
+  languages: [python]
+  severity: WARNING
+  message: Credential-like data reaches console or logging output. Remove the value or apply a reviewed redaction mechanism.
+  metadata:
+    category: security
+    technology: [python, logging]
+    cwe: ['CWE-532: Insertion of Sensitive Information into Log File']
+    confidence: MEDIUM
+    origin: custom
+    rule-version: 1
+  mode: taint
+  pattern-sources:
+  - patterns:
+    - pattern: $SECRET
+    - metavariable-regex:
+        metavariable: $SECRET
+        regex: (?i)^(?:[a-z0-9]+_)*(?:password|passwd|pwd|secret|secret_key|api_key|access_token|auth_token|device_token|client_secret|credential)s?$
+    exact: true
+  pattern-sinks:
+  - pattern: print(...)
+  - patterns:
+    - pattern: $LOGGER.$METHOD(...)
+    - metavariable-regex:
+        metavariable: $LOGGER
+        regex: (?i)^(?:logging|log|logger|_logger|self\.logger|self\._logger|self\.log)$
+    - metavariable-regex:
+        metavariable: $METHOD
+        regex: ^(?:debug|info|warn|warning|error|exception|critical|log)$
+
+# CUSTOM: V5. Direct file-handle writes only; filesystem ACLs/encryption and
+# project-specific redaction cannot be inferred. HTTP response.write also may
+# match and needs review; write-like method names alone do not prove disk I/O.
+- id: study-python-secret-in-file
+  languages: [python]
+  severity: WARNING
+  message: Credential-like data reaches a file-style write. Check whether this persists a readable secret and whether storage protection is sufficient.
+  metadata:
+    category: security
+    technology: [python]
+    cwe: ['CWE-312: Cleartext Storage of Sensitive Information']
+    confidence: LOW
+    origin: custom
+    rule-version: 1
+  mode: taint
+  pattern-sources:
+  - patterns:
+    - pattern: $SECRET
+    - metavariable-regex:
+        metavariable: $SECRET
+        regex: (?i)^(?:[a-z0-9]+_)*(?:password|passwd|pwd|secret|secret_key|api_key|access_token|auth_token|device_token|client_secret|credential)s?$
+    exact: true
+  pattern-sinks:
+  - pattern-either:
+    - pattern: $FILE.write(...)
+    - pattern: $FILE.writelines(...)
+    - pattern: $PATH.write_text(...)
+    - pattern: $PATH.write_bytes(...)
+
+# CUSTOM: V8. Sources must reach a credential-like assignment or a return
+# inside a credential-generation function. Sensor/Monte Carlo randomness is
+# not itself a finding. Security context inferred from names can be wrong.
+- id: study-python-predictable-credential
+  languages: [python]
+  severity: WARNING
+  message: Noncryptographic randomness, time, or a time-based UUID reaches a credential-like value. Generate secrets with the secrets module or a suitable CSPRNG.
+  metadata:
+    category: security
+    technology: [python, random]
+    cwe: ['CWE-330: Use of Insufficiently Random Values']
+    confidence: MEDIUM
+    origin: custom
+    rule-version: 1
+  mode: taint
+  pattern-sources:
+  - pattern-either:
+    - pattern: random.random(...)
+    - pattern: random.randint(...)
+    - pattern: random.randrange(...)
+    - pattern: random.choice(...)
+    - pattern: random.choices(...)
+    - pattern: random.getrandbits(...)
+    - pattern: random.randbytes(...)
+    - pattern: time.time(...)
+    - pattern: time.time_ns(...)
+    - pattern: uuid.uuid1(...)
+    exact: true
+  pattern-sinks:
+  - patterns:
+    - pattern-either:
+      - pattern: $NAME = $VALUE
+      - pattern: $OBJ.$NAME = $VALUE
+      - pattern: $OBJ["$NAME"] = $VALUE
+      - pattern: '{..., "$NAME": $VALUE, ...}'
+    - metavariable-regex:
+        metavariable: $NAME
+        regex: (?i)^(?:[a-z0-9]+_)*(?:password|passwd|pwd|secret|secret_key|api_key|token|access_token|auth_token|device_token|client_secret|credential)s?$
+    - focus-metavariable: $VALUE
+  - patterns:
+    - pattern-inside: |
+        def $FUNC(...):
+          ...
+    - metavariable-regex:
+        metavariable: $FUNC
+        regex: (?i)^(?:generate|create|make|new|issue)_(?:[a-z0-9]+_)*(?:password|secret|token|credential)s?$
+    - pattern: return $VALUE
+    - focus-metavariable: $VALUE
+
+# CUSTOM: V9. Requires a locally visible Requests Session construction.
+# Sessions passed in from helpers/other files are a known gap.
+- id: study-python-session-disabled-tls
+  languages: [python]
+  severity: WARNING
+  message: A Requests session disables certificate verification, allowing an impostor server to be accepted.
+  metadata:
+    category: security
+    technology: [python, requests]
+    cwe: ['CWE-295: Improper Certificate Validation']
+    confidence: HIGH
+    origin: custom
+    rule-version: 1
+  patterns:
+  - pattern-either:
+    - pattern-inside: |
+        $SESSION = requests.Session(...)
+        ...
+    - pattern-inside: |
+        with requests.Session(...) as $SESSION:
+          ...
+  - pattern-either:
+    - pattern: $SESSION.verify = False
+    - pattern: $SESSION.$METHOD(..., verify=False, ...)
+
+# CUSTOM: V9. Direct SSL/HTTPX disabling; setting check_hostname=False alone
+# is omitted because other code may implement hostname checks explicitly.
+- id: study-python-unverified-tls-context
+  languages: [python]
+  severity: WARNING
+  message: TLS peer certificate verification is explicitly disabled. Use a verified context and configure trusted CA certificates.
+  metadata:
+    category: security
+    technology: [python, ssl, httpx]
+    cwe: ['CWE-295: Improper Certificate Validation']
+    confidence: HIGH
+    origin: custom
+    rule-version: 1
+  pattern-either:
+  - pattern: ssl._create_unverified_context(...)
+  - pattern: $CTX.verify_mode = ssl.CERT_NONE
+  - pattern: httpx.Client(..., verify=False, ...)
+  - pattern: httpx.AsyncClient(..., verify=False, ...)
+  - pattern: httpx.get(..., verify=False, ...)
+  - pattern: httpx.post(..., verify=False, ...)
+  - pattern: httpx.put(..., verify=False, ...)
+  - pattern: httpx.patch(..., verify=False, ...)
+  - pattern: httpx.delete(..., verify=False, ...)
+  - pattern: httpx.head(..., verify=False, ...)
+  - pattern: httpx.options(..., verify=False, ...)
+  - pattern: httpx.request(..., verify=False, ...)
+
+# CUSTOM: V6. Explicit Flask-Login global bypass, not inference from a missing
+# decorator. Public endpoints, custom guards, and proxy auth require review.
+- id: study-flask-login-disabled
+  languages: [python]
+  severity: WARNING
+  message: Flask-Login's authentication enforcement is explicitly disabled. Protected routes may become accessible without login.
+  metadata:
+    category: security
+    technology: [python, flask, flask-login]
+    cwe: ['CWE-306: Missing Authentication for Critical Function']
+    confidence: MEDIUM
+    origin: custom
+    rule-version: 1
+  pattern-either:
+  - pattern: $APP.config["LOGIN_DISABLED"] = True
+  - pattern: $APP.config.update(..., LOGIN_DISABLED=True, ...)
+
+# CUSTOM: V10. Reports explicit Flask-Limiter disabling for review;
+# this is relevant only if affected routes include authentication. No global
+# limits/custom lockout inference, and no login-specific path assumptions.
+- id: study-flask-rate-limit-disabled
+  languages: [python]
+  severity: WARNING
+  message: Flask-Limiter enforcement is explicitly disabled. Check whether authentication attempts still have effective throttling or lockout.
+  metadata:
+    category: security
+    technology: [python, flask, flask-limiter]
+    cwe: ['CWE-307: Improper Restriction of Excessive Authentication Attempts']
+    confidence: LOW
+    origin: custom
+    rule-version: 1
+  pattern-either:
+  - pattern: $APP.config["RATELIMIT_ENABLED"] = False
+  - pattern: $APP.config.update(..., RATELIMIT_ENABLED=False, ...)
+  - pattern: flask_limiter.Limiter(..., enabled=False, ...)
+
