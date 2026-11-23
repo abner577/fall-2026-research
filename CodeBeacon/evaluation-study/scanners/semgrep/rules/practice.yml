@@ -1,0 +1,10 @@
+rules:
+  - id: practice-python-disabled-tls-verification
+    languages:
+      - python
+    severity: WARNING
+    message: This request disables TLS certificate verification.
+    metadata:
+      cwe:
+        - "CWE-295: Improper Certificate Validation"
+    pattern: requests.get(..., verify=False, ...)
