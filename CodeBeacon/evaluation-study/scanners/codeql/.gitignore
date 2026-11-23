@@ -1,0 +1,2 @@
+# Rebuildable source snapshots, databases, and CodeQL internal logs/caches.
+.work/

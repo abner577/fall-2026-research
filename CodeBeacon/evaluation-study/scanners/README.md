@@ -1,8 +1,10 @@
 # Scanner runners and saved results
 
 Agreed November 23, 2026. This is the implementation guide for future agents
-working on Semgrep Community Edition, CodeQL, and Snyk Code. Only the Semgrep
-runner is implemented. Do not treat the other two as installed or verified.
+working on Semgrep Community Edition, CodeQL, and Snyk Code. Semgrep and CodeQL
+practice runners are implemented and verified. CodeQL study queries and Snyk
+Code setup remain pending. See [the CodeQL guide](codeql/README.md) for its simple
+practice command, database handling, and verification evidence.
 
 For the later Application Constants Excel update, see
 [scanner-rules-excel-plan.md](scanner-rules-excel-plan.md). It saves the user's
@@ -225,11 +227,13 @@ working-directory/include interaction. Preserve those attempts; their empty
 findings do not establish target absence. Inspect file counts and omissions even
 when the runner says `COMPLETED / NO FINDINGS`. None of these checks establishes
 full ten-target coverage, application integration, independent case review, or
-readiness for scored runs. CodeQL and Snyk Code remain pending.
+readiness for scored runs. CodeQL installation/practice verification is now
+complete; its study queries and Snyk Code remain pending.
 
-Future agents should implement CodeQL and Snyk Code with the same two-file and
-EST naming contract, preserving their different exit-code meanings and query
-configuration. Use Snyk's free plan only. Keep practice and scored attempts
+Future agents should retain CodeQL's two-file and EST naming contract when adding
+study queries, and implement Snyk Code with the same contract, preserving each
+tool's different exit-code meanings and query configuration. Use Snyk's free plan
+only. Keep practice and scored attempts
 explicitly distinguishable, withhold answer keys/injection notes, and do not
 tune detector rules against scored-case outputs. Record rule sources, applicable
 usage terms, and coverage gaps when selecting final checks.
