@@ -37,7 +37,7 @@ class RunnerChecks(unittest.TestCase):
 
     def simulate(self, rows, fail=None, interrupt=False, custom=True):
         def command(command, log, cwd, env):
-            if command[1:] == ["version"]:
+            if command[1] == "version":
                 return (2, "") if fail == "version" else (0, "simulated version")
             if command[1:3] == ["resolve", "queries"]:
                 return 0, str(self.query) + "\n"
@@ -104,6 +104,18 @@ class RunnerChecks(unittest.TestCase):
             runner.main(["--case", "version-A"])
         self.assertEqual(raised.exception.code, 2)
         self.assertFalse(self.outputs.exists())
+
+    def test_local_helpers_are_hashed(self):
+        (self.base / "queries" / "qlpack.yml").write_text("name: sample/pack\n")
+        helper = self.base / "queries" / "helper.qll"
+        helper.write_text("// original helper\n")
+        first = io.StringIO()
+        runner.record_local_query_inputs(first, self.suite)
+        helper.write_text("// changed helper\n")
+        second = io.StringIO()
+        runner.record_local_query_inputs(second, self.suite)
+        self.assertIn("helper.qll", first.getvalue())
+        self.assertNotEqual(first.getvalue(), second.getvalue())
 
     def test_scope_excludes_credentials_environments_and_sql(self):
         practice = self.base / "practice"

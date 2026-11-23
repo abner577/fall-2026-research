@@ -1,2 +1,5 @@
 # Rebuildable source snapshots, databases, and CodeQL internal logs/caches.
 .work/
+# The parent Python ignore template excludes all lib/ directories.
+!queries/lib/
+!queries/lib/**

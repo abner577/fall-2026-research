@@ -2,7 +2,8 @@
 
 November 23, 2026
 
-These are just notes to remember what we agreed. We're starting with Semgrep.
+These are just notes to remember what we agreed. We started with Semgrep;
+CodeQL follows the same general requirements and independent-fixture approach.
 
 ## Keep the same ten things we're looking for
 
@@ -74,3 +75,12 @@ missing authorization is an explicit gap; authentication and throttling checks
 cover only explicit disabling of known library protections. The scanner README
 records verification commands and unscored smoke checks. No rules were tuned
 against application findings, and no scored evaluation or full coverage is claimed.
+
+CodeQL implemented November 23: [study.qls](codeql/queries/study.qls) selects
+five unchanged upstream checks and nine custom QL queries, with explanations
+and limits alongside their definitions. All fourteen pass the separate
+[fixtures](codeql/tests/fixtures/examples.py): 36 expected query/location matches,
+no missing or unexpected alerts. [The guide](codeql/README.md) records commands,
+versions and evidence. General authorization remains a gap; authentication and
+throttling cover explicit library disabling only. No application findings were
+used for query development or tuning, and no scored study was performed.

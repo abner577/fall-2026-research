@@ -1,7 +1,7 @@
 """Run local CodeQL with two text outputs; defaults to the independent practice case.
 
 Application cases require --queries pointing to an explicitly selected local suite.
-No study query suite is selected by this runner.
+Use queries/study.qls for the study; the default remains the TLS practice check.
 """
 
 import argparse
@@ -110,6 +110,17 @@ def record_hash(log, path, label):
     log.write(f"{label}: {hashlib.sha256(path.read_bytes()).hexdigest()}  {path}\n")
 
 
+def record_local_query_inputs(log, suite):
+    """Include helper libraries and configuration, not just selected .ql files."""
+    record_hash(log, suite, "Query selection SHA-256")
+    for parent in suite.parents:
+        if (parent / "qlpack.yml").is_file():
+            for path in sorted(parent.rglob("*")):
+                if path.is_file() and path.suffix in {".ql", ".qll", ".qls", ".yml"}:
+                    record_hash(log, path, "Local query/configuration SHA-256")
+            break
+
+
 def stage_sources(case, destination, log):
     """Copy only Python inputs, preserving their relative paths and logging hashes."""
     root = BASE_DIR / "practice" if case == "practice" else STUDY_DIR / "app" / case
@@ -171,7 +182,7 @@ def main(argv=None):
     parser.add_argument("--codeql", type=Path, help="Override CodeQL executable (Windows: codeql.exe).")
     args = parser.parse_args(argv)
     if args.case != "practice" and args.queries is None:
-        parser.error("Application scans require --queries; study queries have not been selected.")
+        parser.error("Application scans require --queries; use queries/study.qls for the study suite.")
     suite = (args.queries or BASE_DIR / "queries" / "practice.qls").resolve()
     if args.codeql:
         executable = args.codeql.resolve()
@@ -210,11 +221,12 @@ def main(argv=None):
                 raise ValueError(f"Queries must be a local .ql or .qls file: {suite}")
             work.mkdir(parents=True, exist_ok=False)
             source.mkdir()
-            record_hash(log, suite, "Query selection SHA-256")
+            record_local_query_inputs(log, suite)
             stage_sources(args.case, source, log)
 
             def checked(arguments):
-                code, output = run_command([str(executable), *arguments], log, source, env)
+                code, output = run_command([str(executable), *arguments,
+                    f"--common-caches={WORK_DIR / 'cache'}"], log, source, env)
                 if code != 0:
                     raise RuntimeError(f"CodeQL {arguments[0]} failed with exit code {code}.")
                 return output
@@ -243,7 +255,8 @@ def main(argv=None):
             status = "FAILED / INCOMPLETE; any findings are partial"
             scan_exit, _ = run_command(
                 [str(executable), "database", "analyze", str(database), str(suite),
-                 "--format=csv", f"--output={report}", "--threads=2", "--ram=2048"],
+                 "--format=csv", f"--output={report}", "--threads=2", "--ram=2048",
+                 f"--common-caches={WORK_DIR / 'cache'}"],
                 log, source, env)
             report_rendered = True
             rows = render_report(report, findings)

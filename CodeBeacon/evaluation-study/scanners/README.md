@@ -2,9 +2,11 @@
 
 Agreed November 23, 2026. This is the implementation guide for future agents
 working on Semgrep Community Edition, CodeQL, and Snyk Code. Semgrep and CodeQL
-practice runners are implemented and verified. CodeQL study queries and Snyk
-Code setup remain pending. See [the CodeQL guide](codeql/README.md) for its simple
-practice command, database handling, and verification evidence.
+practice runners are implemented and verified. CodeQL now also has a
+[study query suite](codeql/queries/study.qls) with five upstream checks and nine
+custom queries. Snyk Code setup remains pending. See
+[the CodeQL guide](codeql/README.md) for study/practice commands, independent
+fixture verification, database handling, and coverage limits.
 
 For the later Application Constants Excel update, see
 [scanner-rules-excel-plan.md](scanner-rules-excel-plan.md). It saves the user's
@@ -228,9 +230,10 @@ findings do not establish target absence. Inspect file counts and omissions even
 when the runner says `COMPLETED / NO FINDINGS`. None of these checks establishes
 full ten-target coverage, application integration, independent case review, or
 readiness for scored runs. CodeQL installation/practice verification is now
-complete; its study queries and Snyk Code remain pending.
+complete. The study-query implementation described in the CodeQL guide is a
+later November 23 update; Snyk Code remains pending.
 
-Future agents should retain CodeQL's two-file and EST naming contract when adding
+Future agents should retain CodeQL's two-file and EST naming contract when maintaining
 study queries, and implement Snyk Code with the same contract, preserving each
 tool's different exit-code meanings and query configuration. Use Snyk's free plan
 only. Keep practice and scored attempts

@@ -1,0 +1,42 @@
+# General requirements, selected before scanning application cases. Version 1.
+# V1 literal credentials; V2 explicit length floors below 8; V3 unsafe storage;
+# V4 HTTP transport; V5 secret output; V6 explicit authentication bypass;
+# V7 missing authorization: COVERAGE GAP (no policy inference query);
+# V8 predictable credentials; V9 disabled TLS checks; V10 explicit limiter bypass.
+# V6/V10 do not infer missing custom guards, ownership checks or login lockouts.
+# See each custom .ql for its purpose and limits. Names are semantic heuristics,
+# never application identifiers, paths, known values, or answer-key locations.
+#
+# Unchanged upstream queries: codeql/python-queries 1.9.1; python-all 7.2.10.
+# Upstream build SHA: ceeaafac4e629e0e39de04d40c719d7d18b4b612 (CLI 2.27.5).
+# Sources: https://github.com/github/codeql/tree/ceeaafac4e629e0e39de04d40c719d7d18b4b612/python/ql/src/Security
+# Query/library source: MIT, https://github.com/github/codeql/blob/main/LICENSE
+# CLI has separate terms: https://github.com/github/codeql-cli-binaries/blob/main/LICENSE.md
+# Use here is academic research; do not assume unrestricted CLI redistribution.
+# Existing checks are selected by behavior; do not translate licensed Semgrep
+# rule objects into QL. Custom queries here are newly authored for the study.
+- description: Python credential and communication study checks, version 1
+- queries: .
+  from: codeql/python-queries
+  version: 1.9.1
+- include:
+    # V1: literal flow into modeled credential sinks; entropy/name heuristics
+    # and upstream test-scope exclusions limit coverage. Supplemented below.
+    id: py/hardcoded-credentials
+- include:
+    # V3: modeled sensitive/password sources into weak/fast hashing operations.
+    # Password KDF recognition is not a full cost-parameter/policy audit.
+    id: py/weak-sensitive-data-hashing
+- include:
+    # V5: modeled sensitive data reaches logging, print or stdout/stderr.
+    # Names and framework models are heuristics, not secret validation.
+    id: py/clear-text-logging-sensitive-data
+- include:
+    # V5: modeled sensitive data reaches filesystem writes or cookies.
+    # Does not prove filesystem permissions/encryption or all persistence.
+    id: py/clear-text-storage-sensitive-data
+- include:
+    # V9: modeled HTTP requests with disabled verification, including propagated
+    # options. Standalone insecure configurations are supplemented below.
+    id: py/request-without-cert-validation
+- queries: custom
