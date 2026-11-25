@@ -1,0 +1,5 @@
+﻿- description: TLS certificate verification practice check
+- queries: .
+  from: codeql/python-queries
+- include:
+    id: py/request-without-cert-validation

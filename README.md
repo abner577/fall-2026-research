@@ -69,7 +69,7 @@ Use these four planning references; carry out the study under [CodeBeacon/](Code
 
 The short [research plan](research-plan.md) contains the milestones and the earlier schedule.
 
-Use the [follow-up checklist](fall-2026-research/docs/meetings/checklist/11-1-checklist.md) for current work and the [October 26 conclusions](fall-2026-research/docs/meetings/conclusions/10-26-conclusions.md) for the feedback behind it. The October 26 checklist and preparation walkthrough remain records of that meeting's preparation.
+Use the [11-23 rolling checklist](fall-2026-research/docs/meetings/checklist/11-23-checklist.md) for current work and the [October 26 conclusions](fall-2026-research/docs/meetings/conclusions/10-26-conclusions.md) for the feedback behind it. The October 26 checklist and preparation walkthrough remain records of that meeting's preparation.
 
 Existing planning diagrams remain in [diagrams/](fall-2026-research/diagrams/); store new study diagrams and visual exports under `CodeBeacon/evaluation-study/`, and optional app architecture under `CodeBeacon/app/`. Completed diagrams include the general evaluation workflow, the all-AI application workflow, and the [GPT vs Semgrep worked example](fall-2026-research/diagrams/Example%20GPT%20vs%20Semgrep%20Diagram.png), added October 22, 2026. Supporting screenshots and example image assets live in [images/](fall-2026-research/images/). Keep the earlier diagram descriptions and preparation requirements in [coming-up-w-research-plan/diagrams.md](fall-2026-research/coming-up-w-research-plan/diagrams.md) and the meeting checklist; link completed artifacts from those notes. For future AI assistants, a diagram's completion does not mean the study has been run or its proposed methods approved.
 
