@@ -4,7 +4,8 @@ Agreed November 23, 2026. This is the implementation guide for future agents
 working on Semgrep Community Edition, CodeQL, and Snyk Code. Semgrep and CodeQL
 practice runners are implemented and verified. CodeQL now also has a
 [study query suite](codeql/queries/study.qls) with five upstream checks and nine
-custom queries. Snyk Code setup remains pending. See
+custom queries. Snyk Code now has a [two-file runner and setup guide](snyk-code/README.md);
+authenticated practice verification passed November 25; free-account limits remain pending. See
 [the CodeQL guide](codeql/README.md) for study/practice commands, independent
 fixture verification, database handling, and coverage limits.
 
@@ -231,10 +232,10 @@ when the runner says `COMPLETED / NO FINDINGS`. None of these checks establishes
 full ten-target coverage, application integration, independent case review, or
 readiness for scored runs. CodeQL installation/practice verification is now
 complete. The study-query implementation described in the CodeQL guide is a
-later November 23 update; Snyk Code remains pending.
+later November 23 update. Snyk Code logging was implemented November 25; see below.
 
-Future agents should retain CodeQL's two-file and EST naming contract when maintaining
-study queries, and implement Snyk Code with the same contract, preserving each
+Future agents should retain the two-file and EST naming contract when maintaining
+study queries and the Snyk Code runner, preserving each
 tool's different exit-code meanings and query configuration. Use Snyk's free plan
 only. Keep practice and scored attempts
 explicitly distinguishable, withhold answer keys/injection notes, and do not
@@ -242,3 +243,16 @@ tune detector rules against scored-case outputs. Record rule sources, applicable
 usage terms, and coverage gaps when selecting final checks.
 
 Reference: [Semgrep CLI options and exit codes](https://docs.semgrep.dev/cli-reference).
+
+## Run Snyk Code
+
+Follow the [Snyk Code guide](snyk-code/README.md) for installation, account login,
+practice verification, exact application commands, and reading local results.
+From `scanners/snyk-code`, run `python .\run-snyk-code.py --case practice`, then
+use `--case version-A` or `--case version-B` for the actual application sources.
+No custom rule argument is needed. Findings and diagnostics appear in the terminal;
+exactly two text files are saved under `evaluation-runs/snyk-code/<attempt>/`.
+The runner omits `--report`, so it does not request dashboard publication.
+Snyk Code still uploads selected source for cloud analysis. Ten infrastructure
+checks pass, and the real TLS practice scan reports the expected single finding
+with Snyk CLI 1.1309.0. Account plan/limits remain unverified; see the guide's evidence.
