@@ -14,19 +14,19 @@ For each completed task, add one or two short sentences explaining how it was co
 
 Completed October 29, 2026; verified by the student.
 
-- [x] Record the exact model IDs and fallback order. We selected `mistral-large-4`, `gemini-3.6-flash`, and `openai/gpt-oss-120b` through Groq as the primary models. Their ordered backups are recorded in the [API scripts](../../../../CodeBeacon/evaluation-study/).
+- [x] Record the exact model IDs and fallback order. We selected `mistral-large-4`, `gemini-3.6-flash`, and `openai/gpt-oss-120b` through Groq as the primary models. Their ordered backups are recorded in the [API scripts](../../../../CodeBeacon/evaluation-study/llms/).
 - [x] Verify API access, free allowances, request/token limits, and context limits for the selected models. The student checked access and account limits for all three providers and confirmed they fit the study's no-additional-spending plan.
-- [x] Record model providers, IDs, endpoints, client versions, generation settings, and version/alias behavior. The student confirmed the configuration record is complete. The [API scripts](../../../../CodeBeacon/evaluation-study/) use temperature 0, top-p 1, and a 4,096-token output cap.
+- [x] Record model providers, IDs, endpoints, client versions, generation settings, and version/alias behavior. The student confirmed the configuration record is complete. The [API scripts](../../../../CodeBeacon/evaluation-study/llms/) use temperature 0, top-p 1, and a 4,096-token output cap.
 
 ## 2. Set up and test the API connections in files
 
 Completed October 29, 2026; verified by the student.
 
-- [x] Prepare the Python environment, dependency/version record, and credential configuration. We set up a local Python environment and recorded the [dependencies](../../../../CodeBeacon/evaluation-study/requirements.txt). The scripts load API keys from `.env`, which is excluded from Git.
-- [x] Create and test the API connection files. The [Mistral](../../../../CodeBeacon/evaluation-study/mistral-api-test.py), [Gemini](../../../../CodeBeacon/evaluation-study/gemini-api-test.py), and [Groq](../../../../CodeBeacon/evaluation-study/groq-api-test.py) scripts send prompts and save responses. Each supports `--model` to test one model without fallback.
+- [x] Prepare the Python environment, dependency/version record, and credential configuration. We set up a local Python environment and recorded the [dependencies](../../../../CodeBeacon/evaluation-study/llms/requirements.txt). The scripts load API keys from `.env`, which is excluded from Git.
+- [x] Create and test the API connection files. The [Mistral](../../../../CodeBeacon/evaluation-study/llms/mistral-api-test.py), [Gemini](../../../../CodeBeacon/evaluation-study/llms/gemini-api-test.py), and [Groq](../../../../CodeBeacon/evaluation-study/llms/groq-api-test.py) scripts send prompts and save responses. Each supports `--model` to test one model without fallback.
 - [x] Send a small practice request to each model and confirm authentication, a complete response, and saved output. Practice calls confirmed that the selected models accept our keys and return usable answers. The student verified that this task, including output capture, is complete.
 - [x] Handle timeouts, rate limits, fallbacks, and incomplete responses. Each script logs errors and rejects empty or incomplete answers, while redacting API keys. Model access or availability errors trigger a backup; rate limits and timeouts stop the run with a saved error.
-- [x] Establish the study folders and naming conventions. Logs are grouped by provider and named `YYYY-MM-DD_model.json`, with ` (1)`, ` (2)`, etc. for repeats; see the [naming helper](../../../../CodeBeacon/evaluation-study/evaluation_logging.py). The student confirmed the remaining study folders and configuration conventions are established.
+- [x] Establish the study folders and naming conventions. Logs are grouped by provider and named `YYYY-MM-DD_model.json`, with ` (1)`, ` (2)`, etc. for repeats; see the [naming helper](../../../../CodeBeacon/evaluation-study/llms/evaluation_logging.py). The student confirmed the remaining study folders and configuration conventions are established.
 
 ## 3. Develop and document the code test cases
 
@@ -55,8 +55,8 @@ Use the selected tools: **Semgrep Community Edition, CodeQL, and Snyk Code**. Sn
 - [x] Map every selected weakness to each scanner's relevant existing checks. Record rule/query IDs, sources, versions, applicable usage terms, and any coverage gaps; language support alone does not establish target coverage.
 - [x] Select, adapt, or write the Semgrep rule files needed for the chosen application and targets. Completed November 23: [study.yml](../../../../CodeBeacon/evaluation-study/scanners/semgrep/rules/study.yml) contains five pinned upstream checks and eleven custom checks; all sixteen pass independent positive/negative fixtures. The YAML documents coverage limits, including unsupported general authorization checks and partial authentication/throttling coverage; application smoke checks are unscored and were not used to tune rules.
 - [x] Select, adapt, or write the CodeQL queries and query suite needed for the application and targets. Completed November 23: [study.qls](../../../../CodeBeacon/evaluation-study/scanners/codeql/queries/study.qls) selects five pinned upstream checks and nine custom queries, with purpose, CWE, provenance and limits beside their definitions. All fourteen compile and pass independent positive/negative fixtures (36 expected query/location matches, no missing or unexpected alerts); [commands and evidence](../../../../CodeBeacon/evaluation-study/scanners/codeql/README.md) retain the two-text-file contract. General authorization remains a documented gap; authentication/throttling coverage is partial, and no application findings were used to tune queries.
-- [ ] Save the exact scanner commands, rule/query files or pinned references, exclusions, configurations, and report-export commands. Make each scanner procedure repeatable from the documented environment.
-- [ ] Document the exact scanner commands, rule/query files in the excel sheet.
+- [x] Save the exact scanner commands, rule/query files or pinned references, exclusions, configurations, and report-export commands. Make each scanner procedure repeatable from the documented environment.
+- [x] Document the exact scanner commands, rule/query files in the excel sheet.
 
 ## 6. Finalize the answer key, scoring, reporting, and prompts
 

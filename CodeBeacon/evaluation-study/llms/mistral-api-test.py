@@ -1,8 +1,8 @@
-"""Send a Groq request and save one minimal JSON log per API attempt.
+"""Send a Mistral request and save one minimal JSON log per API attempt.
 
-Run: python groq-api-test.py --prompt-file prompts/detection.txt
+Run: python mistral-api-test.py --prompt-file prepared-request.txt
 Use --model to select one model without automatic fallbacks.
-Credentials: GROQ_API_KEY in the environment or this folder's .env.
+Credentials: MISTRAL_API_KEY in the environment or this folder's .env.
 """
 
 import argparse
@@ -16,11 +16,12 @@ from zoneinfo import ZoneInfo
 import httpx
 from dotenv import load_dotenv
 from evaluation_logging import save_log
+from mistralai.client import Mistral
+from mistralai.client.errors import MistralError
 
 
 BASE_DIR = Path(__file__).resolve().parent
-MODELS = ("openai/gpt-oss-120b", "openai/gpt-oss-20b")
-API_URL = "https://api.groq.com/openai/v1/chat/completions"
+MODELS = ("mistral-large-4", "ministral-14b-2512", "ministral-8b-2512")
 PROMPT = "Reply with one short sentence confirming that you received this API test request."
 
 
@@ -32,9 +33,9 @@ def main():
     prompts.add_argument("--prompt-file", type=Path, help="UTF-8 file containing the exact message.")
     args = parser.parse_args()
     load_dotenv(BASE_DIR / ".env")
-    api_key = os.getenv("GROQ_API_KEY", "").strip()
-    if not api_key or api_key == "your_groq_api_key_here":
-        parser.exit(1, "Set GROQ_API_KEY in CodeBeacon/evaluation-study/.env before running.\n")
+    api_key = os.getenv("MISTRAL_API_KEY", "").strip()
+    if not api_key or api_key == "your_mistral_api_key_here":
+        parser.exit(1, "Set MISTRAL_API_KEY in CodeBeacon/evaluation-study/llms/.env before running.\n")
 
     prompt = args.prompt if args.prompt is not None else PROMPT
     if args.prompt_file:
@@ -47,11 +48,11 @@ def main():
         parser.exit(1, "The request message cannot be empty.\n")
 
     models = (args.model,) if args.model else MODELS
-    output_dir = BASE_DIR / "evaluation-runs" / "groq"
+    output_dir = BASE_DIR.parent / "evaluation-runs" / "mistral"
     output_dir.mkdir(parents=True, exist_ok=True)
     eastern = ZoneInfo("America/New_York")
 
-    with httpx.Client(headers={"Authorization": f"Bearer {api_key}"}, timeout=60) as client:
+    with Mistral(api_key=api_key, timeout_ms=60000, retry_config=None) as client:
         for index, model in enumerate(models):
             if index:
                 time.sleep(3)
@@ -66,45 +67,36 @@ def main():
             }
             print(f"Request to {model}:\n{prompt.replace(api_key, '[REDACTED]')}", flush=True)
             try:
-                response = client.post(
-                    API_URL,
-                    json={
-                        "model": model, "messages": messages,
-                        "temperature": 0, "top_p": 1,
-                        "max_completion_tokens": 4096, "stream": False,
-                        "include_reasoning": True,
-                    },
+                response = client.chat.complete(
+                    model=model, messages=messages, temperature=0, top_p=1,
+                    max_tokens=4096, stream=False,
                 )
-                log["http_status"] = response.status_code
-                response.raise_for_status()
-                data = response.json()
-                log["model_used"] = data.get("model") or model
-                choices = data.get("choices", [])
-                if not choices:
+                log["http_status"] = 200
+                log["model_used"] = response.model
+                if not response.choices:
                     log["error"] = "The API returned no response choices."
                 else:
-                    choice = choices[0]
-                    message = choice.get("message", {})
-                    log["response"] = {
-                        "content": message.get("content"),
-                        "reasoning": message.get("reasoning"),
-                    }
-                    if not message.get("content"):
+                    choice = response.choices[0]
+                    # Preserve structured content, including reasoning, when returned.
+                    log["response"] = choice.message.model_dump(mode="json")["content"]
+                    if not choice.message.content:
                         log["error"] = "The API returned empty response content."
-                    elif choice.get("finish_reason") != "stop":
-                        log["error"] = f"Response did not finish normally: {choice.get('finish_reason')}"
-            except httpx.HTTPStatusError as exc:
-                log["error"] = exc.response.text
+                    elif choice.finish_reason != "stop":
+                        log["error"] = f"Response did not finish normally: {choice.finish_reason}"
+            except MistralError as exc:
+                log["http_status"] = exc.status_code
+                log["error"] = str(exc)
             except httpx.RequestError as exc:
+                # No HTTP status exists when no server response was received.
                 log["error"] = f"Connection or timeout error: {exc}"
-            except (ValueError, KeyError, TypeError, AttributeError) as exc:
-                log["error"] = f"Invalid API response: {exc}"
             finally:
                 payload = json.dumps(log, indent=2, ensure_ascii=False)
                 output_file = save_log(output_dir, date, model, payload.replace(api_key, "[REDACTED]"))
                 print(f"Model: {log['model_used']} | HTTP status: {log['http_status']}")
-                if log["response"] is not None:
-                    content = log["response"]["content"]
+                content = log["response"]
+                if isinstance(content, list):
+                    content = "".join(chunk.get("text", "") for chunk in content if chunk.get("type") == "text")
+                if content is not None:
                     print(f"Response: {str(content).replace(api_key, '[REDACTED]')}")
                 if log["error"]:
                     print(f"Error: {log['error'].replace(api_key, '[REDACTED]')}")

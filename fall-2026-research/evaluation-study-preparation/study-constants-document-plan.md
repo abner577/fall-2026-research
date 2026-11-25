@@ -36,9 +36,9 @@ infer that an installed or previously selected version has been formally frozen.
 
 The API scripts currently select `mistral-large-4`, `gemini-3.6-flash`, and
 `openai/gpt-oss-120b` (Groq) as their first-choice requested IDs. Read the actual
-[Mistral](../../CodeBeacon/evaluation-study/mistral-api-test.py),
-[Gemini](../../CodeBeacon/evaluation-study/gemini-api-test.py), and
-[Groq](../../CodeBeacon/evaluation-study/groq-api-test.py) scripts for settings and
+[Mistral](../../CodeBeacon/evaluation-study/llms/mistral-api-test.py),
+[Gemini](../../CodeBeacon/evaluation-study/llms/gemini-api-test.py), and
+[Groq](../../CodeBeacon/evaluation-study/llms/groq-api-test.py) scripts for settings and
 fallback order when preparing the document; do not rely on an old prose copy.
 Verify access and account details separately where needed.
 

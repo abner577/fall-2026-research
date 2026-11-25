@@ -1,6 +1,6 @@
 """Send a Gemini request and save one minimal JSON log per API attempt.
 
-Run: python gemini-api-test.py --prompt-file prompts/detection.txt
+Run: python gemini-api-test.py --prompt-file prepared-request.txt
 Use --model to select one model without automatic fallbacks.
 Readable thought summaries are requested by default; use --no-thought-summaries to disable.
 Credentials: GEMINI_API_KEY in the environment or this folder's .env.
@@ -40,7 +40,7 @@ def main():
     load_dotenv(BASE_DIR / ".env")
     api_key = os.getenv("GEMINI_API_KEY", "").strip()
     if not api_key or api_key == "your_gemini_api_key_here":
-        parser.exit(1, "Set GEMINI_API_KEY in CodeBeacon/evaluation-study/.env before running.\n")
+        parser.exit(1, "Set GEMINI_API_KEY in CodeBeacon/evaluation-study/llms/.env before running.\n")
 
     prompt = args.prompt if args.prompt is not None else PROMPT
     if args.prompt_file:
@@ -53,7 +53,7 @@ def main():
         parser.exit(1, "The request message cannot be empty.\n")
 
     models = (args.model,) if args.model else MODELS
-    output_dir = BASE_DIR / "evaluation-runs" / "gemini"
+    output_dir = BASE_DIR.parent / "evaluation-runs" / "gemini"
     output_dir.mkdir(parents=True, exist_ok=True)
     eastern = ZoneInfo("America/New_York")
 
