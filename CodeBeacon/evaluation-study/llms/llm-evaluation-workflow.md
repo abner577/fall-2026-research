@@ -2,7 +2,7 @@
 
 1. Send each model the same study context, the 10 vulnerability types to check, and one project version's files as text. Label each file with its relative path. We can read the files from a local folder; no ZIP upload or new API setup is needed. Don't include vulnerability definitions, detection hints, the answer key, or scanner results.
 
-2. Use the same [detection prompt](llm-detection-prompt.txt) for all three models, adding the project files in its code section. Ask it to check only those 10 types and use the approved output format below.
+2. Use the same [detection prompt](llm-detection-prompt.txt) for all three models. The complete [Version A](llm-detection-prompt-version-A.txt) and [Version B](llm-detection-prompt-version-B.txt) text files already include the code. Pass either one with `--prompt-file`. Ask it to check only those 10 types and use the approved output format below.
 
 3. Save each model's full response. Manually compare its findings, locations, and explanations against our shared answer key.
 
