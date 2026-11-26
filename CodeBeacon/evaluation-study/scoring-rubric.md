@@ -53,4 +53,4 @@ Exclude failed or incomplete scans from scoring and rerun them until a successfu
 3. Compare each row with the answer key and assign 1, 0.5, or 0. Record the reason for partial credit and contextual judgments.
 4. Add the ten scores and convert the total to a percentage. Report Version A and Version B separately, each out of 10.
 
-Confusion-matrix treatment of partial credit and detector-to-detector comparisons remain separate checklist tasks; this rubric defines the agreed ten-target score.
+Confusion matrices keep Found, Missing, and Partially Found as three separate categories. Partial credit remains in the rubric score; it is not split into binary counts. See [results-notes.md](results-notes.md) for the manual table, final accuracy column, and notebook procedure.

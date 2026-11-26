@@ -4,7 +4,7 @@ Agreed November 23, 2026. This is the implementation guide for future agents
 working on Semgrep Community Edition, CodeQL, and Snyk Code. Semgrep and CodeQL
 practice runners are implemented and verified. CodeQL now also has a
 [study query suite](codeql/queries/study.qls) with five upstream checks and nine
-custom queries. Snyk Code now has a [two-file runner and setup guide](snyk-code/README.md);
+custom queries. Snyk Code now has a [runner and setup guide](snyk-code/README.md);
 authenticated practice verification passed November 25; free-account limits remain pending. See
 [the CodeQL guide](codeql/README.md) for study/practice commands, independent
 fixture verification, database handling, and coverage limits.
@@ -19,19 +19,20 @@ Use one runner per scanner and the existing `evaluation-study/evaluation-runs/`
 folder, with a subfolder for each scanner. Follow the Semgrep runner's behavior
 when adding CodeQL and Snyk Code; tool-specific setup and exit codes will differ.
 
-Each run folder must contain exactly two output files:
+Each run folder retains these scanner outputs:
 
 | File | Contents |
 | --- | --- |
 | `findings.txt` | The scanner's readable findings, also displayed in the terminal. |
 | `run-log.txt` | Warnings, errors, scan progress, tool version, exact executed command, working directory, targets, rules/queries, exclusions, start/end timestamps, duration, scanner exit code, runner exit code, and outcome. |
 
-Do not produce JSON, SARIF, separate metadata files, or extra report copies as
-retained run outputs. This is the user's explicit November 23 simplification,
-superseding earlier plans that required preserving structured scanner reports.
-Keep existing historical outputs; do not delete or convert them automatically.
-If a future scanner requires temporary intermediate files (for example CodeQL's
-database), keep them in a separate working location, outside the run folder.
+Each new run also creates the blank `results-table.csv` manual grading template
+and an empty `confusion-matrices/` folder. Its final table column is
+`final_accuracy_percentage`, entered manually in the TOTAL row. CodeQL additionally
+retains its original report as `raw-output.csv` when one is produced.
+This November 25 update supersedes the earlier two-file-only output contract.
+Keep historical outputs unchanged and keep working databases outside run folders.
+See [results notes](../results-notes.md) for the complete workflow and notebook.
 
 Use readable folder names, for example:
 
@@ -40,9 +41,13 @@ evaluation-runs/semgrep/
   2026-11-23_11-30-AM_EST_practice/
     findings.txt
     run-log.txt
+    results-table.csv
+    confusion-matrices/
   2026-11-23_11-30-AM_EST_practice (1)/
     findings.txt
     run-log.txt
+    results-table.csv
+    confusion-matrices/
 ```
 
 Time is **fixed EST, UTC-05:00, all year**, independent of the computer's timezone.
@@ -117,7 +122,7 @@ available. Command-line argument errors are rejected before a run is created.
 The runner displays findings and diagnostics while saving them. Semgrep can
 buffer its findings until analysis finishes, so progress may appear first.
 
-## Inspect the two files
+## Inspect the scanner output files
 
 The terminal prints the exact results folder. To open the newest attempt:
 
@@ -234,7 +239,7 @@ readiness for scored runs. CodeQL installation/practice verification is now
 complete. The study-query implementation described in the CodeQL guide is a
 later November 23 update. Snyk Code logging was implemented November 25; see below.
 
-Future agents should retain the two-file and EST naming contract when maintaining
+Future agents should retain the per-run comparison files and EST naming contract when maintaining
 study queries and the Snyk Code runner, preserving each
 tool's different exit-code meanings and query configuration. Use Snyk's free plan
 only. Keep practice and scored attempts
@@ -251,7 +256,7 @@ practice verification, exact application commands, and reading local results.
 From `scanners/snyk-code`, run `python .\run-snyk-code.py --case practice`, then
 use `--case version-A` or `--case version-B` for the actual application sources.
 No custom rule argument is needed. Findings and diagnostics appear in the terminal;
-exactly two text files are saved under `evaluation-runs/snyk-code/<attempt>/`.
+scanner output and comparison placeholders are saved under `evaluation-runs/snyk-code/<attempt>/`.
 The runner omits `--report`, so it does not request dashboard publication.
 Snyk Code still uploads selected source for cloud analysis. Ten infrastructure
 checks pass, and the real TLS practice scan reports the expected single finding

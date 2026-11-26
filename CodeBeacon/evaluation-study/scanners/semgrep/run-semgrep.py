@@ -1,4 +1,4 @@
-"""Run Semgrep CE and retain exactly two text files per attempt.
+"""Run Semgrep CE and retain findings, logs, and manual comparison placeholders per attempt.
 
 Run from any directory: python path/to/run-semgrep.py --case practice
 Application scans require --config with an explicit local rule file/directory.
@@ -20,6 +20,8 @@ from datetime import datetime, timedelta, timezone
 
 BASE_DIR = Path(__file__).resolve().parent
 STUDY_DIR = BASE_DIR.parent.parent
+sys.path.insert(0, str(STUDY_DIR))
+from support.run_outputs import initialize_comparison_files
 OUTPUT_DIR = STUDY_DIR / "evaluation-runs" / "semgrep"
 EST = timezone(timedelta(hours=-5), "EST")
 EXCLUSIONS = (".venv", "__pycache__", ".local", ".git", ".env")
@@ -46,6 +48,7 @@ def create_run_folder(case):
         folder = OUTPUT_DIR / (stem + suffix)
         try:
             folder.mkdir()
+            initialize_comparison_files(folder)
             return folder
         except FileExistsError:
             index += 1

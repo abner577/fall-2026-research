@@ -47,7 +47,7 @@ class RunnerChecks(unittest.TestCase):
                 contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
             result = runner.main(["--snyk", sys.executable])
         folder = sorted(self.outputs.iterdir(), key=lambda p: p.stat().st_mtime_ns)[-1]
-        self.assertEqual({p.name for p in folder.iterdir()}, {"findings.txt", "run-log.txt"})
+        self.assertEqual({p.name for p in folder.iterdir()}, {"findings.txt", "run-log.txt", "results-table.csv", "confusion-matrices"})
         return result, (folder / "findings.txt").read_text(encoding="utf-8"), (folder / "run-log.txt").read_text(encoding="utf-8")
 
     def test_findings(self):

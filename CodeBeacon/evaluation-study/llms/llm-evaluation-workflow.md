@@ -16,7 +16,7 @@ The complete [Version A](llm-detection-prompt-version-A.txt) and [Version B](llm
 
 ## 3. Send the requests
 
-Run these one at a time and check each result before moving on. Each command sends one request for one model and one version.
+For version A, run all LLMs, then all scanners, then complete grading and comparisons. Repeat for version B afterward. The commands below are grouped by provider for reference; execute only the current version. Run these one at a time and check each result before moving on. Each command sends one request for one model and one version.
 
 Mistral, Version A and then Version B:
 
@@ -46,7 +46,7 @@ Keep `--model` so the script uses that model without switching to a backup. Keep
 The terminal displays the answer or error and a `Log saved to:` path. Open that exact JSON file, for example:
 
 ```powershell
-notepad "..\evaluation-runs\mistral\2026-11-25_large-4.json"
+notepad "..\evaluation-runs\mistral\2026-11-25_03-30-PM_EST_version-A/run-log.json"
 ```
 
 Replace the example with the path printed for your run. Results go to:
@@ -55,7 +55,7 @@ Replace the example with the path printed for your run. Results go to:
 - Gemini: `../evaluation-runs/gemini/`
 - Groq: `../evaluation-runs/groq/`
 
-Each API attempt saves one JSON file with `model_used`, `request`, `http_status`, `error`, and `response`. Repeat filenames get ` (1)`, ` (2)`, etc. The filename doesn't include A or B, so record which file belongs to which version when it is printed; the saved request also identifies the supplied code.
+Each API attempt creates an EST-dated run folder labeled with the version. It contains `run-log.json`, `raw-output.txt`, the blank `results-table.csv` template, and an empty `confusion-matrices/` folder. The JSON retains `model_used`, `request`, `http_status`, `error`, and `response`, plus the case and start time. Repeat folder names are numbered without overwriting earlier runs. See [results notes](../results-notes.md) for the complete layout and commands.
 
 Check that `error` is `null` and that the answer covers all ten targets and is complete. A successful HTTP response alone doesn't establish that. Keep unsuccessful attempts and resolve the error before using a complete result for grading. Don't select a rerun just because it scored better.
 
@@ -91,14 +91,14 @@ For Mistral, read `response` (text or content blocks). For Gemini, read the text
 
 ## 6. Grade and compare
 
-Open the [answer-key table](../answer-key.md) and use the workbook when you need the full explanation. Make a separate ten-row grading table for each model and version, keeping the original JSON unchanged:
+Open the [answer-key table](../answer-key.md) and use the workbook when you need the full explanation. Fill the generated `results-table.csv` for each run, keeping the original JSON unchanged. Its fields follow this grading structure:
 
 | Target | Expected answer | Found / Missing / Partially Found | Points | Location and short reason |
 | --- | --- | --- | --- | --- |
 | V1 | From the answer key | From our review | 1, 0.5, or 0 | Reference the saved finding |
 
-Continue through V10. Follow the [scoring rubric](../scoring-rubric.md): correct presence with all instances and locations earns 1; correct absence earns 1; partial detection earns 0.5; an incorrect result earns 0. Location judgments depend on context. Add the points and calculate `(total / 10) * 100`. These grades and percentages are manual; the API scripts don't calculate them.
+Continue through V10. Follow the [scoring rubric](../scoring-rubric.md): correct presence with all instances and locations earns 1; correct absence earns 1; partial detection earns 0.5; an incorrect result earns 0. Location judgments depend on context. Add the points and calculate `(total / 10) * 100`. Enter the sum in the TOTAL row and the overall percentage in its last column, `final_accuracy_percentage` (for example `85%`). These grades and percentages are manual; the API scripts do not calculate them. Once all six runs for a version are complete and graded, use the shared notebook as described in [results notes](../results-notes.md).
 
 Compare each model's score with the other models and the scanners for the same version. Keep Version A and Version B scores separate. For the final assessment, state which approach performed better on these cases, where it missed or only partly found targets, and any relevant limits. Support that assessment with the scores and examples from the saved findings. Don't treat a higher score on these cases as proof that a tool is always better.
 
-See [results-notes.md](../results-notes.md) for both the LLM and scanner output locations. The local `evaluation-runs/` files are ignored by Git; committing this guide doesn't preserve those outputs in Git.
+See [results-notes.md](../results-notes.md) for both the LLM and scanner output locations. Local run outputs are ignored by Git, while the comparison notebook is tracked; committing this guide doesn't preserve those outputs in Git.

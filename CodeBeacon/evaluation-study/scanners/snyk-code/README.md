@@ -1,7 +1,10 @@
 # Snyk Code runner
 
-The runner prints Snyk Code's readable output and saves exactly `findings.txt`
-and `run-log.txt` per attempt, following the [shared scanner contract](../README.md).
+The runner prints Snyk Code's readable output and saves `findings.txt` and
+`run-log.txt` per attempt. It also creates the blank `results-table.csv` grading
+template and an empty `confusion-matrices/` folder, following the
+[shared scanner contract](../README.md). See [results notes](../../results-notes.md)
+for the manual accuracy column and comparison notebook.
 It uses Snyk's managed security checks, without a custom rule file. CodeQL already
 has its own [runner and commands](../codeql/README.md).
 

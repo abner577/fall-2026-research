@@ -227,4 +227,6 @@ __marimo__/
 !.env.example
 .venv/
 __pycache__/
-evaluation-runs
+/evaluation-runs/*
+!/evaluation-runs/comparison-notebook.ipynb
+!/evaluation-runs/requirements.txt

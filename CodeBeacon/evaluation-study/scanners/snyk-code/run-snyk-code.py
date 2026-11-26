@@ -1,4 +1,4 @@
-"""Run Snyk Code with terminal findings and exactly two saved text files.
+"""Run Snyk Code with terminal findings and per-run comparison placeholders.
 
 Scans a Python-only snapshot of practice or the selected application version.
 Analysis uses Snyk's cloud service; no --report/dashboard publication is requested.
@@ -19,6 +19,8 @@ from datetime import datetime, timedelta, timezone
 
 BASE_DIR = Path(__file__).resolve().parent
 STUDY_DIR = BASE_DIR.parent.parent
+sys.path.insert(0, str(STUDY_DIR))
+from support.run_outputs import initialize_comparison_files
 OUTPUT_DIR = STUDY_DIR / "evaluation-runs" / "snyk-code"
 WORK_DIR = BASE_DIR / ".work"
 EST = timezone(timedelta(hours=-5), "EST")
@@ -46,6 +48,7 @@ def create_run_folder(case):
         folder = OUTPUT_DIR / (stem + suffix)
         try:
             folder.mkdir()
+            initialize_comparison_files(folder)
             return folder
         except FileExistsError:
             index += 1

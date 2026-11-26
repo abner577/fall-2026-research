@@ -16,7 +16,7 @@ cd "C:\Users\joser\Downloads\fall-2026-research\CodeBeacon\evaluation-study\scan
 
 ### Commands and what to expect
 
-Run Version A, wait for completion, then run Version B:
+Run this scanner for the current version. Finish all version A LLMs, scanners, grading, and matrices before using the version B command:
 
 ```powershell
 python .\run-semgrep.py --case version-A --config .\rules\study.yml
@@ -44,7 +44,7 @@ cd "C:\Users\joser\Downloads\fall-2026-research\CodeBeacon\evaluation-study\scan
 
 ### Commands and what to expect
 
-Run Version A, wait for completion, then run Version B:
+Run this scanner for the current version. Finish all version A LLMs, scanners, grading, and matrices before using the version B command:
 
 ```powershell
 python .\run-codeql.py --case version-A --queries .\queries\study.qls
@@ -74,7 +74,7 @@ cd "C:\Users\joser\Downloads\fall-2026-research\CodeBeacon\evaluation-study\scan
 
 ### Commands and what to expect
 
-Run Version A, wait for completion, then run Version B:
+Run this scanner for the current version. Finish all version A LLMs, scanners, grading, and matrices before using the version B command:
 
 ```powershell
 python .\run-snyk-code.py --case version-A
@@ -92,10 +92,16 @@ and a scan summary appear in the terminal, followed by the outcome and results f
 
 ## Read the results
 
-Every attempt automatically saves exactly two report files:
+Every attempt automatically saves these scanner report files:
 
 - `findings.txt`: readable scanner output and findings.
 - `run-log.txt`: commands, versions, source hashes, diagnostics, timing, and outcome.
+
+Every attempt also creates the blank `results-table.csv` manual grading template
+and an empty `confusion-matrices/` folder. The last CSV column holds the manually
+entered final accuracy percentage in the TOTAL row. CodeQL retains its original
+`raw-output.csv` report when produced. See [results notes](../results-notes.md)
+for the layout, exact commands, and notebook procedure.
 
 The terminal prints the exact folder. Its name includes the date, fixed EST time,
 and version. Repeated attempts get numbered folders without overwriting earlier runs.
@@ -116,13 +122,14 @@ without findings does not establish that the application has no vulnerabilities.
 1. Before scored runs, finalize and freeze the application versions, scanner
    settings, reviewed answer key, and scoring rules. These readiness items remain
    open in [the 11-23 checklist](../../../fall-2026-research/docs/meetings/checklist/11-23-checklist.md).
-2. Run each scanner on Version A and Version B using the commands above. Keep
-   the code and scanner rules unchanged between runs.
-3. Check each outcome and log, then retain its two original report files in the
+2. After all version A LLMs, run each scanner on version A using the commands
+   above. Finish grading and matrices before repeating the process for version B.
+   Keep the code and scanner rules unchanged between runs.
+3. Check each outcome and log, then retain the original report files in the
    automatically created folder. Keep failed attempts too.
 4. Compare completed findings with the reviewed answer key using the agreed
    scoring rules. Record the scanner, version, exact run-folder path, finding
    location, matching vulnerability ID, and judgment in the study grading sheet.
-5. Keep grading separate from the original scanner reports. The grading template
-   and its final storage location still need to be agreed; the runners save
-   evidence but do not calculate study scores.
+5. Fill the generated `results-table.csv` manually, including the TOTAL points
+   and final accuracy percentage. After all six tables for the version are done,
+   use the shared comparison notebook as described in [results notes](../results-notes.md).

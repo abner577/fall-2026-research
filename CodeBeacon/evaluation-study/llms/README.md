@@ -20,3 +20,5 @@ For a detection call, run either command from this folder:
 ```
 
 The scripts read the text file and send its full contents as the user message. Use the same two files with `gemini-api-test.py --model gemini-3.6-flash` or `groq-api-test.py --model openai/gpt-oss-120b`. Use `--model` to select the study model without automatic fallbacks. Logs still go to `../evaluation-runs/mistral/`, `../evaluation-runs/gemini/`, or `../evaluation-runs/groq/`.
+
+Each attempt now gets an EST-dated folder with the case/version in its name, containing `run-log.json`, `raw-output.txt`, the blank `results-table.csv` grading template, and an empty `confusion-matrices/` folder. The standard A/B prompt filenames identify the version automatically; use `--case version-A` or `--case version-B` for custom study prompts. Short connection tests default to `practice`. See [results notes](../results-notes.md) for commands and the manual accuracy column.

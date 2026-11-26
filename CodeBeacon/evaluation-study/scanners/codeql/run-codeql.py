@@ -1,4 +1,4 @@
-"""Run local CodeQL with two text outputs; defaults to the independent practice case.
+"""Run local CodeQL with per-run findings and comparison placeholders; defaults to the independent practice case.
 
 Application cases require --queries pointing to an explicitly selected local suite.
 Use queries/study.qls for the study; the default remains the TLS practice check.
@@ -22,6 +22,8 @@ from datetime import datetime, timedelta, timezone
 
 BASE_DIR = Path(__file__).resolve().parent
 STUDY_DIR = BASE_DIR.parent.parent
+sys.path.insert(0, str(STUDY_DIR))
+from support.run_outputs import initialize_comparison_files
 OUTPUT_DIR = STUDY_DIR / "evaluation-runs" / "codeql"
 WORK_DIR = BASE_DIR / ".work"
 EST = timezone(timedelta(hours=-5), "EST")
@@ -47,6 +49,7 @@ def create_run_folder(case):
         folder = OUTPUT_DIR / (stem + (f" ({index})" if index else ""))
         try:
             folder.mkdir()
+            initialize_comparison_files(folder)
             return folder
         except FileExistsError:
             index += 1
@@ -195,7 +198,7 @@ def main(argv=None):
     work = WORK_DIR / folder.name
     source = work / "source"
     database = work / "database"
-    report = work / "findings.csv"
+    report = folder / "raw-output.csv"
     started, clock_start = now(), time.monotonic()
     status, runner_exit = "FAILED / NOT STARTED", 2
     scan_exit = None
@@ -288,13 +291,7 @@ def main(argv=None):
                     log.write(f"Could not interpret partial report: {exc}\n")
                     findings.write("Uninterpreted partial CSV from unsuccessful analysis:\n")
                     findings.write(ANSI_ESCAPE.sub("", report.read_text(encoding="utf-8", errors="replace")))
-            # The database remains available for inspection. No extra report copies are retained.
-            if report.exists():
-                try:
-                    report.unlink()
-                except OSError as exc:
-                    log.write(f"Intermediate CSV cleanup failed: {exc}\n")
-                    runner_exit, status = 2, "FAILED / INTERMEDIATE REPORT CLEANUP"
+            # Retain the original CSV alongside readable findings, including partial reports.
             log.write(f"\n--- Run outcome ---\nEnd: {now().isoformat()} (EST)\n"
                       f"Duration seconds: {time.monotonic() - clock_start:.2f}\nStatus: {status}\n"
                       f"Scanner exit code: {scan_exit if scan_exit is not None else 'NOT AVAILABLE (analysis not completed)'}\n"

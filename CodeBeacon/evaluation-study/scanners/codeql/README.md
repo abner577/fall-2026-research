@@ -39,8 +39,9 @@ python .\run-codeql.py --case practice --codeql "C:\path\to\codeql.exe"
 4. CodeQL creates a fresh Python database from that snapshot. This is an analysis
    database, unrelated to PostgreSQL. No database server or application is started.
 5. The built-in certificate verification query runs against the database.
-6. The temporary CSV is converted into readable text in `findings.txt`, displayed
-   in the terminal, and removed. Both diagnostic streams go to `run-log.txt`.
+6. The original CSV is retained as `raw-output.csv` and converted into readable
+   text in `findings.txt`, also displayed in the terminal. Both diagnostic streams
+   go to `run-log.txt`.
 7. Default practice verification requires exactly one alert at
    `tls_example.py:5`: `verify=False` is flagged and `verify=True` is unflagged.
 
@@ -59,8 +60,9 @@ python .\run-codeql.py --case practice --codeql "C:\path\to\codeql.exe"
 | `.gitignore` | Keeps `.work/` out of Git. |
 | `test_runner.py` | Eleven infrastructure checks using simulated scanner responses and a real subprocess stream check. |
 
-The only retained files in each **results** folder are `findings.txt` and
-`run-log.txt`. CodeQL database internals are working files outside that folder.
+Each **results** folder contains `findings.txt`, `run-log.txt`, the original
+`raw-output.csv` when produced, the blank `results-table.csv` grading template,
+and an initially empty `confusion-matrices/` folder. See [results notes](../../results-notes.md). CodeQL database internals are working files outside that folder.
 The study's existing `.gitignore` also excludes `evaluation-runs/` from Git.
 Keep local run evidence; it is not automatically published with a commit.
 
@@ -156,7 +158,7 @@ credentials, empty literal values, eight-character length floors, ordinary
 checksums, password-KDF SQL writes, HTTPS and loopback URLs, ordinary output,
 cryptographic randomness, verified TLS, and enabled enforcement settings.
 Evidence: `../../evaluation-runs/codeql/2026-11-23_05-03-PM_EST_rule-verification-practice/`.
-Only `findings.txt` and `run-log.txt` remain there; temporary SARIF was removed.
+Those historical attempts retained `findings.txt` and `run-log.txt`; new runs also retain the CSV and comparison placeholders described above.
 The source snapshot and database are in the corresponding `.work/` directory.
 No application version or placement record was read to design or tune queries;
 no application scan, independent answer review or scored study was performed.

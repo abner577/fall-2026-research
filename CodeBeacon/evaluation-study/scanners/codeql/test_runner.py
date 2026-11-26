@@ -56,7 +56,13 @@ class RunnerChecks(unittest.TestCase):
                 contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
             code = runner.main(argv)
         folder = next(self.outputs.iterdir())
-        self.assertEqual({p.name for p in folder.iterdir()}, {"findings.txt", "run-log.txt"})
+        expected = {"findings.txt", "run-log.txt", "results-table.csv", "confusion-matrices"}
+        if fail != "version":
+            expected.add("raw-output.csv")
+        self.assertEqual({p.name for p in folder.iterdir()}, expected)
+        if "raw-output.csv" in expected:
+            with (folder / "raw-output.csv").open(newline="", encoding="utf-8") as stream:
+                self.assertEqual(list(csv.reader(stream)), rows)
         self.assertFalse(list(self.work.rglob("*.csv")))
         return code, (folder / "findings.txt").read_text(encoding="utf-8"), (folder / "run-log.txt").read_text(encoding="utf-8")
 

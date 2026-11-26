@@ -1,4 +1,4 @@
-"""Send a Mistral request and save one minimal JSON log per API attempt.
+"""Send a Mistral request and save the original answer and log in a separate folder per API attempt.
 
 Run: python mistral-api-test.py --prompt-file prepared-request.txt
 Use --model to select one model without automatic fallbacks.
@@ -9,13 +9,11 @@ import argparse
 import json
 import os
 import time
-from datetime import datetime
 from pathlib import Path
-from zoneinfo import ZoneInfo
 
 import httpx
 from dotenv import load_dotenv
-from evaluation_logging import save_log
+from evaluation_logging import create_run_folder, now, resolve_case, save_log
 from mistralai.client import Mistral
 from mistralai.client.errors import MistralError
 
@@ -31,7 +29,10 @@ def main():
     prompts = parser.add_mutually_exclusive_group()
     prompts.add_argument("--prompt", help="Exact message to send; defaults to a short connection test.")
     prompts.add_argument("--prompt-file", type=Path, help="UTF-8 file containing the exact message.")
+    parser.add_argument("--case", choices=("practice", "version-A", "version-B"),
+                        help="Run version; inferred for the saved A/B prompts, otherwise practice.")
     args = parser.parse_args()
+    case = resolve_case(parser, args)
     load_dotenv(BASE_DIR / ".env")
     api_key = os.getenv("MISTRAL_API_KEY", "").strip()
     if not api_key or api_key == "your_mistral_api_key_here":
@@ -50,15 +51,19 @@ def main():
     models = (args.model,) if args.model else MODELS
     output_dir = BASE_DIR.parent / "evaluation-runs" / "mistral"
     output_dir.mkdir(parents=True, exist_ok=True)
-    eastern = ZoneInfo("America/New_York")
 
     with Mistral(api_key=api_key, timeout_ms=60000, retry_config=None) as client:
         for index, model in enumerate(models):
             if index:
                 time.sleep(3)
-            date = datetime.now(eastern).strftime("%Y-%m-%d")
+            started = now()
+            folder = create_run_folder(output_dir, case, started)
+            (folder / "raw-output.txt").touch()
+            print(f"Saving this attempt to: {folder}", flush=True)
             messages = [{"role": "user", "content": prompt}]
             log = {
+                "case": case,
+                "started_at": started.isoformat(),
                 "model_used": model,
                 "request": messages,
                 "http_status": None,
@@ -91,7 +96,7 @@ def main():
                 log["error"] = f"Connection or timeout error: {exc}"
             finally:
                 payload = json.dumps(log, indent=2, ensure_ascii=False)
-                output_file = save_log(output_dir, date, model, payload.replace(api_key, "[REDACTED]"))
+                output_file = save_log(folder, payload.replace(api_key, "[REDACTED]"))
                 print(f"Model: {log['model_used']} | HTTP status: {log['http_status']}")
                 content = log["response"]
                 if isinstance(content, list):
