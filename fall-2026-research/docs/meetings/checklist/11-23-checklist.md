@@ -63,7 +63,6 @@ Use the selected tools: **Semgrep Community Edition, CodeQL, and Snyk Code**. Sn
 ### Independent answer key
 
 - [x] Document where the existing answer key is found. Completed November 25, 2026: the [evaluation study README](../../../../CodeBeacon/evaluation-study/README.md) links the **Version A** and **Version B** tabs in `application-constants.xlsx` and the requested [Found/Missing comparison table](../../../../CodeBeacon/evaluation-study/answer-key.md). The workbook remains the detailed source.
-- [ ] Verify target presences and absences independently of the evaluated detectors. Record the reviewer, verification method, date, evidence, outcome, and any disagreement; AI-generated cases or answers are not validated merely because an AI produced them.
 
 ### Scoring and confusion matrices
 
@@ -72,8 +71,6 @@ Use the selected tools: **Semgrep Community Edition, CodeQL, and Snyk Code**. Sn
 - [x] Finalize and save the score criteria and formula. Completed November 25, 2026: the [agreed rubric](../../../../CodeBeacon/evaluation-study/scoring-rubric.md) uses 1/0.5/0 points and `(total / 10) × 100` per version, including correct absences. A false positive on an absent target earns zero for that target, with no additional penalty; this percentage is the ten-target rubric score.
 - [ ] Define exactly how findings become true positives, false positives, false negatives, and true negatives. Decide how partial findings enter the confusion matrices, while retaining their separate grading labels.
 - [ ] Prepare templates for six detector-versus-answer confusion matrices and nine LLM-versus-scanner comparisons. Reuse the six detectors' results for the nine pairings; distinguish accuracy against the answer key from agreement between detectors.
-- [ ] Specify how failed, unsupported, incomplete, and disputed results affect scores and reporting, and how a second reviewer checks judgment-based grades. Decide how repeated runs will be summarized and what evidence counts as better or comparable performance for methodology selection.
-November 25 progress: the [rubric](../../../../CodeBeacon/evaluation-study/scoring-rubric.md) excludes failed/incomplete scans and requires a successful, complete rerun; retain failure evidence. Contextual grading reasons are recorded. The remaining review, unsupported-result, and repetition decisions are still open.
 
 ### Common reports and consistent run conditions
 

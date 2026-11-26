@@ -1,18 +1,67 @@
 # LLM evaluation workflow
 
-1. Send each model the same study context, the 10 vulnerability types to check, and one project version's files as text. Label each file with its relative path. We can read the files from a local folder; no ZIP upload or new API setup is needed. Don't include vulnerability definitions, detection hints, the answer key, or scanner results.
+## 1. Open PowerShell in the right folder
 
-2. Use the same [detection prompt](llm-detection-prompt.txt) for all three models. The complete [Version A](llm-detection-prompt-version-A.txt) and [Version B](llm-detection-prompt-version-B.txt) text files already include the code. Pass either one with `--prompt-file`. Ask it to check only those 10 types and use the approved output format below.
+```powershell
+cd "C:\Users\joser\Downloads\fall-2026-research\CodeBeacon\evaluation-study\llms"
+```
 
-3. Save each model's full response. Manually compare its findings, locations, and explanations against our shared answer key.
+The scripts use the existing Python environment in `../.venv/` and load keys from this folder's `.env`: `MISTRAL_API_KEY`, `GEMINI_API_KEY`, and `GROQ_API_KEY`.
 
-4. Keep our grades in a separate file. Use Found when it gets all known instances of a type with correct locations and good explanations. Use Missing when it misses a type that is present. Use Partially Found when it finds only some instances, or recognizes the problem but gets part of the location or explanation wrong. Record false alarms and made-up details too; don't automatically give an unrelated finding partial credit.
+The command runs the API script directly. The model reviews code sent as text, so there is no need to start Flask, Streamlit, PostgreSQL, or the device first.
 
-5. Use our grading table to calculate each model's percentage, then compare the results with the scanners to help choose the detection approach. Agree on the points and percentage formula before scoring. Found, Missing, and Partially Found are our grades, not the LLM's output.
+## 2. Check the input
 
-## Approved LLM output format
+The complete [Version A](llm-detection-prompt-version-A.txt) and [Version B](llm-detection-prompt-version-B.txt) prompts already contain the study context, ten target types, and that version's code, labeled by relative path. Use these same two files for all three models. They are saved snapshots; update them before running if the application code changes. Keep the answer key and scanner results out of the requests.
 
-Repeat this block for each of the 10 types, in the prompt's order. Include every detected instance, numbering them from 1 within each type.
+## 3. Send the requests
+
+Run these one at a time and check each result before moving on. Each command sends one request for one model and one version.
+
+Mistral, Version A and then Version B:
+
+```powershell
+..\.venv\Scripts\python.exe .\mistral-api-test.py --model mistral-large-4 --prompt-file .\llm-detection-prompt-version-A.txt
+..\.venv\Scripts\python.exe .\mistral-api-test.py --model mistral-large-4 --prompt-file .\llm-detection-prompt-version-B.txt
+```
+
+Gemini, Version A and then Version B:
+
+```powershell
+..\.venv\Scripts\python.exe .\gemini-api-test.py --model gemini-3.6-flash --prompt-file .\llm-detection-prompt-version-A.txt
+..\.venv\Scripts\python.exe .\gemini-api-test.py --model gemini-3.6-flash --prompt-file .\llm-detection-prompt-version-B.txt
+```
+
+GPT-OSS through Groq, Version A and then Version B:
+
+```powershell
+..\.venv\Scripts\python.exe .\groq-api-test.py --model openai/gpt-oss-120b --prompt-file .\llm-detection-prompt-version-A.txt
+..\.venv\Scripts\python.exe .\groq-api-test.py --model openai/gpt-oss-120b --prompt-file .\llm-detection-prompt-version-B.txt
+```
+
+Keep `--model` so the script uses that model without switching to a backup. Keep `--prompt-file` so it sends the full study request; without a supplied prompt it only sends a connection test. These six commands cover one pass through the three models and two versions; they don't set a repetition policy.
+
+## 4. Get the saved results
+
+The terminal displays the answer or error and a `Log saved to:` path. Open that exact JSON file, for example:
+
+```powershell
+notepad "..\evaluation-runs\mistral\2026-11-25_large-4.json"
+```
+
+Replace the example with the path printed for your run. Results go to:
+
+- Mistral: `../evaluation-runs/mistral/`
+- Gemini: `../evaluation-runs/gemini/`
+- Groq: `../evaluation-runs/groq/`
+
+Each API attempt saves one JSON file with `model_used`, `request`, `http_status`, `error`, and `response`. Repeat filenames get ` (1)`, ` (2)`, etc. The filename doesn't include A or B, so record which file belongs to which version when it is printed; the saved request also identifies the supplied code.
+
+Check that `error` is `null` and that the answer covers all ten targets and is complete. A successful HTTP response alone doesn't establish that. Keep unsuccessful attempts and resolve the error before using a complete result for grading. Don't select a rerun just because it scored better.
+
+## 5. Read the report
+
+The prompt asks for this block for each detected target, repeating the instance block for every location:
 
 ```text
 Vulnerability: [type we asked it to check]
@@ -36,4 +85,20 @@ Vulnerability: [type we asked it to check]
 Detected: No
 ```
 
-No extra text or Markdown fences in the response. No means the model didn't detect that type; we still check whether that's correct.
+The prompt asks for all ten sections, in target order, without extra text or Markdown fences. `Detected: No` means the model didn't detect that type; we still check whether that's correct. The scripts save what the model returns; they don't enforce this layout.
+
+For Mistral, read `response` (text or content blocks). For Gemini, read the text in `response` parts without `thought: true`. For Groq, read `response.content`; `response.reasoning` is separate when returned. Grade the reported findings, keeping any returned reasoning available as supporting output.
+
+## 6. Grade and compare
+
+Open the [answer-key table](../answer-key.md) and use the workbook when you need the full explanation. Make a separate ten-row grading table for each model and version, keeping the original JSON unchanged:
+
+| Target | Expected answer | Found / Missing / Partially Found | Points | Location and short reason |
+| --- | --- | --- | --- | --- |
+| V1 | From the answer key | From our review | 1, 0.5, or 0 | Reference the saved finding |
+
+Continue through V10. Follow the [scoring rubric](../scoring-rubric.md): correct presence with all instances and locations earns 1; correct absence earns 1; partial detection earns 0.5; an incorrect result earns 0. Location judgments depend on context. Add the points and calculate `(total / 10) * 100`. These grades and percentages are manual; the API scripts don't calculate them.
+
+Compare each model's score with the other models and the scanners for the same version. Keep Version A and Version B scores separate. For the final assessment, state which approach performed better on these cases, where it missed or only partly found targets, and any relevant limits. Support that assessment with the scores and examples from the saved findings. Don't treat a higher score on these cases as proof that a tool is always better.
+
+See [results-notes.md](../results-notes.md) for both the LLM and scanner output locations. The local `evaluation-runs/` files are ignored by Git; committing this guide doesn't preserve those outputs in Git.
