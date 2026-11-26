@@ -48,3 +48,7 @@ Scanner implementation update, November 23: follow the [scanner runner guide](ev
 The three selected detection model families are Mistral Large 4 (`mistral-large-4`), Gemini, and GPT-OSS-120B through Groq (`openai/gpt-oss-120b`). Mistral replaces the earlier direct OpenAI API choice as of October 29, 2026. GPT-OSS through Groq replaces Qwen; its verified fallback is GPT-OSS-20B (`openai/gpt-oss-20b`). The Mistral request script uses `ministral-14b-2512` and `ministral-8b-2512` as verified backups; these are alternatives within one detector branch, not additional study detectors. Select the exact Gemini study model and verify study allowances before scored runs. GPT-OSS-120B and its fallback, GPT-OSS-20B (`openai/gpt-oss-20b`), both returned HTTP 200 practice responses through Groq on October 29, 2026.
 
 The LLM API scripts, prompt, workflow, logging helper, Python requirements, and `.env` live in [evaluation-study/llms/](evaluation-study/llms/README.md). The existing `.venv` stays in `evaluation-study/`. Request logs stay in `evaluation-study/evaluation-runs/<provider>/`. Keep preparation/practice outputs distinct from scored study outputs within the evaluation-study folder.
+
+# Evaluation study
+
+The answer key is in [application-constants.xlsx](application-constants.xlsx), in the **Version A** and **Version B** tabs. These tabs record vulnerability presence or absence, exact code locations, what the code does, and why it is a problem.

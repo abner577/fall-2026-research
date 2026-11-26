@@ -62,18 +62,18 @@ Use the selected tools: **Semgrep Community Edition, CodeQL, and Snyk Code**. Sn
 
 ### Independent answer key
 
-- [ ] Turn the vulnerability register into a separate answer key: for each case and target, record presence/absence, vulnerability IDs where present, exact code version, locations, explanation, and supporting evidence. Keep it separate from detector inputs.
+- [x] Document where the existing answer key is found. Completed November 25, 2026: the [evaluation study README](../../../../CodeBeacon/evaluation-study/README.md) links the **Version A** and **Version B** tabs in `application-constants.xlsx` and the requested [Found/Missing comparison table](../../../../CodeBeacon/evaluation-study/answer-key.md). The workbook remains the detailed source.
 - [ ] Verify target presences and absences independently of the evaluated detectors. Record the reviewer, verification method, date, evidence, outcome, and any disagreement; AI-generated cases or answers are not validated merely because an AI produced them.
-- [ ] Arrange professor review and any additional independent review needed before scored runs. Resolve disputed or incomplete cases, record the outcome when review occurs, and finalize the answer-key version.
 
 ### Scoring and confusion matrices
 
-- [ ] Define the scoring unit and denominators, including how multiple vulnerability locations and target-absent cases are counted. Define a finite set of negative opportunities so true negatives are not based on an arbitrary count of safe lines.
-- [ ] Finalize Found, Missing, and Partially Found definitions and matching requirements for weakness, location, and evidence. Specify treatment of related/wrong CWE labels, duplicate warnings, vague findings, false alarms, and out-of-scope findings.
-- [ ] Finalize and save the accuracy-score criteria and formulas. Review the proposed 1/0.5/0 partial-credit scheme; label its percentage as detection of known vulnerabilities and report false alarms separately. Decide any additional measures and their undefined/zero-denominator handling.
+- [x] Define the scoring unit and denominators. Completed November 25, 2026: the [scoring rubric](../../../../CodeBeacon/evaluation-study/scoring-rubric.md) assigns one row to each of ten target types per detector per version, including absent targets; multiple instances share the target's one-point maximum. The answer-key table supplies the finite set of present and absent targets.
+- [x] Finalize Found, Missing, and Partially Found definitions and matching requirements. Completed November 25, 2026: the [rubric](../../../../CodeBeacon/evaluation-study/scoring-rubric.md) compares behavior, locations, and explanations, leaves nuanced location judgments to contextual review, and documents duplicate, CWE-label, vague-finding, false-alarm, and out-of-scope treatment.
+- [x] Finalize and save the score criteria and formula. Completed November 25, 2026: the [agreed rubric](../../../../CodeBeacon/evaluation-study/scoring-rubric.md) uses 1/0.5/0 points and `(total / 10) × 100` per version, including correct absences. A false positive on an absent target earns zero for that target, with no additional penalty; this percentage is the ten-target rubric score.
 - [ ] Define exactly how findings become true positives, false positives, false negatives, and true negatives. Decide how partial findings enter the confusion matrices, while retaining their separate grading labels.
 - [ ] Prepare templates for six detector-versus-answer confusion matrices and nine LLM-versus-scanner comparisons. Reuse the six detectors' results for the nine pairings; distinguish accuracy against the answer key from agreement between detectors.
 - [ ] Specify how failed, unsupported, incomplete, and disputed results affect scores and reporting, and how a second reviewer checks judgment-based grades. Decide how repeated runs will be summarized and what evidence counts as better or comparable performance for methodology selection.
+November 25 progress: the [rubric](../../../../CodeBeacon/evaluation-study/scoring-rubric.md) excludes failed/incomplete scans and requires a successful, complete rerun; retain failure evidence. Contextual grading reasons are recorded. The remaining review, unsupported-result, and repetition decisions are still open.
 
 ### Common reports and consistent run conditions
 
@@ -85,9 +85,8 @@ Use the selected tools: **Semgrep Community Edition, CodeQL, and Snyk Code**. Sn
 
 ### Exact prompts and call procedures
 
-- [ ] Write and save the exact system/user prompts and code-packaging template for each scored detection call. Use the agreed targets and output structure, without supplied CWE guidance, CWE retrieval, scanner answers, or answer-key hints during detection.
-- [ ] Document every planned LLM call: purpose, inputs, exact prompt/version, expected output, and where the response is saved. Identify any multi-step detection procedure in advance and apply comparable conditions across models.
-- [ ] Define the boundary for later suggestion-stage calls. If included in the prepared workflow, save their prompts and retrieval inputs separately; CWE guidance is retrieved only after detection. Suggestion quality remains outside this detection-accuracy study, so application-only setup need not delay it.
+- [x] Write and save the exact system/user prompts and code-packaging template for each scored detection call. Use the agreed targets and output structure, without supplied CWE guidance, CWE retrieval, scanner answers, or answer-key hints during detection.
+- [x] Document every planned LLM call: purpose, inputs, exact prompt/version, expected output, and where the response is saved. Identify any multi-step detection procedure in advance and apply comparable conditions across models.
 
 ## 7. Check readiness before executing the scored study
 
